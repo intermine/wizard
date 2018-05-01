@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+    <symbol id="icon-pencil" viewBox="0 0 32 32">
+    <title>pencil</title>
+    <path d="M27 0c2.761 0 5 2.239 5 5 0 1.126-0.372 2.164-1 3l-2 2-7-7 2-2c0.836-0.628 1.874-1 3-1zM2 23l-2 9 9-2 18.5-18.5-7-7-18.5 18.5zM22.362 11.362l-14 14-1.724-1.724 14-14 1.724 1.724z"></path>
+    </symbol>
+    <symbol id="icon-info" viewBox="0 0 32 32">
+<title>info</title>
+<path d="M14 9.5c0-0.825 0.675-1.5 1.5-1.5h1c0.825 0 1.5 0.675 1.5 1.5v1c0 0.825-0.675 1.5-1.5 1.5h-1c-0.825 0-1.5-0.675-1.5-1.5v-1z"></path>
+<path d="M20 24h-8v-2h2v-6h-2v-2h6v8h2z"></path>
+<path d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13z"></path>
+</symbol>
+    </defs>
+    </svg>
+
+</head>
+
+<body>
+
+<!--body class="mock"-->
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <main>
+        <div class="wizardStep">
+            <h2 class="sectionHeader">Files uploaded successfully! </h2>
+            <div class="">
+                <p>Quick preview:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>seqid</th>
+                            <th>source</th>
+                            <th>type</th>
+                            <th>start</th>
+                            <th>end</th>
+                            <th>score</th>
+                            <th>strand</th>
+                            <th>phase</th>
+                            <th>attributes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>NC_000001.11</td>
+                            <td>RefSeq</td>
+                            <td>region</td>
+                            <td>1</td>
+                            <td>248956422</td>
+                            <td>.</td>
+                            <td>+</td>
+                            <td>.</td>
+                            <td>ID=id0;Dbxref=taxon:9606;Name=1;chromosome=1;gbkey=Src;genome=chromosome;mol_type=genomic DNA</td>
+                        </tr>
+                        <tr>
+                            <td>NC_000001.11</td>
+                            <td>BestRefSeq</td>
+                            <td>gene</td>
+                            <td>11874</td>
+                            <td>14403</td>
+                            <td>.</td>
+                            <td>+</td>
+                            <td>.</td>
+                            <td>ID=gene0;Dbxref=GeneID:100287102,HGNC:HGNC:37102;Name=DDX11L1;description=DEAD/H-box helicase 11 like 1;gbkey=Gene;gene=DDX11L1;gene_biotype=misc_RNA;pseudo=true</td>
+                        </tr>
+                        <tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="wizardStep">
+            <div class="subStep columnMapping">
+                <h4 class="subHeader">Dbxrefs for Genes</h4>
+                <p>Is this correct?</p>
+                <ul>
+                    <li>
+                        <h5>GeneID (e.g. <span class="identifier">100287102</span>) is a</h5>
+                        <div>
+                            <form>
+                                <label>
+                      <input type="radio" value="primaryIdentifer" checked="checked"/> Gene Primary Identifier
+                    </label>
+                                <label>
+                      <input type="radio" value="symbol"/> Symbol
+                    </label>
+                                <label>
+                      <input type="radio" value="synonym"/> Synonym
+                    </label>
+                            </form>
+                        </div>
+                    </li>
+
+                    <li>
+                        <h5>Name (e.g. <span class="identifier">DDX11L1</span>) is a</h5>
+                        <div>
+                            <form>
+                                <label>
+                      <input type="radio" value="primaryIdentifer" />
+                      Gene Primary Identifier
+                    </label>
+                                <label>
+                      <input type="radio" value="symbol" checked="checked"/> Symbol
+                    </label>
+                                <label>
+                      <input type="radio" value="synonym"/> Synonym
+                    </label>
+                            </form>
+                        </div>
+                    </li>
+
+                    <li>
+                        <h5>HGNC (e.g. <span class="identifier">HGNC:37102</span>) is a</h5>
+                        <div>
+                            <form>
+                                <label>
+                      <input type="radio" value="primaryIdentifer" />
+                      Gene Primary Identifier
+                    </label>
+                                <label>
+                      <input type="radio" value="symbol"/> Symbol
+                    </label>
+                                <label>
+                      <input type="radio" value="synonym" checked="checked"/> Synonym
+                    </label>
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="subStep">
+                <div class="info">
+                    <h4 class="subHeader">We auto-detected the following attributes:</h4>
+                    <div class="infoBox">
+                        <svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg>
+                        <ul>
+                            <li>
+                                <span class="title">File format:</span>
+                                GFF3
+                            </li>
+                            <li><span class="title">Number of rows:</span>
+                            12,024</li>
+                            <li>
+                                <span class="title">Organism:</span> H. Sapiens (Taxon ID 9606)
+                                <svg class="icon icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+                              </li>
+                            <li>
+                                <span class="title">Genome Build:</span> GRCh38.p7
+                                <svg class="icon icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+                              </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>
