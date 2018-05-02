@@ -1,4 +1,6 @@
 @spacer: 1em;
+@contrastColor: #455A64;
+@ctaColor: #03A9F4;
 
 .border-radius {
     border-radius: 2px;
@@ -28,43 +30,83 @@ main {
     display: flex;
     flex-wrap: wrap;
 }
-.sectionHeader, .subHeader {
+
+.sectionHeader,
+.subHeader {
     flex-basis: 100%;
     padding: @spacer*0.25 @spacer*0.75;
-    background-color: #455A64;
+    background-color: @contrastColor;
     color: #fff;
-}
-.subHeader {
-  background-color: #455A64;
-  color:#fff;
-  flex-basis:100%;
-  margin-top:0;
-  min-width:100%;
-  align-items:center;
-  display:flex;
+    box-sizing: border-box;
+    margin:0;
 }
 
+.subHeader {
+    background-color: @contrastColor;
+    color: #fff;
+    flex-basis: 100%;
+    margin: 0;
+    min-width: 100%;
+    align-items: center;
+    display: flex;
+}
 
 .subStep {
-  padding:@spacer;
-  margin:@spacer;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+    margin: @spacer 0 0;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    border: solid 1px #ddd;
+    border-radius: 2px;
+
+    .subStepContent {
+        padding: @spacer;
+    }
 }
 
+.nextActions {
+    justify-content: flex-end;
 
+    a {
+        padding: @spacer;
+        background-color: @ctaColor;
+        color: #fff;
+        border: 0;
+        border-radius: 2px;
+        font-weight: bold;
+        box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2);
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+        margin-top:@spacer;
+        text-decoration:none;
+
+    }
+}
 
 .columnMapping {
-  ul {padding-left:0;}
-  li {list-style-type:none;
-  padding:@spacer/2;
-  background-color:#f4f4f4;
-border-bottom:solid 1px #e4e4e4}
-  align-items:flex-start;
+    ul {
+        padding-left: 0;
+    }
 
-  p {font-weight:bold}
+    p {
+        margin: @spacer/6;
+        font-weight: normal;
+    }
+
+    li {
+        list-style-type: none;
+        padding: @spacer/2;
+        background-color: #f4f4f4;
+        border: solid 1px #ddd;
+        margin: @spacer/6;
+        border-radius: 2px;
+    }
+
+    h5 {
+        padding: @spacer/4;
+        margin: 0;
+    }
+    align-items: flex-start;
 }
 
 .uploadAndGuidance {
@@ -92,44 +134,81 @@ border-bottom:solid 1px #e4e4e4}
 
 .identifier {
     font-family: mono;
-    font-weight:normal;
+    font-weight: normal;
     background-color: #eee;
     border: solid 1px #ddd;
     padding: 1px 2px;
 }
+
 .info {
-  background-color:#ededed;
-  align-self:flex-end;
-  .subHeader { color:#455A64;background-color:transparent;box-sizing:border-box;}
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
+
 .infoBox {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  .icon-info {width: 3em;height:3em;fill:#888; margin:1em;}
-  .icon-pencil {margin-right:@spacer}
-  ul,li {list-style-type:none;padding-left:0;margin-left:0;}
-  .title {font-weight:bold}
+    display: flex;
+    align-items: center;
+
+    .icon-info {
+        width: 3em;
+        height: 3em;
+        fill: #888;
+        margin: 1em;
+    }
+
+    .icon-pencil {
+        margin-right: @spacer
+    }
+
+    li,
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .title {
+        font-weight: bold;
+    }
 }
 
 table {
-         font-family:mono;
-         tbody tr:nth-child(odd) {background-color:#ddd;}
-}
+    font-family: mono;
 
+    tbody tr:nth-child(odd) {
+        background-color: #ddd;
+    }
+}
 
 .mock {
     font-family: 'Indie Flower';
-    font-size:1.2em;
+    font-size: 1.1em;
+
     table {
         border: solid 2px #222;
         border-radius: 2px;
-        font-size:0.6em;
+        font-size: 0.6em;
     }
-    .sectionHeader, .subHeader {
-      font-size:1em;
-      max-width:100%;
-      background-color:#ccc;
-      color:#000;
+
+    .identifier {
+        font-size: 0.8em;
+    }
+
+    .sectionHeader,
+    .subHeader {
+        font-size: 1em;
+        max-width: 100%;
+        background-color: #ccc;
+        color: #000;
+    }
+
+  a {
+        background-color: #999;
+        color: #000;
+        text-shadow:1px 1px 1px rgba(255,255,255,0.2);
+        border-bottom:solid 2px #666;
+        border-right:solid 1px #787878;
+        box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2)
     }
 }
