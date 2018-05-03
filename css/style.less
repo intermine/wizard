@@ -225,6 +225,103 @@ main {
   display: flex;
 }
 
+.nameYourMine {
+  input[type="text"] {
+    height: @spacer*2;
+    min-width: 30vw;
+    font-family: mono;
+    font-size: @spacer;
+    text-align: right;
+  }
+
+  .urlInput {
+    display: flex;
+    align-items: center;
+    border-radius:2px;
+    .icon {margin:0 @spacer;}
+    .url {
+      display: flex;
+      align-items: center;
+      .identifier;
+      padding:0 2px;
+      border:solid #aaa 1px;
+    }
+    input {border-width: 0 1px 0 1px;border-right-color:#aaa; padding-right:2px;}
+
+    .validation {
+      .icon {
+        color: @enabledColor;
+      }
+    }
+  }
+
+  li,
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+
+  li {
+    padding: @spacer/2;
+    background-color: #f4f4f4;
+    border: solid 1px #ddd;
+    margin: @spacer/6;
+    border-radius: 2px;
+    max-width: 350px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .licence {
+      margin: @spacer/3 0 0;
+      color: #333;
+      font-size: 0.9em;
+
+      a {
+        color: @contrastColor;
+      }
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+
+      .title {
+        font-weight: bold;
+        margin: 0 @spacer;
+      }
+
+      .publicPrivate {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .icon {
+        color: #666;
+        min-width: @spacer*2;
+        min-height: @spacer*2;
+        margin: 0 0 @spacer/2;
+
+        &.icon-lock {
+          margin-left: @spacer/3;
+        }
+      }
+    }
+
+    p {
+      display: block;
+    }
+  }
+
+  .privacy {
+    align-items: flex-start;
+  }
+}
+
 .uploadAndGuidance {
   > div {
     padding: @spacer;
