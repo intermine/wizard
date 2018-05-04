@@ -350,24 +350,38 @@ main {
 }
 
 .uploadAndGuidance {
-  display:flex;
-  flex-wrap:wrap;
-  .subStep {margin:@spacer @spacer/2;}
+  display: flex;
+  flex-wrap: wrap;
+
+  .subStep {
+    margin: @spacer @spacer/2;
+  }
+
   button {
     .buttonStyle;
-    justify-content:center;
-    align-items:baseline;
-    display:flex;
-    font-size:1.1em;
-    margin:0;
-    .icon {width:@spacer*1.2;
-      height:@spacer*1.2;
-      margin:0 @spacer 0 0;
+    justify-content: center;
+    align-items: baseline;
+    display: flex;
+    font-size: 1.1em;
+    margin: 0;
+
+    .icon {
+      width: @spacer*1.2;
+      height: @spacer*1.2;
+      margin: 0 @spacer 0 0;
     }
   }
+
   .guidance {
-    align-items:flex-start;
+    align-items: flex-start;
     padding: @spacer;
+
+    p {
+      .icon {
+        margin-bottom: -@spacer/8;
+      }
+      margin-left: 0;
+    }
   }
 }
 
@@ -380,34 +394,45 @@ main {
   align-items: center;
 
   .or {
-    font-family:serif;
-    margin:@spacer/2 @spacer;
-    color:#444; font-weight:bold;
+    font-family: serif;
+    margin: @spacer/2 @spacer;
+    color: #444;
+    font-weight: bold;
     //em-dash and nbsp flanking the OR
     &:before {
       content: "\2014\00A0";
     }
+
     &:after {
       content: "\00A0\2014";
     }
   }
+
   .pasteUrl {
-    display:flex;
-    width:100%;
-    flex-direction:column;
-    input { flex-grow:1}
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+    input {
+      flex-grow: 1;
+    }
   }
 
   .icon-file {
     width: 6*@spacer;
     height: 6*@spacer;
     margin: @spacer*2;
-    color:#888;
+    color: #888;
   }
   .border-radius;
+
   .uploadOptions {
-    display:flex;flex-direction:column;justify-content:center;
-    align-items:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    margin-right: @spacer;
   }
 }
 
