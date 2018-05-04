@@ -41,7 +41,7 @@
               <div class="urlInput">
                 <div class="url">
                   <svg class="icon icon-site"><use xlink:href="#icon-site"></use></svg>
-                  <input type="text" autofocus="autofocus" value="AliceLab"></input>
+                  <input type="text" autofocus="autofocus" value="MyFirstDatabase.AliceLab"></input>
                   <div class="blankurl">.intermine.org</div>
                 </div>
                 <div class="validation">
@@ -58,18 +58,29 @@
               <ul>
                 <li>
                   <label>
-                      <input type="radio" value="private" checked="checked"/>
+                      <input type="radio" value="private" name="publicPrivate"/>
                       <div class="publicPrivate">
-                        <svg class="icon icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
+                        <svg class="icon icon-site"><use xlink:href="#icon-site"></use></svg>
                         <span class="title">Public:</span>
                       </div>
-                      Anyone who wishes to view your data may do so.
+                      Your InterMine will appear on the public registry, and anyone who wishes to view your data may do so.
                   </label>
                   <p class="licence">Optional: <a href="#">add a licence to your data</a></p>
                 </li>
                 <li>
                   <label>
-                    <input type="radio" value="private"/>
+                      <input type="radio" name="publicPrivate" value="private" />
+                      <div class="publicPrivate">
+                        <svg class="icon icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
+                        <span class="title">Unlisted:</span>
+                      </div>
+                      Anyone who has the link to your InterMine can view it, but it is hidden from search engines and does not appear on the registry.
+                  </label>
+                  <p class="licence">Optional: <a href="#">add a licence to your data</a></p>
+                </li>
+                <li class="active">
+                  <label>
+                    <input type="radio" name="publicPrivate" value="private" checked="checked"/>
                     <div class="publicPrivate">
                       <svg class="icon icon-lock"><use xlink:href="#icon-lock"></use></svg>
                       <span class="title">Private:</span>

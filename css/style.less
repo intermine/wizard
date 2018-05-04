@@ -301,6 +301,12 @@ main {
     align-items: center;
     justify-content: center;
 
+    &.active {
+      border:solid 2px @enabledColor;
+      background-color:lighten(@enabledColor,56%);
+      box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2)
+    }
+
     .licence {
       margin: @spacer/3 0 0;
       color: #333;
