@@ -67,33 +67,42 @@ main {
   }
 }
 
+.buttonStyle {
+  padding: @spacer;
+  background-color: @ctaColor;
+  color: #fff;
+  border: 0;
+  flex-grow: 0;
+  border-radius: 2px;
+  font-weight: bold;
+  box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+  margin-top: @spacer;
+  text-decoration: none;
+  margin-right: @spacer;
+
+  .icon {
+    position: relative;
+    top: @spacer/8;
+  }
+}
+
+.plainButton {
+  .buttonStyle;
+  background-color: #CFD8DC;
+  color: rgba(0,0,0,0.67);
+  text-shadow: none;
+}
+
 .nextActions {
   justify-content: flex-end;
   flex-direction: row;
 
   a {
-    padding: @spacer;
-    background-color: @ctaColor;
-    color: #fff;
-    border: 0;
-    flex-grow: 0;
-    border-radius: 2px;
-    font-weight: bold;
-    box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2);
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-    margin-top: @spacer;
-    text-decoration: none;
-    margin-right: @spacer;
-
-    .icon-plus {
-      position: relative;
-      top: @spacer/8;
-    }
+    .buttonStyle;
 
     &.back {
-      background-color: #CFD8DC;
-      color: rgba(0,0,0,0.67);
-      text-shadow: none;
+      .plainButton;
     }
   }
 }
@@ -101,6 +110,9 @@ main {
 .columnMapping {
   ul {
     padding-left: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   p {
@@ -110,16 +122,22 @@ main {
 
   li {
     list-style-type: none;
-    padding: @spacer/2;
+    padding: @spacer*2;
     background-color: #f4f4f4;
     border: solid 1px #ddd;
     margin: @spacer/6;
     border-radius: 2px;
+    max-width: 300px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   h5 {
     padding: @spacer/4;
-    margin: 0;
+    margin: 0 0 @spacer/2;
   }
   align-items: flex-start;
 }
@@ -237,16 +255,25 @@ main {
   .urlInput {
     display: flex;
     align-items: center;
-    border-radius:2px;
-    .icon {margin:0 @spacer;}
+    border-radius: 2px;
+
+    .icon {
+      margin: 0 @spacer;
+    }
+
     .url {
       display: flex;
       align-items: center;
       .identifier;
-      padding:0 2px;
-      border:solid #aaa 1px;
+      padding: 0 2px;
+      border: solid #aaa 1px;
     }
-    input {border-width: 0 1px 0 1px;border-right-color:#aaa; padding-right:2px;}
+
+    input {
+      border-width: 0 1px 0 1px;
+      border-right-color: #aaa;
+      padding-right: 2px;
+    }
 
     .validation {
       .icon {
@@ -323,20 +350,65 @@ main {
 }
 
 .uploadAndGuidance {
-  > div {
+  display:flex;
+  flex-wrap:wrap;
+  .subStep {margin:@spacer @spacer/2;}
+  button {
+    .buttonStyle;
+    justify-content:center;
+    align-items:baseline;
+    display:flex;
+    font-size:1.1em;
+    margin:0;
+    .icon {width:@spacer*1.2;
+      height:@spacer*1.2;
+      margin:0 @spacer 0 0;
+    }
+  }
+  .guidance {
+    align-items:flex-start;
     padding: @spacer;
-    margin: @spacer;
   }
 }
 
 .upload {
-  padding: @spacer;
-  margin: @spacer;
-  .border-radius;
+  padding: @spacer 0;
+  margin: @spacer 0;
   background-color: #ededed;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+
+  .or {
+    font-family:serif;
+    margin:@spacer/2 @spacer;
+    color:#444; font-weight:bold;
+    //em-dash and nbsp flanking the OR
+    &:before {
+      content: "\2014\00A0";
+    }
+    &:after {
+      content: "\00A0\2014";
+    }
+  }
+  .pasteUrl {
+    display:flex;
+    width:100%;
+    flex-direction:column;
+    input { flex-grow:1}
+  }
+
+  .icon-file {
+    width: 6*@spacer;
+    height: 6*@spacer;
+    margin: @spacer*2;
+    color:#888;
+  }
+  .border-radius;
+  .uploadOptions {
+    display:flex;flex-direction:column;justify-content:center;
+    align-items:center;
+  }
 }
 
 .icon {
