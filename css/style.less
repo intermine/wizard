@@ -2,6 +2,7 @@
 @contrastColor: #455A64;
 @ctaColor: #03A9F4;
 @enabledColor: #388E3C;
+@lowContrast: #999;
 
 .border-radius {
   border-radius: 2px;
@@ -22,7 +23,8 @@ body {
 }
 
 header {
-  .logo {max-width:20vw;
+  .logo {
+    max-width: 20vw;
   }
 }
 
@@ -31,6 +33,70 @@ main {
   min-height: 100%;
   flex-direction: column;
   justify-content: center;
+}
+
+.breadcrumbs {
+  @subwayUnit: 30px;
+  @borderWidth: @subwayUnit/6;
+
+  ol {
+    border-top: dashed @borderWidth @lowContrast;
+    padding-left: 0;
+    display: flex;
+    list-style-position: inside;
+    //we're makinga subway-stop style map
+    // and putting the numbers inside the dots.
+    //it's easier to remove the default counters
+    //and manually add them in the :after pseudo-element
+    counter-reset: section;
+    list-style-type: none;
+
+    li {
+      padding: 1em 1em 0 1em;
+      margin-bottom:-1em;;
+      flex-grow: 1;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin-top: -@borderWidth;
+      border-top: solid @borderWidth transparent;
+
+      &.complete {
+        border-top: solid @borderWidth @contrastColor;
+
+        &:after {
+          background-color: @contrastColor;
+        }
+      }
+
+      &:after {
+        counter-increment: section;
+        content: counter(section);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        //need to review if this works okay in smaller screens.
+        top: -108%;
+        left: 40%;
+        border-radius: @subwayUnit /2;
+        width: @subwayUnit;
+        height: @subwayUnit;
+        background-color: @lowContrast;
+        color: #fff;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+        font-weight: bold;
+      }
+
+      &.active {
+        border-top: solid @borderWidth @ctaColor;
+
+        &:after {
+          background-color: @ctaColor;
+        }
+      }
+    }
+  }
 }
 
 .wizardStep {
@@ -307,9 +373,9 @@ main {
     justify-content: center;
 
     &.active {
-      border:solid 2px @enabledColor;
-      background-color:lighten(@enabledColor,56%);
-      box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2)
+      border: solid 2px @enabledColor;
+      background-color: lighten(@enabledColor,56%);
+      box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2);
     }
 
     .licence {
@@ -357,11 +423,17 @@ main {
 
   .privacy {
     align-items: flex-start;
-    label {display:flex;
+
+    label {
+      display: flex;
       @media (max-width:800px) {
-        flex-wrap:wrap;
-        .publicPrivate {margin: 0 @spacer @spacer @spacer;flex-grow:1; }
-        margin-bottom:@spacer
+        flex-wrap: wrap;
+
+        .publicPrivate {
+          margin: 0 @spacer @spacer;
+          flex-grow: 1;
+        }
+        margin-bottom: @spacer;
       }
     }
   }
@@ -472,14 +544,15 @@ main {
   padding: 1px 2px;
 }
 
-.info, .organism {
+.info,
+.organism {
   align-items: flex-start;
   justify-content: flex-start;
 }
 
 .organism input {
-  height:1.6em;
-  width:20em;
+  height: 1.6em;
+  width: 20em;
 }
 
 .infoBox {
@@ -552,12 +625,13 @@ table {
 
 .registration {
   label {
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    border-bottom:dotted 1px #ccc;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-bottom: dotted 1px #ccc;
   }
+
   input {
-    margin:3px;
+    margin: 3px;
   }
 }

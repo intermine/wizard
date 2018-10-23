@@ -34,6 +34,26 @@
 
 <body>
   <main>
+    <nav class="breadcrumbs">
+      Progress:
+      <ol>
+        <li class="complete">
+          <a href="2-file-chosen.html">Upload files</a>
+        </li>
+        <li class="active">
+          Map columns
+        </li>
+        <li>
+          Review files
+        </li>
+        <li>
+          Supplementary data
+        </li>
+        <li>
+          Finalise &amp; save
+        </li>
+      </ol>
+    </nav>
     <div class="wizardStep">
       <h2 class="sectionHeader">Upload: humanfile.gff </h2>
       <div class="sectionContent">
@@ -100,8 +120,8 @@
           <h4 class="subHeader">2: What organism is this file for? </h4>
           <div class="infoBox subStepContent">
             <ul>
-                <span class="title">Organism:</span>
-                <input type="text" id="organismSelector" placeholder="Type an organism name or taxon ID...">
+              <span class="title">Organism:</span>
+              <input type="text" id="organismSelector" placeholder="Type an organism name or taxon ID...">
               </li>
               <!-- Genome build should appear automagically once organism is selected.
               <li>
