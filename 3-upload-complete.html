@@ -22,6 +22,10 @@
         <title>plus</title>
         <path d="M31 12h-11v-11c0-0.552-0.448-1-1-1h-6c-0.552 0-1 0.448-1 1v11h-11c-0.552 0-1 0.448-1 1v6c0 0.552 0.448 1 1 1h11v11c0 0.552 0.448 1 1 1h6c0.552 0 1-0.448 1-1v-11h11c0.552 0 1-0.448 1-1v-6c0-0.552-0.448-1-1-1z"></path>
       </symbol>
+      <symbol id="icon-organism" viewBox="0 0 32 32">
+        <title>organism</title>
+        <path d="M30.148 5.588c-2.934-3.42-7.288-5.588-12.148-5.588-8.837 0-16 7.163-16 16s7.163 16 16 16c4.86 0 9.213-2.167 12.148-5.588l-10.148-10.412 10.148-10.412zM22 3.769c1.232 0 2.231 0.999 2.231 2.231s-0.999 2.231-2.231 2.231-2.231-0.999-2.231-2.231c0-1.232 0.999-2.231 2.231-2.231z"></path>
+      </symbol>
     </defs>
   </svg>
 
@@ -87,96 +91,106 @@
             </li>
             <li><span class="title">Number of rows:</span> 12,024
             </li>
-            <li>
-              <span class="title">Organism:</span> H. Sapiens (Taxon ID 9606)
-              <svg class="icon icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-            </li>
-            <li>
-              <span class="title">Genome Build:</span> GRCh38.p7
-            </li>
           </ul>
         </div>
       </div>
 
-      <div class="subStep columnMapping">
-        <h4 class="subHeader">2: Dbxref</h4>
-        <div class="subStepContent">
-          <p>We need some help with these columns: </p>
-          <p>Double check we understood your file correctly or leave as-is if you're unsure.</p>
-          <p>In <span class="identifier">Gene</span> rows, there are the following identifiers in <span class="identifier">Dbxref</span>:</p>
-          <ul>
-            <li>
-              <h5>GeneID (e.g. <span class="identifier">100287102</span>) is a</h5>
-              <div>
-                <form>
-                  <label>
+      <div class="wizardStep">
+        <div class="subStep organism">
+          <h4 class="subHeader">2: What organism is this file for? </h4>
+          <div class="infoBox subStepContent">
+            <ul>
+                <span class="title">Organism:</span>
+                <input type="text" id="organismSelector" placeholder="Type an organism name or taxon ID...">
+              </li>
+              <!-- Genome build should appear automagically once organism is selected.
+              <li>
+                <span class="title">Genome Build:</span> GRCh38.p7
+              </li>
+              -->
+            </ul>
+          </div>
+        </div>
+
+        <div class="subStep columnMapping">
+          <h4 class="subHeader">3: Dbxref</h4>
+          <div class="subStepContent">
+            <p>We need some help with these columns: </p>
+            <p>Double check we understood your file correctly or leave as-is if you're unsure.</p>
+            <p>In <span class="identifier">Gene</span> rows, there are the following identifiers in <span class="identifier">Dbxref</span>:</p>
+            <ul>
+              <li>
+                <h5>GeneID (e.g. <span class="identifier">100287102</span>) is a</h5>
+                <div>
+                  <form>
+                    <label>
                       <input type="radio" value="primaryIdentifer" checked="checked"/> Gene Primary Identifier</input>
                     </label>
-                  <label>
+                    <label>
                       <input type="radio" name="geneid" value="symbol"> Symbol
                     </label>
-                  <label>
+                    <label>
                       <input type="radio" value="synonym" name="geneid"/> Synonym
                     </label>
-                  <label>
+                    <label>
                       <input type="radio" value="ignore" name="geneid">
                       Ignore this identifier type</input>
                     </label>
-                </form>
-              </div>
-            </li>
+                  </form>
+                </div>
+              </li>
 
-            <li>
-              <h5>Name (e.g. <span class="identifier">DDX11L1</span>) is a</h5>
-              <div>
-                <form>
-                  <label>
+              <li>
+                <h5>Name (e.g. <span class="identifier">DDX11L1</span>) is a</h5>
+                <div>
+                  <form>
+                    <label>
                       <input type="radio" value="primaryIdentifer" />
                       Gene Primary Identifier
                     </label>
-                  <label>
+                    <label>
                       <input type="radio" value="symbol" name="name" checked="checked"/> Symbol
                     </label>
-                  <label>
+                    <label>
                       <input type="radio" value="synonym" name="name" /> Synonym
                     </label>
-                  <label>
+                    <label>
                       <input type="radio" value="ignore" name="name">
                       Ignore this identifier type</input>
                     </label>
-                </form>
-              </div>
-            </li>
+                  </form>
+                </div>
+              </li>
 
-            <li>
-              <h5>HGNC (e.g. <span class="identifier">HGNC:37102</span>) is a</h5>
-              <div>
-                <form>
-                  <label>
+              <li>
+                <h5>HGNC (e.g. <span class="identifier">HGNC:37102</span>) is a</h5>
+                <div>
+                  <form>
+                    <label>
                       <input type="radio" value="primaryIdentifer" name="hgnc" />
                       Gene Primary Identifier
                     </label>
-                  <label>
+                    <label>
                       <input type="radio" value="symbol" name="hgnc"/> Symbol
                     </label>
-                  <label>
+                    <label>
                       <input type="radio" value="synonym" checked="checked" name="hgnc"/> Synonym
                     </label>
-                  <label>
+                    <label>
                     <input type="radio" value="ignore" name="hgnc"/> Ignore this identifier type
                   </label>
-                </form>
-              </div>
-            </li>
+                  </form>
+                </div>
+              </li>
 
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="wizardStep nextActions">
-      <a href="2-file-chosen.html" class="back"><svg class="icon icon-plus"><use xlink:href="#icon-plus"></use></svg> Add another file</a>
-      <a href="4-supplementary-data.html" class="cta">Save and Continue &gt;&gt;</a>
-    </div>
+      <div class="wizardStep nextActions">
+        <a href="2-file-chosen.html" class="back"><svg class="icon icon-plus"><use xlink:href="#icon-plus"></use></svg> Add another file</a>
+        <a href="4-supplementary-data.html" class="cta">Save and Continue &gt;&gt;</a>
+      </div>
   </main>
 </body>
 
