@@ -3,6 +3,7 @@
 @ctaColor: #03A9F4;
 @enabledColor: #388E3C;
 @lowContrast: #999;
+@bodyBackground: #f6f6f6;
 
 .border-radius {
   border-radius: 2px;
@@ -18,8 +19,8 @@ body {
   min-height: 100vh;
   margin: 0;
   box-sizing: border-box;
-  padding: 1em;
-  background-color: #f6f6f6;
+  padding: 0 1em 1em 1em;
+  background-color: @bodyBackground;
 }
 
 header {
@@ -35,14 +36,29 @@ main {
   justify-content: center;
 }
 
+nav {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  > div {
+    margin:1em;
+  }
+}
 .breadcrumbs {
+  flex-grow:1;
+  background-color:darken(@bodyBackground,7.5%);
+  margin:0 -1em 1em -1em;
+  border-bottom:solid 1px darken(@bodyBackground,10%);
   @subwayUnit: 30px;
   @borderWidth: @subwayUnit/6;
 
   ol {
     border-top: dashed @borderWidth @lowContrast;
+    margin-bottom:0;
+    margin-top:@subwayUnit;
     padding-left: 0;
     display: flex;
+    flex-grow:1;
     list-style-position: inside;
     //we're makinga subway-stop style map
     // and putting the numbers inside the dots.
