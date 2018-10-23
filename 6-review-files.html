@@ -2,11 +2,11 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
 
-    <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
     <symbol id="icon-pencil" viewBox="0 0 32 32">
     <title>pencil</title>
@@ -25,17 +25,17 @@
 
 
 <body>
-    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-    <main>
-      <nav class="breadcrumbs">
-        Progress:
-        <ol>
-          <li class="complete">
-            <a href="2-file-chosen.html">Upload files</a>
-          </li>
-          <li class="complete">
-            <a href="3-upload-complete.html">Map columns</a>
-          </li>
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+  <main>
+    <nav class="breadcrumbs">
+      Progress:
+      <ol>
+        <li class="complete">
+          <a href="2-file-chosen.html">Upload files</a>
+        </li>
+        <li class="complete">
+          <a href="3-upload-complete.html">Map columns</a>
+        </li>
         </li>
         <li class="complete">
           <a href="4-supplementary-data.html">Supplementary data</a>
@@ -46,57 +46,97 @@
         <li class="active">
           <a href="6-review-files.html">Finalise &amp; save</a>
         </li>
-        </ol>
-      </nav>
+      </ol>
+    </nav>
 
-      <div class="wizardStep supplementary">
-          <h2 class="sectionHeader">Supplementary data sources </h2>
-          <div class="">
-              <p>
-                Based on your uploaded data, the following supplementary data sources might be useful:
-              </p>
-              <ul>
-                <li><label><input type="checkbox" checked="checked">Uniprot protein data</label></li>
-                <li><label><input type="checkbox" checked="checked">Pubmed publication data</label></li>
-                <li><label><input type="checkbox" checked="checked">GO annotations</label></li>
-                <li><label><input type="checkbox" checked="checked">NCBI - whole genome </label></li>
-                <li><label><input type="checkbox" checked="checked">Other ... </label></li>
-              </ul>
-          </div>
-      </div>
-      <div class="wizardStep toolPreview">
-          <h2 class="sectionHeader">Data tools </h2>
-          <div class="">
-              <p>
-                We've added the following tools to your InterMine automatically:
-              </p>
-              <ul>
-                <li>
-                  <h3 class="subHeader">Cytoscape</h3>
-                  <p>Gene &amp; protein network interaction visualiser</p>
-                  <label><input type="checkbox" checked="checked">Enabled</label>
+    <div class="wizardStep supplementary">
+      <h2 class="sectionHeader">Review all settings </h2>
+      <div class="fileReview subStep">
 
-                  <div class="imagePreview"><img src="images/cytoscape.png" /></div>
-                </li>
-                <li>
-                  <h3 class="subHeader">ProtVista</h3>
-                  <p>Protein feature browser</p>
-                  <div class="imagePreview"><img src="images/protvista.png" /></div>
-                  <label><input type="checkbox" checked="checked">Enabled</label>
-                </li>
-                <li>
-                  <h3 class="subHeader">GXA Expression viewer</h3>
-                  <p>Visualise gene expression in a heatmap</p>
-                  <div class="imagePreview"><img src="images/gxa-expression-viewer.png" /></div>
-                  <label><input type="checkbox" checked="checked">Enabled</label>
-                </li>
-              </ul>
+        <h3 class="subHeader">Uploaded Files</h3>
+        <div class="infoBox subStepContent">
+          <ul>
+            <li>
+              <span class="title">File format:</span> GFF3
+            </li>
+            <li><span class="title">Number of rows:</span> 12,024
+            </li>
+            <li>
+              <span class="title">Organism:</span> H. Sapiens (Taxon ID 9606)
+              <svg class="icon icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+            </li>
+            <li>
+              <span class="title">Genome Build:</span> GRCh38.p7
+              <svg class="icon icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+            </li>
+          </ul>
+          <div class="fileSummary">
+            <h4>humanfile.gff</h4>
+            <div class="subheading">GFF3 file with 12,024 rows</div>
+            <h5>Identifier Mappings for <span class="identifier">Dbxref</span></h5>
+            <table>
+              <thead>
+                <tr>
+                  <th>Column name</th>
+                  <th>Example entry</th>
+                  <th>Identifier type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>GeneID</td>
+                  <td>100287102</td>
+                  <td>Gene Primary Identifier</td>
+                </tr>
+                <tr>
+                  <td>Name</td>
+                  <td>DDX11L1</td>
+                  <td>Symbol</td>
+                </tr>
+                <tr>
+                  <td>HGNC</td>
+                  <td>HGNC:37102</td>
+                  <td>Gene Synonym</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+        </div>
       </div>
-      <div class="wizardStep nextActions">
-        <a href="index.html">See your new InterMine &gt;&gt;</a>
+    </div>
+    <div class="wizardStep toolPreview">
+      <h2 class="sectionHeader">Data tools </h2>
+      <div class="">
+        <p>
+          We've added the following tools to your InterMine automatically:
+        </p>
+        <ul>
+          <li>
+            <h3 class="subHeader">Cytoscape</h3>
+            <p>Gene &amp; protein network interaction visualiser</p>
+            <label><input type="checkbox" checked="checked">Enabled</label>
+
+            <div class="imagePreview"><img src="images/cytoscape.png" /></div>
+          </li>
+          <li>
+            <h3 class="subHeader">ProtVista</h3>
+            <p>Protein feature browser</p>
+            <div class="imagePreview"><img src="images/protvista.png" /></div>
+            <label><input type="checkbox" checked="checked">Enabled</label>
+          </li>
+          <li>
+            <h3 class="subHeader">GXA Expression viewer</h3>
+            <p>Visualise gene expression in a heatmap</p>
+            <div class="imagePreview"><img src="images/gxa-expression-viewer.png" /></div>
+            <label><input type="checkbox" checked="checked">Enabled</label>
+          </li>
+        </ul>
       </div>
-    </main>
+    </div>
+    <div class="wizardStep nextActions">
+      <a href="index.html">See your new InterMine &gt;&gt;</a>
+    </div>
+  </main>
 </body>
 
 </html>
