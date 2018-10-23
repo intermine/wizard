@@ -21,6 +21,11 @@ body {
   background-color: #f6f6f6;
 }
 
+header {
+  .logo {max-width:20vw;
+  }
+}
+
 main {
   display: flex;
   min-height: 100%;
@@ -352,6 +357,13 @@ main {
 
   .privacy {
     align-items: flex-start;
+    label {display:flex;
+      @media (max-width:800px) {
+        flex-wrap:wrap;
+        .publicPrivate {margin: 0 @spacer @spacer @spacer;flex-grow:1; }
+        margin-bottom:@spacer
+      }
+    }
   }
 }
 
@@ -530,5 +542,17 @@ table {
     border-bottom: solid 2px #666;
     border-right: solid 1px #787878;
     box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2);
+  }
+}
+
+.registration {
+  label {
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    border-bottom:dotted 1px #ccc;
+  }
+  input {
+    margin:3px;
   }
 }
