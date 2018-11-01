@@ -4,6 +4,7 @@
 @enabledColor: #388E3C;
 @lowContrast: #999;
 @bodyBackground: #f6f6f6;
+@slightlyDarker: rgba(0,0,0,0.1);
 
 .border-radius {
   border-radius: 2px;
@@ -19,7 +20,7 @@ body {
   min-height: 100vh;
   margin: 0;
   box-sizing: border-box;
-  padding: 0 1em 1em 1em;
+  padding: 0 1em 1em;
   background-color: @bodyBackground;
 }
 
@@ -37,28 +38,30 @@ main {
 }
 
 nav {
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
   > div {
-    margin:1em;
+    margin: 1em;
   }
 }
+
 .breadcrumbs {
-  flex-grow:1;
-  background-color:darken(@bodyBackground,7.5%);
-  margin:0 -1em 1em -1em;
-  border-bottom:solid 1px darken(@bodyBackground,10%);
+  flex-grow: 1;
+  background-color: darken(@bodyBackground,7.5%);
+  margin: 0 -1em 1em;
+  border-bottom: solid 1px darken(@bodyBackground,10%);
   @subwayUnit: 30px;
   @borderWidth: @subwayUnit/6;
 
   ol {
     border-top: dashed @borderWidth @lowContrast;
-    margin-bottom:0;
-    margin-top:@subwayUnit;
+    margin-bottom: 0;
+    margin-top: @subwayUnit;
     padding-left: 0;
     display: flex;
-    flex-grow:1;
+    flex-grow: 1;
     list-style-position: inside;
     //we're makinga subway-stop style map
     // and putting the numbers inside the dots.
@@ -68,8 +71,8 @@ nav {
     list-style-type: none;
 
     li {
-      padding: 1em 1em 0 1em;
-      margin-bottom:-1em;;
+      padding: 1em 1em 0;
+      margin-bottom: -1em;
       flex-grow: 1;
       justify-content: center;
       align-items: center;
@@ -151,6 +154,34 @@ nav {
 
   .subStepContent {
     padding: @spacer;
+
+    h4 {
+      display:flex;
+      justify-content:space-between;
+      flex-grow:1;
+      margin-top: 0;
+      border-bottom: dotted 2px @contrastColor;
+      svg {align-self:flex-start}
+    }
+
+    h5 {
+      margin-bottom: 0;
+    }
+  }
+
+  &.fileReview {
+    align-items: flex-start;
+    justify-content: stretch;
+  }
+
+  .fileList {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+
+    .subStepContent:nth-child(even) {
+      background-color: @slightlyDarker;
+    }
   }
 }
 
@@ -163,7 +194,7 @@ nav {
   border-radius: 2px;
   font-weight: bold;
   box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2);
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+  text-shadow: 1px 1px 1px @slightlyDarker;
   margin-top: @spacer;
   text-decoration: none;
   margin-right: @spacer;
@@ -250,7 +281,7 @@ nav {
     display: flex;
     flex-direction: column;
     list-style-type: none;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    box-shadow: 1px 1px 1px @slightlyDarker;
     border-radius: 2px;
     border: solid 1px #ddd;
     padding: @spacer/2;
@@ -298,7 +329,7 @@ nav {
         border-color: @enabledColor;
         color: @enabledColor;
         content: '\2714';
-        text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+        text-shadow: 1px 1px 1px @slightlyDarker;
       }
     }
   }
@@ -326,6 +357,8 @@ nav {
     height: auto;
     max-height: 2em;
     height: 2em;
+    display:flex;
+    justify-content:space-between;
   }
   display: flex;
 }
@@ -582,8 +615,12 @@ nav {
     margin: 1em;
   }
 
-  .icon-pencil {
+  .icon-edit {
     margin-right: @spacer;
+
+    &:hover {
+      fill: @ctaColor;
+    }
   }
 
   li,
@@ -592,18 +629,65 @@ nav {
     padding: 0;
     margin: 0;
   }
+}
 
-  .title {
-    font-weight: bold;
-  }
+.title {
+  font-weight: bold;
+  color: @contrastColor;
 }
 
 table {
   font-family: mono;
-  font-size: 0.7em;
+  font-size: 0.7*@spacer;
 
-  tbody tr:nth-child(odd) {
-    background-color: #ddd;
+  &.userDetails {
+    font-family: sans-serif;
+    font-size: @spacer;
+    td {padding: 0 @spacer/3}
+  }
+
+
+  tbody tr:nth-child(odd) td {
+    background-color: @slightlyDarker;
+
+    &.edit {
+      background-color: transparent;
+    }
+  }
+
+  .edit svg {
+    margin-left: 0;
+  }
+}
+
+.edit svg,
+.toolDataSummary {
+  margin-left: 0;
+}
+
+.toolDataSummary {
+  display: flex;
+  flex-wrap:wrap;
+
+  .summary {
+    min-width:30vw;
+    max-width:44vw;
+    list-style-type: none;
+    box-shadow: 1px 1px 1px @slightlyDarker;
+    border-radius: 2px;
+    border: solid 1px #ddd;
+    margin: @spacer/2;
+
+    ul {
+      padding: @spacer/2 @spacer;
+      list-style-position: inside;
+      flex-grow: 1;
+    }
+
+    h4 {
+      min-height: 2em;
+      flex-grow:0;
+    }
   }
 }
 
