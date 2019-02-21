@@ -8,6 +8,11 @@
 
   <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
+      <symbol id="icon-circle-down" viewBox="0 0 32 32">
+        <title>circle-down</title>
+        <path d="M32 16c0-8.837-7.163-16-16-16s-16 7.163-16 16 7.163 16 16 16 16-7.163 16-16zM3 16c0-7.18 5.82-13 13-13s13 5.82 13 13-5.82 13-13 13-13-5.82-13-13z"></path>
+        <path d="M9.914 11.086l-2.829 2.829 8.914 8.914 8.914-8.914-2.828-2.828-6.086 6.086z"></path>
+      </symbol>
       <symbol id="icon-pencil" viewBox="0 0 32 32">
         <title>pencil</title>
         <path d="M27 0c2.761 0 5 2.239 5 5 0 1.126-0.372 2.164-1 3l-2 2-7-7 2-2c0.836-0.628 1.874-1 3-1zM2 23l-2 9 9-2 18.5-18.5-7-7-18.5 18.5zM22.362 11.362l-14 14-1.724-1.724 14-14 1.724 1.724z"></path>
@@ -58,22 +63,12 @@
       <h2 class="sectionHeader">Upload: humanfile.fasta </h2>
       <div class="sectionContent">
         <p>Quick preview of your data:</p>
-        <table>
-          <tbody>
-            <tr>
-              <td> Medtr1g004950.1 </td>
-              <td> hypothetical protein </td>
-              <td> LC </td>
 
-              <td> chr1:14514-15729 </td>
-              <td> 20140818</td>
-            </tr>
-            <tr>
-              <td colspan="5">ATGACGTCTTTGAGGAGGTTCAAAAAGGACAAAATAAAATTGTGCGATAAAGGC....</td>
-            </tr>
-            <tbody>
-        </table>
-
+        <h3> Header row: </h3>
+        <div class="fileContentPreview">Medtr1g004950.1 | hypothetical protein | LC | chr1:14514-15729 | 20140818</div>
+        <h3> Sequence: </h3>
+        <div class="fileContentPreview"> ATGACGTCTTTGAGGAGGTTCAAAAAGGACAAAATAAAATTGTGCGATAAAGGC ... (truncated)
+        </div>
       </div>
     </div>
     <div class="wizardStep">
@@ -83,9 +78,9 @@
           <svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg>
           <ul>
             <li>
-              <span class="title">File format:</span> GFF3
+              <span class="title">File format:</span> FASTA
             </li>
-            <li><span class="title">Number of rows:</span> 12,024
+            <li><span class="title">Number of entities in the file:</span> 37
             </li>
           </ul>
         </div>
@@ -98,91 +93,126 @@
             <ul>
               <span class="title">Organism:</span>
               <input type="text" id="organismSelector" placeholder="Type an organism name or taxon ID...">
-              </li>
-              <!-- Genome build should appear automagically once organism is selected.
-              <li>
-                <span class="title">Genome Build:</span> GRCh38.p7
-              </li>
-              -->
             </ul>
           </div>
         </div>
 
         <div class="subStep columnMapping">
-          <h4 class="subHeader">3: Dbxref</h4>
+          <h4 class="subHeader">3: Tell us about your file</h4>
           <div class="subStepContent">
-            <p>We need some help with these columns: </p>
-            <p>Double check we understood your file correctly or leave as-is if you're unsure.</p>
-            <p>In <span class="identifier">Gene</span> rows, there are the following identifiers in <span class="identifier">Dbxref</span>:</p>
             <ul>
               <li>
-                <h5>GeneID (e.g. <span class="identifier">100287102</span>) is a</h5>
-                <div>
-                  <form>
-                    <label>
-                      <input type="radio" value="primaryIdentifer" checked="checked"/> Gene Primary Identifier</input>
-                    </label>
-                    <label>
-                      <input type="radio" name="geneid" value="symbol"> Symbol
-                    </label>
-                    <label>
-                      <input type="radio" value="synonym" name="geneid"/> Synonym
-                    </label>
-                    <label>
-                      <input type="radio" value="ignore" name="geneid">
-                      Ignore this identifier type</input>
-                    </label>
-                  </form>
+                <h5>Sequence Features</h5>
+                <p>What type of sequence features are in this file?</p>
+                <div class="typeahead">
+                <input type="text" placeholder="Begin typing or select from dropdown...">
+                  <div class="typeaheadDropdownIndicator">
+                    <svg class="icon icon-circle-down"><use xlink:href="#icon-circle-down"></use></svg>
+                  </div>
                 </div>
               </li>
-
               <li>
-                <h5>Name (e.g. <span class="identifier">DDX11L1</span>) is a</h5>
-                <div>
-                  <form>
-                    <label>
-                      <input type="radio" value="primaryIdentifer" />
-                      Gene Primary Identifier
-                    </label>
-                    <label>
-                      <input type="radio" value="symbol" name="name" checked="checked"/> Symbol
-                    </label>
-                    <label>
-                      <input type="radio" value="synonym" name="name" /> Synonym
-                    </label>
-                    <label>
-                      <input type="radio" value="ignore" name="name">
-                      Ignore this identifier type</input>
-                    </label>
-                  </form>
+                <h5>Nucleotides or proteins?</h5>
+                <p>Does this file contain nucleotides or proteins?</p>
+                <div class="typeahead">
+                  <input type="radio" name="ntOraa">Nucleotides</input>
+                  <input type="radio" name="ntOraa">Proteins</input>
                 </div>
               </li>
-
-              <li>
-                <h5>HGNC (e.g. <span class="identifier">HGNC:37102</span>) is a</h5>
-                <div>
-                  <form>
-                    <label>
-                      <input type="radio" value="primaryIdentifer" name="hgnc" />
-                      Gene Primary Identifier
-                    </label>
-                    <label>
-                      <input type="radio" value="symbol" name="hgnc"/> Symbol
-                    </label>
-                    <label>
-                      <input type="radio" value="synonym" checked="checked" name="hgnc"/> Synonym
-                    </label>
-                    <label>
-                    <input type="radio" value="ignore" name="hgnc"/> Ignore this identifier type
-                  </label>
-                  </form>
-                </div>
-              </li>
-
             </ul>
           </div>
         </div>
       </div>
+
+      <div class="subStep columnMapping">
+        <h4 class="subHeader">4: Identifiers</h4>
+        <div class="subStepContent">
+          <p>We need some help identifying what's in the header rows.           </p>
+          <p>Double check we understood your file correctly or leave as-is if you're unsure.
+As a reminder, here's the first line in your file:</p>
+          <div class="fileContentPreview">Medtr1g004950.1 | hypothetical protein | LC | chr1:14514-15729 | 20140818</div>
+
+
+          <ul>
+
+            <li>
+              <h5>The first item (e.g. <span class="identifier">Medtr1g004950.1</span>) is a:</h5>
+              <div>
+                <form>
+                  <label>
+                    <input type="radio" value="primaryIdentifer" />
+                    Transcript Primary Identifier
+                  </label>
+                  <label>
+                    <input type="radio" value="synonym" name="name" /> Synonym
+                  </label>
+                  <label>
+                    <input type="radio" value="ignore" name="name">
+                    Ignore this identifier type</input>
+                  </label>
+                </form>
+              </div>
+            </li>
+
+            <li>
+              <h5>The second item (e.g. <span class="identifier">hypothetical protein</span>) is a</h5>
+              <div>
+                <form>
+                  <label>
+                    <input type="radio" value="description" name="2" checked />
+                    Description
+                  </label>
+                  <label>
+                  <input type="radio" value="ignore" name="2"/> Ignore this identifier type
+                </label>
+                </form>
+              </div>
+            </li>
+            <li>
+              <h5>The third item is (e.g. <span class="identifier">LC</span>) is a</h5>
+              <div>
+                <form>
+                  <label>
+                    <input type="radio" value="primaryIdentifer" name="3" checked />
+                    Confidence level descriptor
+                  </label>
+                  <label>
+                  <input type="radio" value="ignore" name="hgnc"/> Ignore this identifier type
+                </label>
+                </form>
+              </div>
+            </li>
+            <li>
+              <h5> The 4th item (e.g. <span class="identifier">chr1:14514-15729</span>) is a</h5>
+              <div>
+                <form>
+                  <label>
+                    <input type="radio" value="primaryIdentifer" name="4" checked />
+                    Chromosome coordinate
+                  </label>
+                  <label>
+                  <input type="radio" value="ignore" name="4"/> Ignore this identifier type
+                  </label>
+                </form>
+              </div>
+            </li>
+            <li>
+              <h5>We're not sure what <span class="identifier">20140818</span> is.</h5>
+              <div>
+                <form>
+                  <label>
+                  <input type="radio" value="ignore" name="hgnc" checked/> Ignore this identifier type
+                </label>
+                </form>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
       <div class="wizardStep nextActions">
         <a href="2-file-chosen.html" class="back">&lt;&lt; Back</a>
         <a href="2-file-chosen.html" class="back"><svg class="icon icon-plus"><use xlink:href="#icon-plus"></use></svg> Add another file</a>

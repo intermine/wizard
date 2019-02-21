@@ -156,12 +156,15 @@ nav {
     padding: @spacer;
 
     h4 {
-      display:flex;
-      justify-content:space-between;
-      flex-grow:1;
+      display: flex;
+      justify-content: space-between;
+      flex-grow: 1;
       margin-top: 0;
       border-bottom: dotted 2px @contrastColor;
-      svg {align-self:flex-start}
+
+      svg {
+        align-self: flex-start;
+      }
     }
 
     h5 {
@@ -213,23 +216,61 @@ nav {
 }
 
 .nextActions {
-  justify-content:space-between;
+  justify-content: space-between;
   flex-direction: row;
+
   a {
     .buttonStyle;
-    align-self:flex-start;
+    align-self: flex-start;
+
     &.back {
       .plainButton;
-      margin-right:auto;
-      }
-      &:last-of-type, &:nth-last-child(2):nth-child(2) {
-        margin-left:auto
-      }
+      margin-right: auto;
+    }
+
+    &:last-of-type,
+    &:nth-last-child(2):nth-child(2) {
+      margin-left: auto;
     }
   }
+}
 
+.typeahead {
+  display: flex;
+  flex-wrap:nowrap;
+  align-items: center;
+  input[type=text] {
+    .bigInputStyle;
+    border-top-right-radius:0px;
+    border-bottom-right-radius:0px;
+    border-top-left-radius:2px;
+    border-bottom-left-radius:2px;
+    border:solid 1px #ddd;
+    height:@spacer*2;
+    padding-left:2px;
+  }
+  .typeaheadDropdownIndicator {
+    &:hover {
+        background-color:#eee;
+        border:solid 1px #ccc;
+        border-left-width:0px;
+      }
+    background-color:#ddd;
+    border:solid 1px #ccc;
+    border-left-width:0px;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    align-self:stretch;
+    width:2em;
+    svg {margin-left:auto;margin-right:auto;}
+    border-top-right-radius:2px;
+    border-bottom-right-radius:2px;
+  }
+}
 
 .columnMapping {
+
   ul {
     padding-left: 0;
     display: flex;
@@ -361,8 +402,8 @@ nav {
     height: auto;
     max-height: 2em;
     height: 2em;
-    display:flex;
-    justify-content:space-between;
+    display: flex;
+    justify-content: space-between;
   }
   display: flex;
 }
@@ -603,9 +644,13 @@ nav {
   justify-content: flex-start;
 }
 
-.organism input {
+.bigInputStyle {
   height: 1.6em;
   width: 20em;
+}
+
+.organism input {
+  .bigInputStyle;
 }
 
 .infoBox {
@@ -640,6 +685,12 @@ nav {
   color: @contrastColor;
 }
 
+.fileContentPreview {
+  font-family: mono;
+  font-size: 0.8*@spacer;
+  background-color: @slightlyDarker;
+}
+
 table {
   font-family: mono;
   font-size: 0.7*@spacer;
@@ -647,9 +698,11 @@ table {
   &.userDetails {
     font-family: sans-serif;
     font-size: @spacer;
-    td {padding: 0 @spacer/3}
-  }
 
+    td {
+      padding: 0 @spacer/3;
+    }
+  }
 
   tbody tr:nth-child(odd) td {
     background-color: @slightlyDarker;
@@ -671,11 +724,11 @@ table {
 
 .toolDataSummary {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 
   .summary {
-    min-width:30vw;
-    max-width:44vw;
+    min-width: 30vw;
+    max-width: 44vw;
     list-style-type: none;
     box-shadow: 1px 1px 1px @slightlyDarker;
     border-radius: 2px;
@@ -690,7 +743,7 @@ table {
 
     h4 {
       min-height: 2em;
-      flex-grow:0;
+      flex-grow: 0;
     }
   }
 }
