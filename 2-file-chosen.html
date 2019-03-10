@@ -61,10 +61,12 @@
           <div class="uploadOptions">
             <div>Drag a file here</div>
             <div class="or">OR</div>
-            <button>
+            <input type="file" id="fileUpload" />
+            <button id="fakeFileUpload">
               <svg class="icon icon-browse"><use xlink:href="#icon-browse"></use></svg>
               Browse for a file or folder
             </button>
+            <div id="fileName"></div>
             <div class="or">OR</div>
             <label class="pasteUrl">
                 <span>Paste a URL (e.g. to a large Google Drive file):</span>
@@ -102,6 +104,23 @@
       <a href="3-upload-complete-fasta.html" class="cta">Save and Continue &gt;&gt;</a>
     </div>
   </main>
+
+<script>
+//browse dialogues are unstyleable so we have to hide it and create our own.
+
+var fakeFile = document.getElementById('fakeFileUpload');
+var realFile = document.getElementById("fileUpload");
+
+fakeFile.addEventListener("click", function() {
+  realFile.click();
+});
+
+realFile.addEventListener("change",function(file){
+  var fileName = this.files[0].name;
+  document.getElementById("fileName").innerHTML = this.files[0].name;
+});
+</script>
+
 </body>
 
 </html>
