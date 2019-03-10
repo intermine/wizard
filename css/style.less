@@ -207,8 +207,13 @@ nav {
     top: @spacer/8;
   }
 }
+// type=file inputs are basically unstyleable.
+input[type=file] {
+  display: none;
+}
 
-.plainButton {
+.plainButton,
+input[type=button] {
   .buttonStyle;
   background-color: #CFD8DC;
   color: rgba(0,0,0,0.67);
@@ -237,40 +242,45 @@ nav {
 
 .typeahead {
   display: flex;
-  flex-wrap:nowrap;
+  flex-wrap: nowrap;
   align-items: center;
+
   input[type=text] {
     .bigInputStyle;
-    border-top-right-radius:0px;
-    border-bottom-right-radius:0px;
-    border-top-left-radius:2px;
-    border-bottom-left-radius:2px;
-    border:solid 1px #ddd;
-    height:@spacer*2;
-    padding-left:2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border: solid 1px #ddd;
+    height: @spacer*2;
+    padding-left: 2px;
   }
+
   .typeaheadDropdownIndicator {
     &:hover {
-        background-color:#eee;
-        border:solid 1px #ccc;
-        border-left-width:0px;
-      }
-    background-color:#ddd;
-    border:solid 1px #ccc;
-    border-left-width:0px;
-    display:flex;
+      background-color: #eee;
+      border: solid 1px #ccc;
+      border-left-width: 0;
+    }
+    background-color: #ddd;
+    border: solid 1px #ccc;
+    border-left-width: 0;
+    display: flex;
     align-items: center;
-    justify-content:center;
-    align-self:stretch;
-    width:2em;
-    svg {margin-left:auto;margin-right:auto;}
-    border-top-right-radius:2px;
-    border-bottom-right-radius:2px;
+    justify-content: center;
+    align-self: stretch;
+    width: 2em;
+
+    svg {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
   }
 }
 
 .columnMapping {
-
   ul {
     padding-left: 0;
     display: flex;
