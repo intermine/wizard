@@ -728,7 +728,7 @@ table {
 }
 
 .edit svg,
-.toolDataSummary {
+.Summary {
   margin-left: 0;
 }
 
@@ -801,4 +801,24 @@ table {
   input {
     margin: 3px;
   }
+}
+
+.marketing-splash {
+  .toolDataSummary;
+  .marketing-blurbs {
+    .toolDataSummary .summary;
+    border:0;
+    box-shadow:none;
+    font-size:@spacer * 1.4;
+  }
+  .next-actions {
+     .toolDataSummary .summary;
+     padding : @spacer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .cta {.buttonStyle;}
 }
