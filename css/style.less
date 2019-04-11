@@ -208,6 +208,7 @@ nav {
   }
 }
 // type=file inputs are basically unstyleable.
+
 input[type=file] {
   display: none;
 }
@@ -727,8 +728,8 @@ table {
   }
 }
 
-.edit svg,
-.Summary {
+.Summary,
+.edit svg {
   margin-left: 0;
 }
 
@@ -790,35 +791,72 @@ table {
   }
 }
 
-.registration {
-  label {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border-bottom: dotted 1px #ccc;
+.marketing-splash {
+  .toolDataSummary;
+
+  .marketing-blurbs {
+    .toolDataSummary .summary;
+    border: 0;
+    box-shadow: none;
+    font-size: @spacer * 1.4;
   }
 
-  input {
-    margin: 3px;
+  .next-actions {
+    .toolDataSummary .summary;
+    padding: @spacer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cta {
+    .buttonStyle;
   }
 }
 
-.marketing-splash {
+.register-or-sign-in {
   .toolDataSummary;
-  .marketing-blurbs {
-    .toolDataSummary .summary;
-    border:0;
-    box-shadow:none;
-    font-size:@spacer * 1.4;
-  }
-  .next-actions {
-     .toolDataSummary .summary;
-     padding : @spacer;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
+  justify-content: center;
+
+  h3 {
+    .sectionHeader;
   }
 
-  .cta {.buttonStyle;}
+  .registration,
+  .sign-in {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .toolDataSummary .summary;
+    padding: @spacer;
+
+    label {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      border-bottom: dotted 1px #ccc;
+    }
+
+    input {
+      margin: 3px;
+    }
+
+    h4 {
+      border-bottom: dotted 2px @contrastColor;
+      margin-top: 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      button {
+        &.back {
+          .plainButton;
+          margin-right:0;
+        }
+      }
+    }
+  }
 }
