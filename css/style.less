@@ -2,6 +2,8 @@
 @contrastColor: #455A64;
 @ctaColor: #03A9F4;
 @enabledColor: #388E3C;
+@activeColor: @enabledColor;
+@buildingColor: #FFC107;
 @lowContrast: #999;
 @bodyBackground: #f6f6f6;
 @slightlyDarker: rgba(0,0,0,0.1);
@@ -825,6 +827,7 @@ table {
 
   .registration,
   .sign-in {
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -851,10 +854,54 @@ table {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+
+      a {
+        align-self: flex-end;
+      }
+
       button {
         &.back {
-          .plainButton;
-          margin-right:0;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+.dashboard {
+ul {padding-left:0;}
+  li {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: @spacer*6 2fr 1fr @spacer*15;
+    grid-column-gap: @spacer;
+    align-items: center;
+
+    &:nth-child(odd) {
+      background-color: @slightlyDarker;
+    }
+
+    &.header > div {
+      border-bottom: dotted 2px @contrastColor;
+    }
+
+    > div {
+      padding: @spacer/2 @spacer;
+
+      &.mine-troubleshooting a {}
+
+      &.status {
+        .icon {
+          width: @spacer*2;
+          height: @spacer*2;
+        }
+
+        &.active {
+          color: lighten(@activeColor, 20%);
+        }
+
+        &.building {
+          color: lighten(@buildingColor, 20%);
         }
       }
     }

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
+
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <symbol id="icon-pencil" viewBox="0 0 32 32">
+        <title>pencil</title>
+        <path d="M27 0c2.761 0 5 2.239 5 5 0 1.126-0.372 2.164-1 3l-2 2-7-7 2-2c0.836-0.628 1.874-1 3-1zM2 23l-2 9 9-2 18.5-18.5-7-7-18.5 18.5zM22.362 11.362l-14 14-1.724-1.724 14-14 1.724 1.724z"></path>
+      </symbol>
+      <symbol id="icon-info" viewBox="0 0 32 32">
+        <title>info</title>
+        <path d="M14 9.5c0-0.825 0.675-1.5 1.5-1.5h1c0.825 0 1.5 0.675 1.5 1.5v1c0 0.825-0.675 1.5-1.5 1.5h-1c-0.825 0-1.5-0.675-1.5-1.5v-1z"></path>
+        <path d="M20 24h-8v-2h2v-6h-2v-2h6v8h2z"></path>
+        <path d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13z"></path>
+      </symbol>
+
+      <symbol id="icon-building" viewBox="0 0 32 32">
+        <title>Building</title>
+        <path
+          d="M31.562 25.905l-9.423-9.423c-0.583-0.583-1.538-0.583-2.121 0l-0.707 0.707-5.75-5.75 9.439-9.439h-10l-4.439 4.439-0.439-0.439h-2.121v2.121l0.439 0.439-6.439 6.439 5 5 6.439-6.439 5.75 5.75-0.707 0.707c-0.583 0.583-0.583 1.538 0 2.121l9.423 9.423c0.583 0.583 1.538 0.583 2.121 0l3.535-3.535c0.583-0.583 0.583-1.538 0-2.121z">
+        </path>
+      </symbol>
+      <symbol id="icon-checkmark" viewBox="0 0 32 32">
+        <title>Active Checkmark</title>
+        <path d="M27 4l-15 15-7-7-5 5 12 12 20-20z"></path>
+      </symbol>
+    </defs>
+  </svg>
+
+</head>
+
+
+<body>
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+  <main>
+    <div class="dashboard">
+      <h2 class="sectionHeader">My InterMines</h2>
+      <div class="">
+        <ul>
+          <li class="header">
+            <div class="mine-status">Status</div>
+            <div class="mine-name">Name</div>
+            <div class="mine-config">Data Config</div>
+            <div class="mine-troubleshooting">Troubleshooting
+              <svg class="icon icon-info">
+                <use xlink:href="#icon-info"></use>
+              </svg>
+            </div>
+          </li>
+          <li>
+            <div class="status active">
+              <svg class="icon icon-checkmark">
+                <use xlink:href="#icon-checkmark"></use>
+              </svg>
+            </div>
+            <div><a href="http://www.humanmine.org">KittenMine</a></div>
+            <div>
+              <div>View</div>
+              <div>Export</div>
+            </div>
+            <div class="mine-troubleshooting">
+              <a href="#"> Restart Server</a>
+            </div>
+          </li>
+          <li>
+            <div class="status building">
+              <svg class="icon icon-building">
+                <use xlink:href="#icon-building"></use>
+              </svg>
+            </div>
+            <div>
+              <a href="http://www.humanmine.org">PuppyMine</a>
+            </div>
+            <div>
+              <div>View</div>
+              <div>Export</div>
+            </div>
+            <div class="mine-troubleshooting">
+              <a href="#"> Restart Server</a>
+            </div>
+          </li>
+          <li>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
