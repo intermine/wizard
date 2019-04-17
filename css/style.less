@@ -209,6 +209,14 @@ nav {
     top: @spacer/8;
   }
 }
+
+.slimButton {
+  margin-top:@spacer/2;
+  display: block;
+  padding: @spacer/2 @spacer*1.5 @spacer/2 @spacer/2;
+  font-size:0.9em;
+  font-weight:bolder;
+}
 // type=file inputs are basically unstyleable.
 
 input[type=file] {
@@ -869,7 +877,10 @@ table {
 }
 
 .dashboard {
-ul {padding-left:0;}
+  ul {
+    padding-left: 0;
+  }
+
   li {
     list-style-type: none;
     display: grid;
@@ -877,7 +888,7 @@ ul {padding-left:0;}
     grid-column-gap: @spacer;
     align-items: center;
 
-    &:nth-child(odd) {
+    &:nth-child(even) {
       background-color: @slightlyDarker;
     }
 
@@ -888,21 +899,36 @@ ul {padding-left:0;}
     > div {
       padding: @spacer/2 @spacer;
 
-      &.mine-troubleshooting a {}
-
       &.status {
         .icon {
           width: @spacer*2;
           height: @spacer*2;
+          color: rgba(0,0,0,0.4);
         }
+        border-left: solid 5px @lowContrast;
 
         &.active {
-          color: lighten(@activeColor, 20%);
+          border-left: solid 5px lighten(@activeColor, 20%);
         }
 
         &.building {
-          color: lighten(@buildingColor, 20%);
+          border-left: solid 5px lighten(@buildingColor, 20%);
         }
+      }
+    }
+
+    .continue-wizard {
+      display: flex;
+      flex-wrap: wrap;
+
+      .resume {
+        .buttonStyle;
+        .slimButton;
+      }
+
+      .discard {
+        .plainButton;
+        .slimButton;
       }
     }
   }
