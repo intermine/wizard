@@ -27,8 +27,51 @@ body {
 }
 
 header {
+  background-color: rgb(238,238,238);
+  margin: 0 -@spacer @spacer; //offset default body padding
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+
+  .login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: @spacer*0.5 @spacer;
+
+    a {
+      text-decoration: none;
+      color: #000;
+    }
+
+    svg {
+      margin-right: @spacer/2;
+    }
+  }
+
   .logo {
-    max-width: 20vw;
+    img {
+      max-width: 20vw;
+    }
+    padding: 0 @spacer;
+  }
+
+  .login,
+  .logo {
+    transition: all 0.5s;
+
+    &:hover {
+      transition: all 0.5s;
+      background-color: darken(rgb(238,238,238),10%);
+
+      img {
+        filter: drop-shadow(0px 0px 2px #fff);
+      }
+      padding-left: @spacer*2;
+      padding-right: @spacer*2;
+    }
   }
 }
 
@@ -712,6 +755,11 @@ input[type=button] {
   background-color: @slightlyDarker;
 }
 
+.profilePage {display:flex;justify-content:center;
+flex-direction:column;
+align-items:center;
+h2 {align-self: stretch}}
+
 table {
   font-family: mono;
   font-size: 0.7*@spacer;
@@ -722,6 +770,12 @@ table {
 
     td {
       padding: 0 @spacer/3;
+    }
+
+    &.profile {
+      td {
+        padding: @spacer/2 @spacer;
+      }
     }
   }
 
@@ -887,8 +941,8 @@ table {
     grid-template-columns: @spacer*8 3fr 2fr @spacer*15;
     grid-column-gap: @spacer;
     align-items: center;
-    background-color:#fff;
-    margin-bottom:@spacer/2;
+    background-color: #fff;
+    margin-bottom: @spacer/2;
 
     &:nth-child(even) {
       background-color: @slightlyDarker;
@@ -906,11 +960,15 @@ table {
           width: @spacer*2;
           height: @spacer*2;
           color: rgba(0,0,0,0.4);
-          margin:0 @spacer/2;
+          margin: 0 @spacer/2;
         }
-        text-align:center;
+        text-align: center;
         border-left: solid 5px @lowContrast;
-        p {margin:0;}
+
+        p {
+          margin: 0;
+        }
+
         &.active {
           border-left: solid 5px lighten(@activeColor, 20%);
         }
@@ -937,14 +995,19 @@ table {
     }
   }
 }
-
-
 // Tooltip is slightly tweaked version of this:
 // https://medium.freecodecamp.org/a-step-by-step-guide-to-making-pure-css-tooltips-3d5a3e237346
-.tooltip {
-  &[tooltip]::before,   &[tooltip]::after {visibility:hidden}
-  &:hover[tooltip]::before, &:hover[tooltip]::after {visibility: visible;}
 
+.tooltip {
+  &[tooltip]::after,
+  &[tooltip]::before {
+    visibility: hidden;
+  }
+
+  &:hover[tooltip]::after,
+  &:hover[tooltip]::before {
+    visibility: visible;
+  }
 }
 
 [tooltip] {
@@ -986,4 +1049,8 @@ table {
   top: 50%;
   margin-left: -8px;
   transform: translateX(-100%) translateY(-50%);
+}
+
+.topsecret {
+  color: #666;
 }
