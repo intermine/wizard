@@ -1,0 +1,22 @@
+{
+  "name": "intermine-wizard",
+  "version": "1.0.0",
+  "description": "Wizard to interactively walk user through creating an InterMine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yochannah/wizard.git"
+  },
+  "keywords": [
+    "intermine"
+  ],
+  "author": "Yo Yehudi",
+  "license": "LGPL-2.1-or-later",
+  "bugs": {
+    "url": "https://github.com/yochannah/wizard/issues"
+  },
+  "homepage": "https://github.com/yochannah/wizard#readme"
+}
