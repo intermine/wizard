@@ -3,9 +3,20 @@
 <head>
   <meta charset="utf-8">
   <title></title>
-  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
   <%- include('../partials/icons'); %>
   <title> <%= title %> </title>
 </head>
 <body>
+  <header>
+  <a href="/" class="logo">
+    <img src="/images/interminelogo-text.svg" height="50" alt="InterMine Home">
+  </a>
+    <div class="login">
+      <svg class="icon icon-user">
+        <use xlink:href="#icon-user"></use>
+      </svg>
+      <a href="/users/profile">My Profile</a>
+    </div>
+  </header>
   <main>
