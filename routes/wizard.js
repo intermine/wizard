@@ -1,33 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var templatePath = "wizard/"
+var wizardSteps = require('../views/wizard/wizardSteps.js')
 
 /* GET default page. */
 router.get('/', function(req, res, next) {
-  res.render(templatePath + 'upload');
+  res.render(templatePath + 'upload', {steps: wizardSteps.steps});
 });
 
-router.get('/upload', function(req, res, next) {
-  res.render(templatePath + 'upload');
-});
+/* Dynamically generate wizard pages based on the views/wizard/wizardSteps config */
+wizardSteps.steps.map(function(step) {
+  router.get('/' + step.name, function(req, res, next) {
+    res.render(templatePath + step.name, {steps: wizardSteps.steps});
+  });
+})
 
-router.get('/mapColumns', function(req, res, next) {
-  res.render(templatePath + 'mapColumns');
-});
-
-router.get('/supplementaryData', function(req, res, next) {
-  res.render(templatePath + 'supplementaryData');
-});
-
-/* Set name, licence, privacy */
-router.get('/config', function(req, res, next) {
-  res.render(templatePath + 'config');
-});
-
-/* final step before we start the build */
-router.get('/finalise', function(req, res, next) {
-  res.render(templatePath + 'finalise');
-});
 
 
 
