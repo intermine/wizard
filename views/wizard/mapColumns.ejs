@@ -1,64 +1,8 @@
-<!DOCTYPE html>
-<html>
+<%- include('../partials/head', {title : "Dashboard | InterMine"}); %>
 
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="css/style.css">
-
-  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-      <symbol id="icon-circle-down" viewBox="0 0 32 32">
-        <title>circle-down</title>
-        <path d="M32 16c0-8.837-7.163-16-16-16s-16 7.163-16 16 7.163 16 16 16 16-7.163 16-16zM3 16c0-7.18 5.82-13 13-13s13 5.82 13 13-5.82 13-13 13-13-5.82-13-13z"></path>
-        <path d="M9.914 11.086l-2.829 2.829 8.914 8.914 8.914-8.914-2.828-2.828-6.086 6.086z"></path>
-      </symbol>
-      <symbol id="icon-pencil" viewBox="0 0 32 32">
-        <title>pencil</title>
-        <path d="M27 0c2.761 0 5 2.239 5 5 0 1.126-0.372 2.164-1 3l-2 2-7-7 2-2c0.836-0.628 1.874-1 3-1zM2 23l-2 9 9-2 18.5-18.5-7-7-18.5 18.5zM22.362 11.362l-14 14-1.724-1.724 14-14 1.724 1.724z"></path>
-      </symbol>
-      <symbol id="icon-info" viewBox="0 0 32 32">
-        <title>info</title>
-        <path d="M14 9.5c0-0.825 0.675-1.5 1.5-1.5h1c0.825 0 1.5 0.675 1.5 1.5v1c0 0.825-0.675 1.5-1.5 1.5h-1c-0.825 0-1.5-0.675-1.5-1.5v-1z"></path>
-        <path d="M20 24h-8v-2h2v-6h-2v-2h6v8h2z"></path>
-        <path d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13z"></path>
-      </symbol>
-      <symbol id="icon-plus" viewBox="0 0 32 32">
-        <title>plus</title>
-        <path d="M31 12h-11v-11c0-0.552-0.448-1-1-1h-6c-0.552 0-1 0.448-1 1v11h-11c-0.552 0-1 0.448-1 1v6c0 0.552 0.448 1 1 1h11v11c0 0.552 0.448 1 1 1h6c0.552 0 1-0.448 1-1v-11h11c0.552 0 1-0.448 1-1v-6c0-0.552-0.448-1-1-1z"></path>
-      </symbol>
-      <symbol id="icon-organism" viewBox="0 0 32 32">
-        <title>organism</title>
-        <path d="M30.148 5.588c-2.934-3.42-7.288-5.588-12.148-5.588-8.837 0-16 7.163-16 16s7.163 16 16 16c4.86 0 9.213-2.167 12.148-5.588l-10.148-10.412 10.148-10.412zM22 3.769c1.232 0 2.231 0.999 2.231 2.231s-0.999 2.231-2.231 2.231-2.231-0.999-2.231-2.231c0-1.232 0.999-2.231 2.231-2.231z"></path>
-      </symbol>
-    </defs>
-  </svg>
-
-</head>
+<%- include('../partials/breadcrumbs', {activeClass : "mapColumns"}); %>
 
 
-<body>
-  <main>
-    <nav class="breadcrumbs">
-      Progress:
-      <ol>
-        <li class="complete">
-          <a href="2-file-chosen.html">Upload files</a>
-        </li>
-        <li class="active">
-          Map columns
-        </li>
-        <li>
-          Supplementary data
-        </li>
-        <li>
-          Configure settings
-        </li>
-        <li>
-          Finalise &amp; save
-        </li>
-      </ol>
-    </nav>
     <div class="wizardStep">
       <h2 class="sectionHeader">Upload: humanfile.fasta </h2>
       <div class="sectionContent">
@@ -133,11 +77,9 @@
         </div>
       </div>
       <div class="wizardStep nextActions">
-        <a href="2-file-chosen.html" class="back">&lt;&lt; Back</a>
-        <a href="2-file-chosen.html" class="back"><svg class="icon icon-plus"><use xlink:href="#icon-plus"></use></svg> Add another file</a>
-        <a href="4-supplementary-data.html" class="cta next">Save and Continue &gt;&gt;</a>
+        <a href="upload" class="back">&lt;&lt; Back</a>
+        <a href="upload" class="back"><svg class="icon icon-plus"><use xlink:href="#icon-plus"></use></svg> Add another file</a>
+        <a href="supplementary" class="cta next">Save and Continue &gt;&gt;</a>
       </div>
-  </main>
-</body>
 
-</html>
+<%- include('../partials/foot'); %>
