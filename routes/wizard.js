@@ -4,18 +4,7 @@ var templatePath = "wizard/"
 
 /* GET default page. */
 router.get('/', function(req, res, next) {
-  res.render(templatePath + 'dashboard');
-});
-
-/* GET mine builder dashboard. Currently same as default */
-router.get('/dashboard', function(req, res, next) {
-  res.render(templatePath + 'dashboard');
-});
-
-/* GET individual intermine config. */
-/* TODO ADD inidividual mine routing */
-router.get('/config', function(req, res, next) {
-  res.render(templatePath + 'config');
+  res.render(templatePath + 'upload');
 });
 
 router.get('/upload', function(req, res, next) {
