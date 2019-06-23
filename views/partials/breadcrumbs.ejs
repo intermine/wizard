@@ -1,5 +1,24 @@
-<nav class="breadcrumbs">
-  Progress:
-  <ol>
-  </ol>
-</nav>
+<%
+var steps = [{name : "upload",text : "Upload files"},
+  {name: "mapColumns", text: "Map columns"},
+  {name: "supplementary", text : "Supplementary data"},
+  {name: "config", text : "Configure settings"},
+  {name: "finalise", text : "Finalise &amp; save"}
+]
+%>
+
+    <nav class="breadcrumbs">
+      Progress:
+      <ol>
+        <% steps.map(function(step) {
+          // add hyperlink for steps that are before the active step
+          // but don't allow people to skip ahead of current step
+          // Q for later: what about when we have multiple files or have gone back?
+          // maybe store in session or better on remote server
+          %>
+          <li <% if (activeClass == step.name) { %> class="active" <% } %> >
+            <%= step.text %>
+          </li>
+        <%  }); %>
+      </ol>
+    </nav>

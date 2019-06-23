@@ -1,0 +1,83 @@
+<%- include('../partials/head', {title : "Dashboard | InterMine"}); %>
+
+<%- include('../partials/breadcrumbs', {activeClass : "upload"}); %>
+
+<div class="wizardStep">
+  <h2 class="sectionHeader">Upload your files</h2>
+  <div class="uploadAndGuidance">
+    <div class="upload subStep">
+      <svg class="icon icon-file"><use xlink:href="#icon-file"></use></svg>
+      <div class="uploadOptions">
+        <div>Drag a file here</div>
+        <div class="or">OR</div>
+        <input type="file" id="fileUpload" />
+        <button id="fakeFileUpload">
+          <svg class="icon icon-browse"><use xlink:href="#icon-browse"></use></svg>
+          Browse for a file or folder
+        </button>
+        <div id="fileName"></div>
+        <div class="or">OR</div>
+        <label class="pasteUrl">
+            <span>Paste a URL (e.g. to a large Google Drive file):</span>
+            <input type="text"></input>
+        </label>
+      </div>
+    </div>
+    <div class="guidance subStep">
+      <p>
+        <svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg> Files we can accept include:
+      </p>
+      <ul>
+        <li>gff</li>
+        <li>fasta</li>
+        <li>.tsv</li>
+        <li>.csv</li>
+        <li>.etc</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="wizardStep">
+  <div class="subStep organism">
+    <h4 class="subHeader">What organism is this file for? </h4>
+    <div class="infoBox subStepContent">
+      <ul>
+        <span class="title">Organism:</span>
+        <input type="text" id="organismSelector" placeholder="Type an organism name or taxon ID...">
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="wizardStep nextActions">
+  <a href="3-upload-complete-fasta.html" id="nextLink" class="cta">Save and Continue &gt;&gt;</a>
+</div>
+
+<script>
+  //browse dialogues are unstyleable so we have to hide it and create our own.
+
+  var fakeFile = document.getElementById('fakeFileUpload');
+  var realFile = document.getElementById("fileUpload");
+
+  fakeFile.addEventListener("click", function() {
+    realFile.click();
+  });
+
+  realFile.addEventListener("change", function(file) {
+    var fileName = this.files[0].name;
+    document.getElementById("fileName").innerHTML = this.files[0].name;
+  });
+
+  // this is a hack to allow us to visit a different page the second time we
+  // "upload" a file.
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var lastPage = document.referrer.split("/");
+    lastPage = lastPage[lastPage.length - 1];
+    console.log(lastPage);
+    if (lastPage && (lastPage.indexOf("3-upload-complete-fasta") > -1)) {
+      document.getElementById("nextLink").setAttribute("href", "3-upload-complete-gff")
+    }
+  });
+</script>
+
+<%- include('../partials/foot'); %>
