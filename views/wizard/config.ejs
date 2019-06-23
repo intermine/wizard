@@ -1,0 +1,62 @@
+<%- include('../partials/head', {title : "Config | InterMine"}); %>
+
+<%- include('../partials/breadcrumbs', {activeClass : "config"}); %>
+
+<div class="wizardStep nameYourMine">
+    <h2 class="sectionHeader">Brilliant! Nearly done... </h2>
+    <div class="mineName">
+        <p>
+          Last thing: what would you like to call your new InterMine?
+        </p>
+        <div class="urlInput">
+          <div class="url">
+            <svg class="icon icon-site"><use xlink:href="#icon-site"></use></svg>
+            <input type="text" autofocus="autofocus" value="MyFirstDatabase.AliceLab"></input>
+            <div class="blankurl">.intermine.org</div>
+          </div>
+          <div class="validation">
+            <svg class="icon icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>
+            This project name is free!
+          </div>
+      </div>
+    </div>
+    <div class="privacy subStep">
+      <h3 class="subHeader">Privacy</h3>
+      <div class="subStepContent">
+      <p>Who should be able to see your InterMine? You can change this later if you need to.</p>
+      <form>
+        <ul>
+          <li>
+            <label>
+                <input type="radio" value="private" name="publicPrivate"/>
+                <div class="publicPrivate">
+                  <svg class="icon icon-site"><use xlink:href="#icon-site"></use></svg>
+                  <span class="title">Public:</span>
+                </div>
+                Your InterMine will appear on the public registry, and anyone who wishes to view your data may do so.
+            </label>
+            <p class="licence">Optional: <a href="#">add a licence to your data</a></p>
+          </li>
+          <li class="active">
+            <label>
+                <input type="radio" name="publicPrivate" value="private" checked />
+                <div class="publicPrivate">
+                  <svg class="icon icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
+                  <span class="title">Unlisted:</span>
+                </div>
+                Anyone who has the link to your InterMine can view it, but it does not appear on the public registry.
+            </label>
+            <p class="licence">Optional: <a href="#">add a licence to your data</a></p>
+          </li>
+        </ul>
+      </form>
+    </div>
+    </div>
+</div>
+
+<div class="wizardStep nextActions">
+  <a href="supplementaryData" class="back">&lt;&lt; Back</a>
+  <a href="finalise">Save and Continue &gt;&gt;</a>
+</div>
+
+<%- include('../partials/foot'); %>

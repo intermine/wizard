@@ -1,0 +1,54 @@
+<%- include('../partials/head', {title : "Supplementary Data | InterMine"}); %>
+
+<%- include('../partials/breadcrumbs', {activeClass : "supplementaryData"}); %>
+
+      <div class="wizardStep supplementary">
+          <h2 class="sectionHeader">Supplementary data sources </h2>
+          <div class="">
+              <p>
+                Based on your uploaded data, the following supplementary data sources might be useful:
+              </p>
+              <ul>
+                <li><label><input type="checkbox" checked="checked">Uniprot protein data</label></li>
+                <li><label><input type="checkbox" checked="checked">Pubmed publication data</label></li>
+                <li><label><input type="checkbox" checked="checked">GO annotations</label></li>
+                <li><label><input type="checkbox" checked="checked">NCBI - whole genome </label></li>
+                <li><label><input type="checkbox" checked="checked">Other ... </label></li>
+              </ul>
+          </div>
+      </div>
+      <div class="wizardStep toolPreview">
+          <h2 class="sectionHeader">Data tools </h2>
+          <div class="">
+              <p>
+                We've added the following tools to your InterMine automatically:
+              </p>
+              <ul>
+                <li>
+                  <h3 class="subHeader">Cytoscape</h3>
+                  <p>Gene &amp; protein network interaction visualiser</p>
+                  <label><input type="checkbox" checked="checked">Enabled</label>
+
+                  <div class="imagePreview"><img src="/images/cytoscape.png" /></div>
+                </li>
+                <li>
+                  <h3 class="subHeader">ProtVista</h3>
+                  <p>Protein feature browser</p>
+                  <div class="imagePreview"><img src="/images/protvista.png" /></div>
+                  <label><input type="checkbox" checked="checked">Enabled</label>
+                </li>
+                <li>
+                  <h3 class="subHeader">GXA Expression viewer</h3>
+                  <p>Visualise gene expression in a heatmap</p>
+                  <div class="imagePreview"><img src="/images/gxa-expression-viewer.png" /></div>
+                  <label><input type="checkbox" checked="checked">Enabled</label>
+                </li>
+              </ul>
+          </div>
+      </div>
+        <div class="wizardStep nextActions">
+          <a href="mapColumns" class="back">&lt;&lt; Back</a>
+          <a href="mineConfig">Save and Continue &gt;&gt;</a>
+        </div>
+
+<%- include('../partials/foot'); %>
