@@ -1,0 +1,46 @@
+<%
+
+var indexOfCurrentPage = steps.map(function(step,index) {
+    if (step.name == activeClass) {
+      return index;
+    }
+}),
+  nextPage = getNextPage(indexOfCurrentPage),
+  previousPage = getPreviousPage(indexOfCurrentPage);
+
+  console.log("next", nextPage, previousPage);
+
+
+/*  The next two functions make sure we don't try to go next/back
+    to pages that don't exist.
+*/
+function getNextPage(index) {
+  if (steps.length > index + 1) {
+    return false;
+  } else {
+    return index + 1;
+  }
+}
+
+function getPreviousPage(index) {
+  if ((index - 1) < 0) {
+    return false;
+  } else {
+    return (index - 1);
+  }
+}
+
+%>
+
+<div class="wizardStep nextActions">
+
+<% if (previousPage) { %>
+  <a href="<%= steps[previousPage].name %>" class="back">&lt;&lt; Back</a>
+<% } %>
+
+  <a href="upload" class="back"><svg class="icon icon-plus"><use xlink:href="#icon-plus"></use></svg> Add another file</a>
+
+  <% if (nextPage) { %>
+  <a href="<%= steps[nextPage].name %>" class="cta next">Save and Continue &gt;&gt;</a>
+  <% } %>
+</div>
