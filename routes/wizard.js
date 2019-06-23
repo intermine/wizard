@@ -25,8 +25,8 @@ router.get('/config', function(req, res, next) {
 });
 
 /* final step before we start the build */
-router.get('/review', function(req, res, next) {
-  res.render(templatePath + 'review');
+router.get('/finalise', function(req, res, next) {
+  res.render(templatePath + 'finalise');
 });
 
 
