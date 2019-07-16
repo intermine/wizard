@@ -3,13 +3,15 @@
   or it won't be able to find it. */
 
 module.exports = {
-  steps: [{
+  steps: [
+    {
       name: "upload",
       text: "Upload files"
     },
     {
       name: "mapColumns",
-      text: "Map columns"
+      text: "Map columns",
+      uploadLink: true
     },
     {
       name: "supplementaryData",

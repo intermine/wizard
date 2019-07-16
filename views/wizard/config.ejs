@@ -1,6 +1,8 @@
+<% var currentPage = {activeClass : "config"} %>
+
 <%- include('../partials/head', {title : "Config | InterMine"}); %>
 
-<%- include('partials/breadcrumbs', {activeClass : "config"}); %>
+<%- include('partials/breadcrumbs', currentPage); %>
 
 <div class="wizardStep nameYourMine">
     <h2 class="sectionHeader">Brilliant! Nearly done... </h2>
@@ -54,9 +56,6 @@
     </div>
 </div>
 
-<div class="wizardStep nextActions">
-  <a href="supplementaryData" class="back">&lt;&lt; Back</a>
-  <a href="finalise">Save and Continue &gt;&gt;</a>
-</div>
+<%- include('partials/nextActions', currentPage); %>
 
 <%- include('../partials/foot'); %>

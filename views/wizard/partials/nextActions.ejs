@@ -1,24 +1,25 @@
 <%
 
-var indexOfCurrentPage = steps.map(function(step,index) {
-    if (step.name == activeClass) {
-      return index;
-    }
-}),
-  nextPage = getNextPage(indexOfCurrentPage),
-  previousPage = getPreviousPage(indexOfCurrentPage);
+var indexOfCurrentPage = 0;
 
-  console.log("next", nextPage, previousPage);
+steps.forEach(function(step, index) {
+  if (step.name === activeClass) {
+    indexOfCurrentPage = index;
+  }
+});
 
+var nextPage = getNextPage(indexOfCurrentPage);
+var previousPage = getPreviousPage(indexOfCurrentPage);
+var isLastPage = indexOfCurrentPage + 1 === steps.length;
 
 /*  The next two functions make sure we don't try to go next/back
     to pages that don't exist.
 */
 function getNextPage(index) {
-  if (steps.length > index + 1) {
+  if ((index + 1) >= steps.length) {
     return false;
   } else {
-    return index + 1;
+    return (index + 1);
   }
 }
 
@@ -34,13 +35,19 @@ function getPreviousPage(index) {
 
 <div class="wizardStep nextActions">
 
-<% if (previousPage) { %>
+<% if (previousPage !== false) { %>
   <a href="<%= steps[previousPage].name %>" class="back">&lt;&lt; Back</a>
 <% } %>
 
+  <% if (steps[indexOfCurrentPage].uploadLink) { %>
   <a href="upload" class="back"><svg class="icon icon-plus"><use xlink:href="#icon-plus"></use></svg> Add another file</a>
+  <% } %>
 
-  <% if (nextPage) { %>
+  <% if (nextPage !== false) { %>
   <a href="<%= steps[nextPage].name %>" class="cta next">Save and Continue &gt;&gt;</a>
+  <% } %>
+
+  <% if (isLastPage) { %>
+  <a href="/">All good? See your new InterMine &gt;&gt;</a>
   <% } %>
 </div>

@@ -1,6 +1,8 @@
+<% var currentPage = {activeClass : "mapColumns"} %>
+
 <%- include('../partials/head', {title : "Map Columns | InterMine"}); %>
 
-<%- include('partials/breadcrumbs', {activeClass : "mapColumns"}); %>
+<%- include('partials/breadcrumbs', currentPage); %>
 
 
     <div class="wizardStep">
@@ -76,10 +78,7 @@
           </div>
         </div>
       </div>
-      <div class="wizardStep nextActions">
-        <a href="upload" class="back">&lt;&lt; Back</a>
-        <a href="upload" class="back"><svg class="icon icon-plus"><use xlink:href="#icon-plus"></use></svg> Add another file</a>
-        <a href="supplementaryData" class="cta next">Save and Continue &gt;&gt;</a>
-      </div>
+
+<%- include('partials/nextActions', currentPage); %>
 
 <%- include('../partials/foot'); %>

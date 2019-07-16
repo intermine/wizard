@@ -1,6 +1,8 @@
+<% var currentPage = {activeClass : "finalise"} %>
+
 <%- include('../partials/head', {title : "Finalise | InterMine"}); %>
 
-<%- include('partials/breadcrumbs', {activeClass : "finalise"}); %>
+<%- include('partials/breadcrumbs', currentPage); %>
 
 
     <div class="wizardStep supplementary">
@@ -224,9 +226,7 @@
         </tbody>
       </table>
     </div>
-    <div class="wizardStep nextActions">
-      <a href="config" class="back">&lt;&lt; Back</a>
-      <a href="/">All good? See your new InterMine &gt;&gt;</a>
-    </div>
+
+<%- include('partials/nextActions', currentPage); %>
 
 <%- include('../partials/foot'); %>
