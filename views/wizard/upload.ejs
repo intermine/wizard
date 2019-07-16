@@ -54,20 +54,20 @@
 <%- include('partials/nextActions', currentPage); %>
 
 <script>
-  //browse dialogues are unstyleable so we have to hide it and create our own.
+  (function() {
+    //browse dialogues are unstyleable so we have to hide it and create our own.
+    var fakeFile = document.getElementById('fakeFileUpload');
+    var realFile = document.getElementById("fileUpload");
 
-  var fakeFile = document.getElementById('fakeFileUpload');
-  var realFile = document.getElementById("fileUpload");
+    fakeFile.addEventListener("click", function() {
+      realFile.click();
+    });
 
-  fakeFile.addEventListener("click", function() {
-    realFile.click();
-  });
-
-  realFile.addEventListener("change", function(file) {
-    var fileName = this.files[0].name;
-    document.getElementById("fileName").innerHTML = this.files[0].name;
-  });
-
+    realFile.addEventListener("change", function(file) {
+      var fileName = this.files[0].name;
+      document.getElementById("fileName").innerHTML = this.files[0].name;
+    });
+  })();
 </script>
 
 <%- include('../partials/foot'); %>
