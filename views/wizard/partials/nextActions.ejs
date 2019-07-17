@@ -44,7 +44,7 @@ function getPreviousPage(index) {
   <% } %>
 
   <% if (nextPage !== false) { %>
-  <a href="<%= steps[nextPage].name %>" class="cta next">Save and Continue &gt;&gt;</a>
+  <a href="<%= steps[nextPage].name %>" class="cta next" id="nextPageLink">Save and Continue &gt;&gt;</a>
   <% } %>
 
   <% if (isLastPage) { %>

@@ -21,7 +21,7 @@
         <div class="or">OR</div>
         <label class="pasteUrl">
             <span>Paste a URL (e.g. to a large Google Drive file):</span>
-            <input type="text"></input>
+            <input type="text" id="remoteFile"></input>
         </label>
       </div>
     </div>
@@ -65,7 +65,15 @@
 
     realFile.addEventListener("change", function(file) {
       var fileName = this.files[0].name;
-      document.getElementById("fileName").innerHTML = this.files[0].name;
+      document.getElementById("fileName").innerHTML = fileName;
+    });
+
+    // Make the next page button fire the upload function.
+    var nextPage = document.getElementById("nextPageLink");
+
+    nextPage.addEventListener("click", function(event) {
+      event.preventDefault();
+      wizard.uploadFile();
     });
   })();
 </script>

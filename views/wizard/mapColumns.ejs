@@ -6,14 +6,14 @@
 
 
     <div class="wizardStep">
-      <h2 class="sectionHeader">Upload: humanfile.fasta </h2>
+      <h2 class="sectionHeader" id="uploadTitle">Upload: humanfile.fasta </h2>
       <div class="sectionContent">
         <p>Quick preview of your data:</p>
 
-        <h3> Header row: </h3>
-        <div class="fileContentPreview">Medtr1g004950.1 | hypothetical protein | LC | chr1:14514-15729 | 20140818</div>
-        <h3> Sequence: </h3>
-        <div class="fileContentPreview"> ATGACGTCTTTGAGGAGGTTCAAAAAGGACAAAATAAAATTGTGCGATAAAGGC ... (truncated)
+        <h3 id="previewHeaderLabel"> Header row: </h3>
+        <div id="previewHeaderRow" class="fileContentPreview">Medtr1g004950.1 | hypothetical protein | LC | chr1:14514-15729 | 20140818</div>
+        <h3 id="previewSnippetLabel"> Sequence: </h3>
+        <div id="previewFileSnippet" class="fileContentPreview"> ATGACGTCTTTGAGGAGGTTCAAAAAGGACAAAATAAAATTGTGCGATAAAGGC ... (truncated)
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
         <h4 class="subHeader">1: We detected the following attributes:</h4>
         <div class="infoBox subStepContent">
           <svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg>
-          <ul>
+          <ul id="descriptors">
             <li>
               <span class="title">File format:</span> FASTA
             </li>
@@ -36,7 +36,7 @@
           <h4 class="subHeader">2: Tell us about your file</h4>
           <div class="subStepContent">
             <p>We had a couple more questions... </p>
-            <ul>
+            <ul id="questions">
               <li>
                 <h5>Sequence Features</h5>
                 <p>What type of sequence features are in this file?</p>
@@ -80,5 +80,19 @@
       </div>
 
 <%- include('partials/nextActions', currentPage); %>
+
+  <script>
+    window.onload = function() {
+      wizard.initMapColumns();
+
+      // Make the next page button fire the save function.
+      var nextPage = document.getElementById("nextPageLink");
+
+      nextPage.addEventListener("click", function(event) {
+        event.preventDefault();
+        wizard.saveMapColumns();
+      });
+    };
+  </script>
 
 <%- include('../partials/foot'); %>

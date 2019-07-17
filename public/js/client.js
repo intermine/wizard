@@ -20,6 +20,13 @@ var wizard = (function() {
     }
   }
 
+  function replaceText(elemId, text) {
+    var elem = document.getElementById(elemId);
+    var text = document.createTextNode(text);
+    removeChildren(elem);
+    elem.appendChild(text);
+  }
+
   // Since our server (not the API) doesn't know whether the user is
   // authenticated, checking for this and sending them to the `/register` page
   // is a common pattern. We codify this here, along with parsing the JSON of
@@ -51,7 +58,8 @@ var wizard = (function() {
         if (res.ok) {
           resolve(res);
         } else {
-          console.error("Failed to POST to ".concat(path));
+          // The user isn't authorized, so make them sign in.
+          openPage("/register");
         }
       }).catch(function(err) {
         console.error("Failed to POST to ".concat(path));
@@ -372,11 +380,276 @@ var wizard = (function() {
       });
   }
 
+  /*
+   * Page: wizard/upload
+   */
+
+  function uploadFile() {
+    var remoteUrl = document.getElementById("remoteFile").value;
+
+    if (remoteUrl) {
+      postData("/data/file/upload/remote", { remoteUrl: remoteUrl })
+        .then(function(res) {
+          openPage("/wizard/mapColumns");
+        });
+    } else {
+      var file = document.getElementById("fileUpload").files[0];
+
+      var formData = new FormData();
+      formData.append("file", file);
+
+      fetch(service("/data/file/upload"), {
+        method: "POST",
+        body: formData
+      }).then(function(res) {
+        // Things we need to do here:
+        // - Somehow save the `fileId` we receive in the response
+        // - Display a loading indicator
+        // - When uploading is completed, we can go to the next page
+      });
+    }
+  }
+
+  /*
+   * Page: wizard/mapColumns
+   */
+
+  function renderDataPreview(dataFile, filePreview) {
+    replaceText("uploadTitle", "Upload: ".concat(dataFile.name));
+
+    replaceText("previewHeaderLabel", filePreview.headerLabel);
+    replaceText("previewHeaderRow", filePreview.headerRow[0].join(' | '));
+    replaceText("previewSnippetLabel", filePreview.snippetLabel);
+    replaceText("previewFileSnippet", filePreview.fileSnippet);
+  }
+
+  function renderDataDescriptors(descriptors) {
+    var node = document.getElementById("descriptors");
+
+    descriptors.forEach(function(item) {
+      var li = document.createElement("li");
+      var span = document.createElement("span");
+      span.className = "title";
+      var name = document.createTextNode(item.attributeName);
+      var value = document.createTextNode(item.attributeValue);
+      span.appendChild(name);
+      li.appendChild(span);
+      li.appendChild(value);
+      node.appendChild(li);
+    });
+  }
+
+  var questionsStore = [];
+
+  function renderDataQuestions(questions) {
+    var node = document.getElementById("questions");
+
+    questionsStore = [];
+
+    questions.forEach(function(item) {
+      var li = document.createElement("li");
+
+      var h5 = document.createElement("h5");
+      h5.appendChild(document.createTextNode(item.questionHeader));
+
+      var p = document.createElement("p");
+      p.appendChild(document.createTextNode(item.questionWording));
+
+      var form = document.createElement("form");
+
+      item.possibleAnswers.forEach(function(answer) {
+        var label = document.createElement("label");
+
+        var input = document.createElement("input");
+        input.type = "radio";
+        input.checked = answer.isDefault;
+        input.value = answer.answerId;
+        input.name = item.questionId;
+
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(answer.answerLabel))
+
+        form.appendChild(label);
+      });
+
+      questionsStore.push(item.questionId);
+
+      li.appendChild(h5);
+      li.appendChild(p);
+      li.appendChild(form);
+
+      node.appendChild(li);
+    });
+  }
+
+  function initMapColumns() {
+    postData("/file/properties/detect", { fileId: "TODO" })
+      .then(function(res) {
+        return res.json();
+      })
+      .then(function(data) {
+        renderDataPreview(data.dataFile, data.filePreview);
+        renderDataDescriptors(data.descriptors);
+        renderDataQuestions(data.questions);
+      });
+  }
+
+  function saveMapColumns() {
+    var answers = questionsStore.map(function(questionId) {
+      var answerId = document.querySelector(
+        'input[name="' + questionId + '"]:checked'
+      ).value;
+
+      return {
+        questionId: questionId,
+        answerId: answerId
+      }
+    });
+
+    postData("/file/properties/save", { fileID: "TODO", answers: answers })
+      .then(function(res) {
+        openPage("/wizard/supplementaryData");
+      });
+  }
+
+  /*
+   * Page: wizard/supplementaryData
+   */
+
+  function renderSupplementaryData() {
+    fetchJson("/mine/supplementaryDataSources")
+      .then(function(dataSources) {
+        var node = document.getElementById("supplementaryDataSources");
+
+        removeChildren(node);
+
+        dataSources.forEach(function(source) {
+          var li = document.createElement("li");
+          var label = document.createElement("label");
+          var input = document.createElement("input");
+
+          input.type = "checkbox";
+          input.value = source.id;
+          input.name = "supplementary";
+          input.checked = "checked"
+
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(source.label));
+          li.appendChild(label);
+
+          node.appendChild(li);
+        });
+      });
+  }
+
+  function renderDataTools() {
+    fetchJson("/mine/dataTools")
+      .then(function(tools) {
+        var node = document.getElementById("dataTools");
+
+        removeChildren(node);
+
+        tools.forEach(function(tool) {
+          var li = document.createElement("li");
+
+          var h3 = document.createElement("h3");
+          h3.className = "subHeader";
+          h3.appendChild(document.createTextNode(tool.toolName));
+
+          var p = document.createElement("p");
+          p.appendChild(document.createTextNode(tool.toolDescription));
+
+          var label = document.createElement("label");
+
+          var input = document.createElement("input");
+          input.type = "checkbox";
+          input.value = tool.toolId;
+          input.name = "tool";
+          input.checked = "checked";
+
+          label.appendChild(input);
+          label.appendChild(document.createTextNode("Enabled"));
+
+          var div = document.createElement("div");
+          div.className = "imagePreview";
+
+          var img = document.createElement("img");
+          img.src = tool.toolPreview;
+
+          div.appendChild(img);
+
+          li.appendChild(h3);
+          li.appendChild(p);
+          li.appendChild(label);
+          li.appendChild(div);
+
+          node.appendChild(li);
+        });
+      });
+  }
+
+  function initSupplementaries() {
+    renderSupplementaryData();
+    renderDataTools();
+  }
+
+  function getCheckedNames(name) {
+    var checked = [];
+
+    var checkboxes = document.getElementsByName(name);
+
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) {
+        checked.push(checkboxes[i].value);
+      }
+    }
+
+    return checked;
+  }
+
+  function saveSupplementaryDataSources() {
+    var checked = getCheckedNames("supplementary");
+
+    return postData("/mine/supplementaryDataSources", { sources: checked });
+  }
+
+  function saveDataTools() {
+    var checked = getCheckedNames("tool");
+
+    return postData("/mine/dataTools", { tools: checked });
+  }
+
+  function saveSupplementaries() {
+    Promise.all([
+      saveSupplementaryDataSources(),
+      saveDataTools()
+    ]).then(function() {
+      openPage("/wizard/config");
+    });
+  }
+
+  /*
+   * Page: wizard/config
+   */
+
+  /*
+   * Page: wizard/finalise
+   */
+
+  /*
+   * Exports
+   */
+
   return {
     openInitialPage: openInitialPage,
     registerUser: registerUser,
     loginUser: loginUser,
     renderDashboardMines: renderDashboardMines,
-    renderUserProfile: renderUserProfile
+    renderUserProfile: renderUserProfile,
+    uploadFile: uploadFile,
+    initMapColumns: initMapColumns,
+    saveMapColumns: saveMapColumns,
+    initSupplementaries: initSupplementaries,
+    saveSupplementaries: saveSupplementaries
   };
 })();
