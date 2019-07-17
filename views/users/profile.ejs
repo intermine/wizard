@@ -2,7 +2,7 @@
 
     <div class="dashboard profilePage">
       <h2 class="sectionHeader">My Profile </h2>
-      <table class="userDetails profile">
+      <table class="userDetails profile" id="userProfile">
         <tbody>
           <tr>
             <td class="title">Email:</td>
@@ -53,4 +53,9 @@
       </table>
     </div>
 
+    <script>
+      window.onload = function() {
+        wizard.renderUserProfile("userProfile");
+      };
+    </script>
 <%- include('../partials/foot'); %>

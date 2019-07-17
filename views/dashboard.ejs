@@ -3,7 +3,7 @@
       <h2 class="sectionHeader">My InterMines </h2>
       <div class="">
         <h3>Under construction</h3>
-        <ul>
+        <ul id="in-progress-mines">
           <li class="header">
             <div class="mine-status">Status</div>
             <div class="mine-name">Name</div>
@@ -47,7 +47,7 @@
           </li>
         </ul>
         <h3>Complete InterMines</h3>
-        <ul>
+        <ul id="running-mines">
           <li class="header">
             <div class="mine-status">Status</div>
             <div class="mine-name">Name</div>
@@ -116,4 +116,9 @@
       </div>
     </div>
 
+    <script>
+      window.onload = function() {
+        wizard.renderDashboardMines();
+      };
+    </script>
   <%- include('partials/foot'); %>
