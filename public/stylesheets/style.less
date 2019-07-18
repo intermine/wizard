@@ -2,6 +2,7 @@
 @contrastColor: #455A64;
 @ctaColor: #03A9F4;
 @enabledColor: #388E3C;
+@disabledColor: #8e3a38;
 @activeColor: @enabledColor;
 @buildingColor: #FFC107;
 @lowContrast: #999;
@@ -505,8 +506,11 @@ input[type=button] {
     }
 
     .validation {
-      .icon {
+      .icon-checkmark {
         color: @enabledColor;
+      }
+      .icon-cross {
+        color: @disabledColor;
       }
     }
   }

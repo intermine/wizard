@@ -13,10 +13,10 @@
         <div class="urlInput">
           <div class="url">
             <svg class="icon icon-site"><use xlink:href="#icon-site"></use></svg>
-            <input type="text" autofocus="autofocus" value="MyFirstDatabase.AliceLab"></input>
+            <input type="text" oninput="wizard.renderCheckAvailability(event);" autofocus="autofocus" value="MyFirstDatabase.AliceLab" id="mineNameInput"></input>
             <div class="blankurl">.intermine.org</div>
           </div>
-          <div class="validation">
+          <div class="validation" id="validation">
             <svg class="icon icon-checkmark"><use xlink:href="#icon-checkmark"></use></svg>
             This project name is free!
           </div>
@@ -30,7 +30,7 @@
         <ul>
           <li>
             <label>
-                <input type="radio" value="private" name="publicPrivate"/>
+                <input type="radio" name="publicPrivate" value="public" />
                 <div class="publicPrivate">
                   <svg class="icon icon-site"><use xlink:href="#icon-site"></use></svg>
                   <span class="title">Public:</span>
@@ -41,7 +41,7 @@
           </li>
           <li class="active">
             <label>
-                <input type="radio" name="publicPrivate" value="private" checked />
+                <input type="radio" name="publicPrivate" value="unlisted" checked />
                 <div class="publicPrivate">
                   <svg class="icon icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
                   <span class="title">Unlisted:</span>
@@ -57,5 +57,17 @@
 </div>
 
 <%- include('partials/nextActions', currentPage); %>
+
+  <script>
+    window.onload = function() {
+      // Make the next page button fire the save function.
+      var nextPage = document.getElementById("nextPageLink");
+
+      nextPage.addEventListener("click", function(event) {
+        event.preventDefault();
+        wizard.saveDescriptors();
+      });
+    };
+  </script>
 
 <%- include('../partials/foot'); %>

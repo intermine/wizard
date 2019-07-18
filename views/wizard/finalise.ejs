@@ -10,7 +10,7 @@
       <div class="fileReview subStep">
 
         <h3 class="subHeader">Uploaded Files</h3>
-        <div class="fileList">
+        <div class="fileList" id="uploadedFiles">
           <div class="subStepContent">
             <h4>
               humanfile.gff
@@ -180,7 +180,7 @@
               <use xlink:href="#icon-edit"></use>
             </svg>
           </h4>
-          <ul>
+          <ul id="supplementaryData">
             <li><a href="">Uniprot protein data</a></li>
             <li><a href="">Pubmed publication data</a></li>
             <li><a href="">GO annotations</a></li>
@@ -194,7 +194,7 @@
               <use xlink:href="#icon-edit"></use>
             </svg>
           </h4>
-          <ul>
+          <ul id="dataTools">
             <li><a href="">Cytoscape Gene Interactions</a></li>
             <li><a href="">ProtVista Protein Viewer</a> </li>
             <li><a href="">GXA Expression Viewer</a></li>
@@ -208,7 +208,7 @@
         <tbody>
           <tr>
             <td class="title">URL:</td>
-            <td>MyFirstDatabase.AliceLab.intermine.org</td>
+            <td id="mineName">MyFirstDatabase.AliceLab.intermine.org</td>
             <td class="edit">
               <svg class="icon icon-edit">
                 <use xlink:href="#icon-edit"></use>
@@ -216,7 +216,7 @@
           </tr>
           <tr>
             <td class="title">Privacy:</td>
-            <td>Private</td>
+            <td id="privacy">Private</td>
             <td class="edit">
               <svg class="icon icon-edit">
                 <use xlink:href="#icon-edit"></use>
@@ -228,5 +228,19 @@
     </div>
 
 <%- include('partials/nextActions', currentPage); %>
+
+  <script>
+    window.onload = function() {
+      wizard.initFinalise();
+
+      // Make the next page button fire the save function.
+      // var nextPage = document.getElementById("nextPageLink");
+
+      // nextPage.addEventListener("click", function(event) {
+      //   event.preventDefault();
+      //   wizard.saveMapColumns();
+      // });
+    };
+  </script>
 
 <%- include('../partials/foot'); %>

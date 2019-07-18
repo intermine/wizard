@@ -632,9 +632,131 @@ var wizard = (function() {
    * Page: wizard/config
    */
 
+  var mineAvailabilityTimer;
+
+  function renderCheckAvailability(event) {
+    window.clearTimeout(mineAvailabilityTimer);
+
+    mineAvailabilityTimer = window.setTimeout(function() {
+      postData("/mine/nameAvailability", { mineName: event.target.value })
+        .then(function(res) {
+          return res.json();
+        })
+        .then(function(data) {
+          var iconName = data.isAvailable ? "checkmark" : "cross";
+          var text = document.createTextNode(
+            data.isAvailable
+              ? "This project name is free!"
+              : "This project name is taken."
+          );
+
+          var node = document.getElementById("validation");
+
+          var svg = document.createElement("svg");
+          svg.className = "icon icon-".concat(iconName);
+
+          var use = document.createElement("use");
+          use['xlink:href'] = "#icon-".concat(iconName);
+
+          svg.appendChild(use);
+
+          removeChildren(node);
+
+          node.appendChild(svg);
+          node.appendChild(text);
+        });
+    }, 500);
+  }
+
+  function saveDescriptors() {
+    var mineName = document.getElementById("mineNameInput").value;
+
+    var privacy = document.querySelector(
+      'input[name="publicPrivate"]:checked'
+    ).value;
+
+    postData("/mine/descriptors", { mineName: mineName, privacy: privacy })
+      .then(function(res) {
+        // TODO handle case where `mineName` is already taken
+        openPage("/wizard/finalise");
+      });
+  }
+
   /*
    * Page: wizard/finalise
    */
+
+  function renderFinaliseUploadedFiles(files) {
+    var node = document.getElementById("uploadedFiles");
+
+    removeChildren(node);
+
+    files.forEach(function(file) {
+      var div = document.createElement("div");
+      div.className = "subStepContent";
+      var h4 = document.createElement("h4");
+      h4.appendChild(document.createTextNode(file.dataFile.name));
+      var ul = document.createElement("ul");
+      var li = document.createElement("li");
+      var span = document.createElement("span");
+      span.className = "title";
+      span.appendChild(document.createTextNode("Organism:"));
+
+      li.appendChild(span);
+      li.appendChild(document.createTextNode(file.dataFile.organism.name));
+      ul.appendChild(li);
+      div.appendChild(h4);
+      div.appendChild(ul);
+
+      node.appendChild(div);
+    });
+  }
+
+  function renderList(elemId, items) {
+    var node = document.getElementById(elemId);
+
+    removeChildren(node);
+
+    items.forEach(function(item) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = item.url;
+      var text = document.createTextNode(item.text);
+
+      a.appendChild(text);
+      li.appendChild(a);
+      node.appendChild(li);
+    });
+  }
+
+  function renderFinaliseSupplementaries(sources, tools) {
+    renderList("supplementaryData", sources.map(function(source) {
+      return { text: source.label, url: source.url };
+    }));
+
+    renderList("dataTools", tools.map(function(tool) {
+      return { text: tool.toolName, url: tool.toolPreview };
+    }));
+  }
+
+  function renderFinaliseDescriptor(descriptor) {
+    var urlElem = document.getElementById("mineName");
+    removeChildren(urlElem);
+    urlElem.appendChild(document.createTextNode(descriptor.mineName));
+
+    var privacyElem = document.getElementById("privacy");
+    removeChildren(privacyElem);
+    privacyElem.appendChild(document.createTextNode(descriptor.privacy));
+  }
+
+  function initFinalise() {
+    fetchJson("/mine/user-config")
+      .then(function(data) {
+        renderFinaliseUploadedFiles(data.dataFiles);
+        renderFinaliseSupplementaries(data.supplementaryDataSources, data.dataTools);
+        renderFinaliseDescriptor(data.mineDescriptor);
+      });
+  }
 
   /*
    * Exports
@@ -650,6 +772,9 @@ var wizard = (function() {
     initMapColumns: initMapColumns,
     saveMapColumns: saveMapColumns,
     initSupplementaries: initSupplementaries,
-    saveSupplementaries: saveSupplementaries
+    saveSupplementaries: saveSupplementaries,
+    renderCheckAvailability: renderCheckAvailability,
+    saveDescriptors: saveDescriptors,
+    initFinalise: initFinalise
   };
 })();
