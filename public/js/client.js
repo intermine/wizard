@@ -4,7 +4,7 @@ var wizard = (function() {
    */
 
   // var endpoint = "https://wizard.intermine.org/v1";
-  var endpoint = "http://localhost:5000/v1";
+  var endpoint = "http://127.0.0.1:9991/api/v1";
 
   function service(path) {
     return endpoint.concat(path);
@@ -33,14 +33,16 @@ var wizard = (function() {
   // the response.
   function fetchJson(path) {
     return new Promise(function(resolve, reject) {
-      fetch(service(path))
+      fetch(service(path), {
+        credentials: 'include'
+      })
         .then(function(res) {
           if (res.ok) {
             return res.json();
           }
-
           // The user isn't authorized, so make them sign in.
           openPage("/register");
+          reject(new Error("You are not authorized."));
         })
         .then(function(data) {
           resolve(data);
@@ -53,13 +55,15 @@ var wizard = (function() {
       fetch(service(path), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        credentials: 'include'
       }).then(function(res) {
         if (res.ok) {
           resolve(res);
         } else {
           // The user isn't authorized, so make them sign in.
           openPage("/register");
+          reject(new Error("You are not authorized."));
         }
       }).catch(function(err) {
         console.error("Failed to POST to ".concat(path));
@@ -74,7 +78,7 @@ var wizard = (function() {
   function openInitialPage(event) {
     if (event) event.preventDefault();
 
-    fetchJson("/mines")
+    fetchJson("/mine/all")
       .then(function(listOfMines) {
         if (listOfMines.length) {
           // We have mines; display them in the dashboard page!
@@ -301,7 +305,7 @@ var wizard = (function() {
   }
 
   function renderDashboardMines() {
-    fetchJson("/mines")
+    fetchJson("/mine/all")
       .then(function(listOfMines) {
         listOfMines.forEach(function(mine) {
           if (mine.mineStatus === "in progress") {
@@ -400,7 +404,8 @@ var wizard = (function() {
 
       fetch(service("/data/file/upload"), {
         method: "POST",
-        body: formData
+        body: formData,
+        credentials: 'include'
       }).then(function(res) {
         // Things we need to do here:
         // - Somehow save the `fileId` we receive in the response
@@ -483,7 +488,7 @@ var wizard = (function() {
   }
 
   function initMapColumns() {
-    postData("/file/properties/detect", { fileId: "TODO" })
+    postData("/configurator/file/properties/detect", { fileId: "TODO" })
       .then(function(res) {
         return res.json();
       })
@@ -506,7 +511,7 @@ var wizard = (function() {
       }
     });
 
-    postData("/file/properties/save", { fileID: "TODO", answers: answers })
+    postData("/configurator/file/properties/save", { fileID: "TODO", answers: answers })
       .then(function(res) {
         openPage("/wizard/supplementaryData");
       });
@@ -517,7 +522,7 @@ var wizard = (function() {
    */
 
   function renderSupplementaryData() {
-    fetchJson("/mine/supplementaryDataSources")
+    fetchJson("/configurator/supplementaryDataSources")
       .then(function(dataSources) {
         var node = document.getElementById("supplementaryDataSources");
 
@@ -543,7 +548,7 @@ var wizard = (function() {
   }
 
   function renderDataTools() {
-    fetchJson("/mine/dataTools")
+    fetchJson("/configurator/dataTools")
       .then(function(tools) {
         var node = document.getElementById("dataTools");
 
@@ -610,13 +615,13 @@ var wizard = (function() {
   function saveSupplementaryDataSources() {
     var checked = getCheckedNames("supplementary");
 
-    return postData("/mine/supplementaryDataSources", { sources: checked });
+    return postData("/configurator/mine/supplementaryDataSources", { sources: checked });
   }
 
   function saveDataTools() {
     var checked = getCheckedNames("tool");
 
-    return postData("/mine/dataTools", { tools: checked });
+    return postData("/configurator/mine/dataTools", { tools: checked });
   }
 
   function saveSupplementaries() {
@@ -675,7 +680,7 @@ var wizard = (function() {
       'input[name="publicPrivate"]:checked'
     ).value;
 
-    postData("/mine/descriptors", { mineName: mineName, privacy: privacy })
+    postData("/configurator/mine/descriptors", { mineName: mineName, privacy: privacy })
       .then(function(res) {
         // TODO handle case where `mineName` is already taken
         openPage("/wizard/finalise");
@@ -750,7 +755,7 @@ var wizard = (function() {
   }
 
   function initFinalise() {
-    fetchJson("/mine/user-config")
+    fetchJson("/configurator/mine/user-config")
       .then(function(data) {
         renderFinaliseUploadedFiles(data.dataFiles);
         renderFinaliseSupplementaries(data.supplementaryDataSources, data.dataTools);
