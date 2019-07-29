@@ -1,3 +1,9 @@
+/* Possible polyfills we'll want:
+ * - Fetch
+ * - Promise
+ * - URL searchParams
+ */
+
 var wizard = (function() {
   /*
    * Helpers
@@ -6,8 +12,29 @@ var wizard = (function() {
   // var endpoint = "https://wizard.intermine.org/v1";
   var endpoint = "http://127.0.0.1:9991/api/v1";
 
-  function service(path) {
-    return endpoint.concat(path);
+  // Argument can be either a string representing the path or an object with
+  // `path` and `params` keys, where params is an object of string entries.
+  function service(arg) {
+    if (typeof arg === 'object') {
+      // When we add query params, our backend will complain if we don't have a
+      // trailing slash.
+      var path = arg.path.slice(-1) === '/' ? arg.path : arg.path.concat('/');
+
+      var url = new URL(endpoint.concat(path));
+
+      if ('params' in arg) {
+        for (var key in arg.params) {
+          if (arg.params.hasOwnProperty(key)) {
+            var val = arg.params[key];
+            url.searchParams.append(key, val);
+          }
+        }
+      }
+
+      return url;
+    } else {
+      return endpoint.concat(arg);
+    }
   }
 
   function openPage(path) {
@@ -29,8 +56,18 @@ var wizard = (function() {
 
   // Since our server (not the API) doesn't know whether the user is
   // authenticated, checking for this and sending them to the `/register` page
-  // is a common pattern. We codify this here, along with parsing the JSON of
-  // the response.
+  // is a common pattern. We codify this here, so that we can use it in our
+  // generic request functions below.
+  function handleErrorResponse(res) {
+    if (res.status === 401) {
+      // The user isn't authorized, so make them sign in.
+      openPage("/register");
+      return new Error("You are not authorized.");
+    } else {
+      return res;
+    }
+  }
+
   function fetchJson(path) {
     return new Promise(function(resolve, reject) {
       fetch(service(path), {
@@ -39,10 +76,9 @@ var wizard = (function() {
         .then(function(res) {
           if (res.ok) {
             return res.json();
+          } else {
+            reject(handleErrorResponse(res));
           }
-          // The user isn't authorized, so make them sign in.
-          openPage("/register");
-          reject(new Error("You are not authorized."));
         })
         .then(function(data) {
           resolve(data);
@@ -61,14 +97,24 @@ var wizard = (function() {
         if (res.ok) {
           resolve(res);
         } else {
-          // The user isn't authorized, so make them sign in.
-          openPage("/register");
-          reject(new Error("You are not authorized."));
+          reject(handleErrorResponse(res));
         }
-      }).catch(function(err) {
-        console.error("Failed to POST to ".concat(path));
-      });
+      })
     });
+  }
+
+  function createMineId() {
+    return new Promise(function(resolve, reject) {
+      fetchJson("/configurator/mine/user-config/new/")
+        .then(function(mineId) {
+          sessionStorage.setItem("mineId", mineId);
+          resolve(mineId);
+        });
+    });
+  }
+
+  function readMineId() {
+    return sessionStorage.getItem("mineId");
   }
 
   /*
@@ -84,8 +130,11 @@ var wizard = (function() {
           // We have mines; display them in the dashboard page!
           openPage("/dashboard");
         } else {
-          // We don't have mines; skip to the first wizard step.
-          openPage("/wizard/upload");
+          // We don't have mines; get started with the wizard!
+          createMineId()
+            .then(function() {
+              openPage("/wizard/upload");
+            });
         }
       });
   }
@@ -163,6 +212,17 @@ var wizard = (function() {
       postData("/user/register", inputData)
         .then(function(registerRes) {
           renderAlertMessage("registerFormAlert", "Account created successfully.");
+        })
+        .catch(function(errRes) {
+          if (errRes instanceof Error) {
+            console.error(errRes);
+          } else {
+            // Handle any error messages from backend.
+            errRes.json()
+              .then(function(res) {
+                renderAlertMessage("registerFormAlert", res.message);
+              });
+          }
         });
     }
 
@@ -188,6 +248,8 @@ var wizard = (function() {
         .then(function(loginRes) {
           openInitialPage();
         });
+      // TODO handle invalid login (I don't think the backend currently gives
+      // us a legibile response when this happens, just 400 Bad Request)
     }
 
     return false;
@@ -400,13 +462,20 @@ var wizard = (function() {
       var file = document.getElementById("fileUpload").files[0];
 
       var formData = new FormData();
-      formData.append("file", file);
+      formData.append("dataFile", file);
 
-      fetch(service("/data/file/upload"), {
+      var url = service({
+        path: "/data/file/upload/",
+        params: { mineId: readMineId() }
+      });
+
+      fetch(url, {
         method: "POST",
         body: formData,
         credentials: 'include'
       }).then(function(res) {
+        console.log("SUCCESSFULLY UPLOADED FILE!");
+        console.log(res);
         // Things we need to do here:
         // - Somehow save the `fileId` we receive in the response
         // - Display a loading indicator
@@ -488,7 +557,10 @@ var wizard = (function() {
   }
 
   function initMapColumns() {
-    postData("/configurator/file/properties/detect", { fileId: "TODO" })
+    postData({
+      path: "/configurator/file/properties/detect",
+      params: { mineId: readMineId() }
+    }, { fileId: "TODO" })
       .then(function(res) {
         return res.json();
       })
@@ -511,7 +583,10 @@ var wizard = (function() {
       }
     });
 
-    postData("/configurator/file/properties/save", { fileID: "TODO", answers: answers })
+    postData({
+      path: "/configurator/file/properties/save",
+      params: { mineId: readMineId() }
+    }, { fileID: "TODO", answers: answers })
       .then(function(res) {
         openPage("/wizard/supplementaryData");
       });
@@ -615,13 +690,19 @@ var wizard = (function() {
   function saveSupplementaryDataSources() {
     var checked = getCheckedNames("supplementary");
 
-    return postData("/configurator/mine/supplementaryDataSources", { sources: checked });
+    return postData({
+      path: "/configurator/mine/supplementaryDataSources",
+      params: { mineId: readMineId() }
+    }, { sources: checked });
   }
 
   function saveDataTools() {
     var checked = getCheckedNames("tool");
 
-    return postData("/configurator/mine/dataTools", { tools: checked });
+    return postData({
+      path: "/configurator/mine/dataTools",
+      params: { mineId: readMineId() }
+    }, { tools: checked });
   }
 
   function saveSupplementaries() {
@@ -680,7 +761,10 @@ var wizard = (function() {
       'input[name="publicPrivate"]:checked'
     ).value;
 
-    postData("/configurator/mine/descriptors", { mineName: mineName, privacy: privacy })
+    postData({
+      path: "/configurator/mine/descriptors",
+      params: { mineId: readMineId() }
+    }, { mineName: mineName, privacy: privacy })
       .then(function(res) {
         // TODO handle case where `mineName` is already taken
         openPage("/wizard/finalise");
@@ -755,7 +839,10 @@ var wizard = (function() {
   }
 
   function initFinalise() {
-    fetchJson("/configurator/mine/user-config")
+    fetchJson({
+      path: "/configurator/mine/user-config",
+      params: { mineId: readMineId() }
+    })
       .then(function(data) {
         renderFinaliseUploadedFiles(data.dataFiles);
         renderFinaliseSupplementaries(data.supplementaryDataSources, data.dataTools);
