@@ -41,15 +41,42 @@
 </div>
 <div class="wizardStep">
   <div class="subStep organism">
+    <h4 class="subHeader">What type of file is this?</h4>
+    <div class="infoBox subStepContent">
+      <ul>
+        <label class="title" for="filetype-select">Filetype:</label>
+        <select id="filetype-select">
+          <option value="">--Please select a filetype--</option>
+          <option value="gff">GFF</option>
+          <option value="fasta">FASTA</option>
+          <option value="tsv">TSV</option>
+          <option value="csv">CSV</option>
+          <option value="etc">ETC</option>
+        </select>
+      </ul>
+    </div>
+  </div>
+  <div class="subStep organism">
     <h4 class="subHeader">What organism is this file for? </h4>
     <div class="infoBox subStepContent">
       <ul>
-        <span class="title">Organism:</span>
-        <input type="text" id="organismSelector" placeholder="Type an organism name or taxon ID...">
+        <label class="title" for="organism-select">Organism:</label>
+        <select id="organism-select">
+          <option value="">--Please select an organism--</option>
+          <option value="7165">Anopheles gambiae</option>
+          <option value="6239">Caenorhabditis elegans</option>
+          <option value="7955">Danio rerio</option>
+          <option value="7227">Drosophila melanogaster</option>
+          <option value="9606">Homo sapiens</option>
+          <option value="10090">Mus musculus</option>
+          <option value="10116">Rattus norvegicus</option>
+          <option value="4932">Saccharomyces cerevisiae</option>
+        </select>
       </ul>
     </div>
   </div>
 </div>
+<span id="alert"></span>
 
 <%- include('partials/nextActions', currentPage); %>
 

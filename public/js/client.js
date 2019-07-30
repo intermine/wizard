@@ -103,18 +103,28 @@ var wizard = (function() {
     });
   }
 
+  // Wrapping our calls to `sessionStorage` can be useful in case we ever
+  // decide to use a different form of storage, or add side-effects.
+  function saveStorage(key, val) {
+    return sessionStorage.setItem(key, val);
+  }
+
+  function loadStorage(key) {
+    return sessionStorage.getItem(key);
+  }
+
   function createMineId() {
     return new Promise(function(resolve, reject) {
       fetchJson("/configurator/mine/user-config/new/")
         .then(function(mineId) {
-          sessionStorage.setItem("mineId", mineId);
+          saveStorage("mineId", mineId);
           resolve(mineId);
         });
     });
   }
 
   function readMineId() {
-    return sessionStorage.getItem("mineId");
+    return loadStorage("mineId");
   }
 
   /*
@@ -450,16 +460,45 @@ var wizard = (function() {
    * Page: wizard/upload
    */
 
+  function renderUploadAlert(text) {
+    var alert = document.getElementById("alert");
+    removeChildren(alert);
+    alert.appendChild(document.createTextNode(text));
+  }
+
+  function readUploadData() {
+    var fileFormat = document.getElementById("filetype-select").value;
+
+    var organismSelect = document.getElementById("organism-select");
+    var taxonID = organismSelect.value;
+    var organismName = organismSelect.options[organismSelect.selectedIndex].text;
+
+    if (!fileFormat || !taxonID) {
+      throw new Error("Please fill in all the fields.");
+    }
+
+    return {
+      fileFormat: fileFormat,
+      organism: {
+        name: organismName,
+        taxonID: taxonID
+      }
+    };
+  }
+
   function uploadFile() {
     var remoteUrl = document.getElementById("remoteFile").value;
+    var files = document.getElementById("fileUpload").files;
 
     if (remoteUrl) {
+      // TODO test uploading of remote URLs
+      // (I don't think this is handled by our backend yet.)
       postData("/data/file/upload/remote", { remoteUrl: remoteUrl })
         .then(function(res) {
           openPage("/wizard/mapColumns");
         });
-    } else {
-      var file = document.getElementById("fileUpload").files[0];
+    } else if (files.length) {
+      var file = files[0];
 
       var formData = new FormData();
       formData.append("dataFile", file);
@@ -474,13 +513,25 @@ var wizard = (function() {
         body: formData,
         credentials: 'include'
       }).then(function(res) {
-        console.log("SUCCESSFULLY UPLOADED FILE!");
-        console.log(res);
-        // Things we need to do here:
-        // - Somehow save the `fileId` we receive in the response
-        // - Display a loading indicator
-        // - When uploading is completed, we can go to the next page
+        return res.text();
+      }).then(function(fileId) {
+        var fileName = files[0].name;
+
+        try {
+          var fileObj = readUploadData();
+          fileObj.name = fileName;
+          fileObj.fileId = fileId;
+
+          saveStorage("currentFile", JSON.stringify(fileObj));
+          openPage("/wizard/mapColumns");
+        } catch(err) {
+          renderUploadAlert(err.message);
+        }
+      }).catch(function(err) {
+        renderUploadAlert("Failed to upload file.");
       });
+    } else {
+      renderUploadAlert("Please specify a file to upload.");
     }
   }
 
