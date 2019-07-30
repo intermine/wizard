@@ -1,0 +1,108 @@
+<% var currentPage = {activeClass : "upload"} %>
+
+<%- include('../partials/head', {title : "Dashboard | InterMine"}); %>
+
+<%- include('partials/breadcrumbs', currentPage); %>
+
+<div class="wizardStep">
+  <h2 class="sectionHeader">Upload your files</h2>
+  <div class="uploadAndGuidance">
+    <div class="upload subStep">
+      <svg class="icon icon-file"><use xlink:href="#icon-file"></use></svg>
+      <div class="uploadOptions">
+        <div>Drag a file here</div>
+        <div class="or">OR</div>
+        <input type="file" id="fileUpload" name="dataFile" />
+        <button id="fakeFileUpload">
+          <svg class="icon icon-browse"><use xlink:href="#icon-browse"></use></svg>
+          Browse for a file or folder
+        </button>
+        <div id="fileName"></div>
+        <div class="or">OR</div>
+        <label class="pasteUrl">
+            <span>Paste a URL (e.g. to a large Google Drive file):</span>
+            <input type="text" id="remoteFile"></input>
+        </label>
+      </div>
+    </div>
+    <div class="guidance subStep">
+      <p>
+        <svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg> Files we can accept include:
+      </p>
+      <ul>
+        <li>gff</li>
+        <li>fasta</li>
+        <li>.tsv</li>
+        <li>.csv</li>
+        <li>.etc</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="wizardStep">
+  <div class="subStep organism">
+    <h4 class="subHeader">What type of file is this?</h4>
+    <div class="infoBox subStepContent">
+      <ul>
+        <label class="title" for="filetype-select">Filetype:</label>
+        <select id="filetype-select">
+          <option value="">--Please select a filetype--</option>
+          <option value="gff">GFF</option>
+          <option value="fasta">FASTA</option>
+          <option value="tsv">TSV</option>
+          <option value="csv">CSV</option>
+          <option value="etc">ETC</option>
+        </select>
+      </ul>
+    </div>
+  </div>
+  <div class="subStep organism">
+    <h4 class="subHeader">What organism is this file for? </h4>
+    <div class="infoBox subStepContent">
+      <ul>
+        <label class="title" for="organism-select">Organism:</label>
+        <select id="organism-select">
+          <option value="">--Please select an organism--</option>
+          <option value="7165">Anopheles gambiae</option>
+          <option value="6239">Caenorhabditis elegans</option>
+          <option value="7955">Danio rerio</option>
+          <option value="7227">Drosophila melanogaster</option>
+          <option value="9606">Homo sapiens</option>
+          <option value="10090">Mus musculus</option>
+          <option value="10116">Rattus norvegicus</option>
+          <option value="4932">Saccharomyces cerevisiae</option>
+        </select>
+      </ul>
+    </div>
+  </div>
+</div>
+<span id="alert"></span>
+
+<%- include('partials/nextActions', currentPage); %>
+
+<script>
+  (function() {
+    //browse dialogues are unstyleable so we have to hide it and create our own.
+    var fakeFile = document.getElementById('fakeFileUpload');
+    var realFile = document.getElementById("fileUpload");
+
+    fakeFile.addEventListener("click", function() {
+      realFile.click();
+    });
+
+    realFile.addEventListener("change", function(file) {
+      var fileName = this.files[0].name;
+      document.getElementById("fileName").innerHTML = fileName;
+    });
+
+    // Make the next page button fire the upload function.
+    var nextPage = document.getElementById("nextPageLink");
+
+    nextPage.addEventListener("click", function(event) {
+      event.preventDefault();
+      wizard.uploadFile();
+    });
+  })();
+</script>
+
+<%- include('../partials/foot'); %>

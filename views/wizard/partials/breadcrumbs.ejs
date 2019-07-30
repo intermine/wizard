@@ -1,0 +1,50 @@
+  <nav class="breadcrumbs">
+    Progress:
+    <ol>
+      <%
+      // isStepComplete allows us to
+      // add a hyperlink for steps that are before the active step
+      // but don't allow people to skip ahead of current step
+      //
+      // Q for later: what about when we have multiple files or have gone back?
+      // maybe store in session or better on remote server
+      var isStepComplete = true;
+
+      steps.map(function(step, index) {
+          //setup vars so the template logic is easier to read
+          var pageLink = "";
+          if (isStepComplete) { pageLink = step.name;}
+
+          var isActive = (activeClass == step.name);
+          if (isActive) {isStepComplete = false;}
+
+
+          //template logic:
+
+          // current page
+        if (isActive) { %>
+        <li class="active">
+          <%= step.text %>
+        </li>
+
+        <%# previous page the user has visited and can go back to %>
+          <% } else {
+              if (isStepComplete) { %>
+            <li class="complete">
+              <a href="<%= pageLink %>">
+                <%= step.text %>
+              </a>
+            </li>
+
+            <%# future page the user hasn't been to
+              yet and can't skip ahead to %>
+              <%  } else { %>
+                <li>
+                  <%= step.text %>
+                </li>
+                <%
+              }
+            } });
+             %>
+    </ol>
+  </nav>
