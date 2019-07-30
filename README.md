@@ -15,7 +15,7 @@ See also the related API spec: https://github.com/intermine/wizard-api-specs/
 ### Clone and start the wizard
 
 ```bash
-git clone git@github.com:yochannah/wizard.git
+git clone git@github.com:intermine/wizard.git
 cd wizard
 npm install
 npm start
