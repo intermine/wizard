@@ -1,0 +1,67 @@
+<% var currentPage = {activeClass : "supplementaryData"} %>
+
+<%- include('../partials/head', {title : "Supplementary Data | InterMine"}); %>
+
+<%- include('partials/breadcrumbs', currentPage); %>
+
+      <div class="wizardStep supplementary">
+          <h2 class="sectionHeader">Supplementary data sources </h2>
+          <div class="">
+              <p>
+                Based on your uploaded data, the following supplementary data sources might be useful:
+              </p>
+              <ul id="supplementaryDataSources">
+                <li><label><input type="checkbox" value="uniprot" name="supplementary" checked="checked">Uniprot protein data</label></li>
+                <li><label><input type="checkbox" value="pubmed" name="supplementary" checked="checked">Pubmed publication data</label></li>
+                <li><label><input type="checkbox" value="go" name="supplementary">GO annotations</label></li>
+                <li><label><input type="checkbox" value="ncbi" name="supplementary" checked="checked">NCBI - whole genome </label></li>
+              </ul>
+          </div>
+      </div>
+      <div class="wizardStep toolPreview">
+          <h2 class="sectionHeader">Data tools </h2>
+          <div class="">
+              <p>
+                We've added the following tools to your InterMine automatically:
+              </p>
+              <ul id="dataTools">
+                <li>
+                  <h3 class="subHeader">Cytoscape</h3>
+                  <p>Gene &amp; protein network interaction visualiser</p>
+                  <label><input type="checkbox" value="Cytoscape" name="tool" checked="checked">Enabled</label>
+
+                  <div class="imagePreview"><img src="/images/cytoscape.png" /></div>
+                </li>
+                <li>
+                  <h3 class="subHeader">ProtVista</h3>
+                  <p>Protein feature browser</p>
+                  <div class="imagePreview"><img src="/images/protvista.png" /></div>
+                  <label><input type="checkbox" value="ProtVista" name="tool">Enabled</label>
+                </li>
+                <li>
+                  <h3 class="subHeader">GXA Expression viewer</h3>
+                  <p>Visualise gene expression in a heatmap</p>
+                  <div class="imagePreview"><img src="/images/gxa-expression-viewer.png" /></div>
+                  <label><input type="checkbox" value="GXA" name="tool" checked="checked">Enabled</label>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+<%- include('partials/nextActions', currentPage); %>
+
+  <script>
+    window.onload = function() {
+      wizard.initSupplementaries();
+
+      // Make the next page button fire the save function.
+      var nextPage = document.getElementById("nextPageLink");
+
+      nextPage.addEventListener("click", function(event) {
+        event.preventDefault();
+        wizard.saveSupplementaries();
+      });
+    };
+  </script>
+
+<%- include('../partials/foot'); %>

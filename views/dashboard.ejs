@@ -1,0 +1,124 @@
+<%- include('partials/head', {title : "Dashboard | InterMine"}); %>
+    <div class="dashboard">
+      <h2 class="sectionHeader">My InterMines </h2>
+      <div class="">
+        <h3>Under construction</h3>
+        <ul id="in-progress-mines">
+          <li class="header">
+            <div class="mine-status">Status</div>
+            <div class="mine-name">Name</div>
+            <div class="mine-config">Actions</div>
+            <div class="mine-due-date tooltip" tooltip="Incomplete InterMines will expire after one week of inactivity.">Complete by
+              <svg class="icon icon-info">
+                <use xlink:href="#icon-info" title="Only restart your server if something isn't working correctly. Hopefully you'll never need it!"></use>
+              </svg>
+            </div>
+          </li>
+
+          <li>
+            <div class="status construction">
+              <svg class="icon icon-building">
+                <use xlink:href="#icon-building"></use>
+              </svg>
+              <p>Incomplete</p>
+            </div>
+            <div>
+              <a href="http://www.humanmine.org">Untitled work in progress</a>
+            </div>
+            <div class="continue-wizard">
+              <div>
+                <a href="3-upload-complete-fasta.html" class="resume">
+                  <svg class="icon icon-resume">
+                    <use xlink:href="#icon-resume"></use>
+                  </svg>
+                  Continue setup
+                </a>
+              </div>
+              <div>
+                <a href="#" class="discard">
+                  <svg class="icon icon-cancel">
+                    <use xlink:href="#icon-cancel"></use>
+                  </svg>
+                  Discard
+                </a>
+              </div>
+            </div>
+            <div>2019-12-12 23:59</div>
+          </li>
+        </ul>
+        <h3>Complete InterMines</h3>
+        <ul id="running-mines">
+          <li class="header">
+            <div class="mine-status">Status</div>
+            <div class="mine-name">Name</div>
+            <div class="mine-config">Data Config</div>
+            <div class="mine-troubleshooting">
+              <svg class="icon icon-info">
+              </svg>
+            </div>
+          </li>
+          <li>
+            <div class="status active">
+              <svg class="icon icon-checkmark">
+                <use xlink:href="#icon-checkmark"></use>
+              </svg>
+              <p>Active</p>
+            </div>
+            <div><a href="http://www.humanmine.org">KittenMine</a></div>
+            <div class="mine-config">
+              <a href="config">
+                <svg class="icon icon-view">
+                  <use xlink:href="#icon-view"></use>
+                </svg>
+                View
+              </a>
+              <a href="#">
+                <svg class="icon icon-download">
+                  <use xlink:href="#icon-download"></use>
+                </svg>
+                Export
+              </a>
+            </div>
+            <div class="mine-troubleshooting">
+              <a href="#"> Delete</a>
+            </div>
+          </li>
+          <li>
+            <div class="status building">
+              <svg class="icon icon-preparing">
+                <use xlink:href="#icon-preparing"></use>
+              </svg>
+              <p>Preparing</p>
+            </div>
+            <div>
+              <a href="http://www.humanmine.org">PuppyMine</a>
+            </div>
+            <div class="mine-config">
+              <a href="config">
+                <svg class="icon icon-view">
+                  <use xlink:href="#icon-view"></use>
+                </svg>
+                View
+              </a>
+              <a href="#">
+                <svg class="icon icon-download">
+                  <use xlink:href="#icon-download"></use>
+                </svg>
+                Export
+              </a>
+            </div>
+            <div class="mine-troubleshooting">
+              <a href="#"> Delete</a>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <script>
+      window.onload = function() {
+        wizard.renderDashboardMines();
+      };
+    </script>
+  <%- include('partials/foot'); %>

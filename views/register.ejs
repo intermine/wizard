@@ -1,0 +1,48 @@
+<%- include('./partials/head', {title : "Register or Sign In"}); %>
+
+    <div class="wizardStep register-or-sign-in">
+      <h3>Sign in or Register</h3>
+      <div class="register-or-sign-in">
+        <div class="registration">
+          <h4>New user? </h4>
+          <form id="registerForm" action="dashboard" onsubmit="return wizard.registerUser(event);">
+            <label>
+              Email: <input type="email" id="register-email" required></input>
+            </label>
+            <label>
+              First name: <input type="text" id="register-first-name" required></input>
+            </label>
+            <label>
+              Last name: <input type="text" id="register-last-name" required></input>
+            </label>
+            <label>
+              Organisation: <input type="text" id="register-organisation" required></input>
+            </label>
+            <label>
+              Password: <input type="password" id="register-password" required></input>
+            </label>
+            <label>
+              Password again: <input type="password" id="register-password-confirm" required></input>
+            </label>
+            <button type="submit" class="back">Register</button>
+            <span id="registerFormAlert"></span>
+          </form>
+        </div>
+        <div class="sign-in">
+          <h4>Have an account? </h4>
+          <form id="signinForm" action="dashboard" onsubmit="return wizard.loginUser(event);">
+            <label>
+              Email: <input type="email" id="signin-email" required></input>
+            </label>
+            <label>
+              Password: <input type="password" id="signin-password" required></input>
+            </label>
+            <a href="#">Forgot your password?</a>
+            <button type="submit" class="back">Sign in</button>
+            <span id="signinFormAlert"></span>
+          </form>
+        </div>
+      </div>
+    </div>
+
+<%- include('./partials/foot'); %>
