@@ -3,8 +3,8 @@ import defaultExport from "./register.js";
 
 /* Possible polyfills we'll want:
  * - Fetch
- * - Promise
- * - URL searchParams
+ * - Promise.
+ * - URL searchParams.
  */
 
 export default (function() {
@@ -22,18 +22,77 @@ export default (function() {
     elem.appendChild(text);
   }
 
+  // Since our server (not the API) doesn't know whether the user is
+  // authenticated, checking for this and sending them to the `/register` page
+  // is a common pattern. We codify this here, so that we can use it in our
+  // generic request functions below.
+  function handleErrorResponse(res) {
+    if (res.status === 401) {
+      // The user isn't authorized, so make them sign in.
+      openPage("/register");
+      return new Error("You are not authorized.");
+    } else {
+      return res;
+    }
+  }
+
+  function fetchJson(path) {
+    return new Promise(function(resolve, reject) {
+      fetch(service(path), {
+        credentials: 'include'
+      })
+        .then(function(res) {
+          if (res.ok) {
+            return res.json();
+          } else {
+            reject(handleErrorResponse(res));
+          }
+        })
+        .then(function(data) {
+          resolve(data);
+        });
+    });
+  }
+
+  function postData(path, data) {
+    return new Promise(function(resolve, reject) {
+      fetch(service(path), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+        credentials: 'include'
+      }).then(function(res) {
+        if (res.ok) {
+          resolve(res);
+        } else {
+          reject(handleErrorResponse(res));
+        }
+      })
+    });
+  }
+
+  // Wrapping our calls to `sessionStorage` can be useful in case we ever
+  // decide to use a different form of storage, or add side-effects.
+  function saveStorage(key, val) {
+    return sessionStorage.setItem(key, val);
+  }
+
+  function loadStorage(key) {
+    return sessionStorage.getItem(key);
+  }
+
   function createMineId() {
     return new Promise(function(resolve, reject) {
       fetchJson("/configurator/mine/user-config/new/")
         .then(function(mineId) {
-          sessionStorage.setItem("mineId", mineId);
+          saveStorage("mineId", mineId);
           resolve(mineId);
         });
     });
   }
 
   function readMineId() {
-    return sessionStorage.getItem("mineId");
+    return loadStorage("mineId");
   }
 
   /*
@@ -369,16 +428,45 @@ export default (function() {
    * Page: wizard/upload
    */
 
+  function renderUploadAlert(text) {
+    var alert = document.getElementById("alert");
+    removeChildren(alert);
+    alert.appendChild(document.createTextNode(text));
+  }
+
+  function readUploadData() {
+    var fileFormat = document.getElementById("filetype-select").value;
+
+    var organismSelect = document.getElementById("organism-select");
+    var taxonID = organismSelect.value;
+    var organismName = organismSelect.options[organismSelect.selectedIndex].text;
+
+    if (!fileFormat || !taxonID) {
+      throw new Error("Please fill in all the fields.");
+    }
+
+    return {
+      fileFormat: fileFormat,
+      organism: {
+        name: organismName,
+        taxonID: taxonID
+      }
+    };
+  }
+
   function uploadFile() {
     var remoteUrl = document.getElementById("remoteFile").value;
+    var files = document.getElementById("fileUpload").files;
 
     if (remoteUrl) {
+      // TODO test uploading of remote URLs
+      // (I don't think this is handled by our backend yet.)
       postData("/data/file/upload/remote", { remoteUrl: remoteUrl })
         .then(function(res) {
           openPage("/wizard/mapColumns");
         });
-    } else {
-      var file = document.getElementById("fileUpload").files[0];
+    } else if (files.length) {
+      var file = files[0];
 
       var formData = new FormData();
       formData.append("dataFile", file);
@@ -393,13 +481,25 @@ export default (function() {
         body: formData,
         credentials: 'include'
       }).then(function(res) {
-        console.log("SUCCESSFULLY UPLOADED FILE!");
-        console.log(res);
-        // Things we need to do here:
-        // - Somehow save the `fileId` we receive in the response
-        // - Display a loading indicator
-        // - When uploading is completed, we can go to the next page
+        return res.text();
+      }).then(function(fileId) {
+        var fileName = files[0].name;
+
+        try {
+          var fileObj = readUploadData();
+          fileObj.name = fileName;
+          fileObj.fileId = fileId;
+
+          saveStorage("currentFile", JSON.stringify(fileObj));
+          openPage("/wizard/mapColumns");
+        } catch(err) {
+          renderUploadAlert(err.message);
+        }
+      }).catch(function(err) {
+        renderUploadAlert("Failed to upload file.");
       });
+    } else {
+      renderUploadAlert("Please specify a file to upload.");
     }
   }
 
