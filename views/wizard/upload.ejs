@@ -80,29 +80,9 @@
 
 <%- include('partials/nextActions', currentPage); %>
 
-<script>
-  (function() {
-    //browse dialogues are unstyleable so we have to hide it and create our own.
-    var fakeFile = document.getElementById('fakeFileUpload');
-    var realFile = document.getElementById("fileUpload");
-
-    fakeFile.addEventListener("click", function() {
-      realFile.click();
-    });
-
-    realFile.addEventListener("change", function(file) {
-      var fileName = this.files[0].name;
-      document.getElementById("fileName").innerHTML = fileName;
-    });
-
-    // Make the next page button fire the upload function.
-    var nextPage = document.getElementById("nextPageLink");
-
-    nextPage.addEventListener("click", function(event) {
-      event.preventDefault();
-      wizard.uploadFile();
-    });
-  })();
+<script type="module">
+import {initFileDialogue} from '../js/wizard/upload.js';
+initFileDialogue();
 </script>
 
 <%- include('../partials/foot'); %>
