@@ -6,7 +6,7 @@
         <tbody>
           <tr>
             <td class="title">Email:</td>
-            <td>alice@intermine.org</td>
+            <td></td>
             <td class="edit">
               <svg class="icon icon-edit">
                 <use xlink:href="#icon-edit"></use>
@@ -15,7 +15,7 @@
 
           <tr>
             <td class="title">First Name(s):</td>
-            <td>Alice</td>
+            <td></td>
             <td class="edit">
               <svg class="icon icon-edit">
                 <use xlink:href="#icon-edit"></use>
@@ -24,7 +24,7 @@
 
           <tr>
             <td class="title">Last Name(s):</td>
-            <td>Cooper</td>
+            <td></td>
             <td class="edit">
               <svg class="icon icon-edit">
                 <use xlink:href="#icon-edit"></use>
@@ -33,7 +33,7 @@
 
           <tr>
             <td class="title">Organisation:</td>
-            <td>University of Cambridge</td>
+            <td></td>
             <td class="edit">
               <svg class="icon icon-edit">
                 <use xlink:href="#icon-edit"></use>
@@ -47,15 +47,23 @@
               <svg class="icon icon-edit">
                 <use xlink:href="#icon-edit"></use>
               </svg>
+              </td>
           </tr>
 
         </tbody>
       </table>
+      <a href="#" id="logout">Log out</a>
     </div>
 
-    <script>
+    <script type="module">
+      import {renderUserProfile} from '../js/profile.js';
+      import {logoutUser} from '../js/user.js';
       window.onload = function() {
-        wizard.renderUserProfile("userProfile");
+
+        renderUserProfile("userProfile");
+
+        var logoutButton = document.getElementById('logout');
+        logoutButton.addEventListener("click", logoutUser);
       };
     </script>
 <%- include('../partials/foot'); %>

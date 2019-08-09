@@ -1,7 +1,7 @@
-import {postData, openPage} from "./comms.js";
+import {fetchJson,postData, openPage, service} from "./comms.js";
 import {clearAlertMessage, renderAlertMessage} from "./ui.js";
+import {openInitialPage} from "./home.js";
 
-export default (function() {
 
   /*
    * Page: register
@@ -64,7 +64,7 @@ export default (function() {
     if (inputData) {
       postData("/user/register", inputData)
         .then(function(registerRes) {
-          renderAlertMessage("registerFormAlert", "Account created successfully.");
+          renderAlertMessage("alertbox", "Account created successfully.");
         })
         .catch(function(errRes) {
           if (errRes instanceof Error) {
@@ -109,4 +109,20 @@ export default (function() {
   }
 
 
-});
+function logoutUser() {
+  var path = "/user/logout";
+  fetchJson(path).then(function(response) {
+    console.log(response);
+    if(response.message) {
+      openPage("/register");
+      // todo - also post statuse message saying there has been a successful
+      // logout. Add soemthing to the openpage method to print to the header
+      // alertbox
+    } else {
+      renderAlertMessage("alertbox", "Uhoh, problem logging out!");
+    }
+  });
+}
+
+
+export {loginUser, logoutUser, registerUser}

@@ -1,3 +1,5 @@
+
+
 function renderAlertMessage(elemId, text) {
   var span = document.getElementById(elemId);
 
@@ -23,4 +25,10 @@ function replaceText(elemId, text) {
   elem.appendChild(text);
 }
 
-export {clearAlertMessage, renderAlertMessage, removeChildren, replaceText}
+
+export {
+  clearAlertMessage,
+  renderAlertMessage,
+  removeChildren,
+  replaceText
+}

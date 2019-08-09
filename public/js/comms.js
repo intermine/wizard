@@ -80,6 +80,17 @@ function openPage(path) {
 }
 
 
+  // Wrapping our calls to `sessionStorage` can be useful in case we ever
+  // decide to use a different form of storage, or add side-effects.
+  function saveStorage(key, val) {
+    return sessionStorage.setItem(key, val);
+  }
+
+  function loadStorage(key) {
+    return sessionStorage.getItem(key);
+  }
+
+
 export {
-  postData, fetchJson, service, openPage
+  postData, fetchJson, service, openPage, saveStorage, loadStorage
 }

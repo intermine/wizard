@@ -1,5 +1,6 @@
 import {postData, fetchJson, service, openPage} from "./comms.js";
-import defaultExport from "./register.js";
+import {loginUser, logoutUser,registerUser } from "./user.js";
+import {openInitialPage} from "./home.js";
 
 /* Possible polyfills we'll want:
  * - Fetch
@@ -71,167 +72,6 @@ export default (function() {
     });
   }
 
-  // Wrapping our calls to `sessionStorage` can be useful in case we ever
-  // decide to use a different form of storage, or add side-effects.
-  function saveStorage(key, val) {
-    return sessionStorage.setItem(key, val);
-  }
-
-  function loadStorage(key) {
-    return sessionStorage.getItem(key);
-  }
-
-  function createMineId() {
-    return new Promise(function(resolve, reject) {
-      fetchJson("/configurator/mine/user-config/new/")
-        .then(function(mineId) {
-          saveStorage("mineId", mineId);
-          resolve(mineId);
-        });
-    });
-  }
-
-  function readMineId() {
-    return loadStorage("mineId");
-  }
-
-  /*
-   * Page: home
-   */
-
-  function openInitialPage(event) {
-    if (event) event.preventDefault();
-
-    fetchJson("/mine/all")
-      .then(function(listOfMines) {
-        if (listOfMines.length) {
-          // We have mines; display them in the dashboard page!
-          openPage("/dashboard");
-        } else {
-          // We don't have mines; get started with the wizard!
-          createMineId()
-            .then(function() {
-              openPage("/wizard/upload");
-            });
-        }
-      });
-  }
-
-  /*
-   * Page: register
-   */
-
-  function renderAlertMessage(elemId, text) {
-    var span = document.getElementById(elemId);
-
-    span.appendChild(document.createTextNode(text));
-  }
-
-  function clearAlertMessage(elemId) {
-    var span = document.getElementById(elemId);
-
-    removeChildren(span);
-  }
-
-  function readForm(obj) {
-    var inputs = {};
-
-    Object.entries(obj.inputs).forEach(function(entry) {
-      var key = entry[0];
-      var val = entry[1];
-      inputs[key] = document.getElementById(val).value;
-    });
-
-    clearAlertMessage(obj.alertId);
-
-    var error = obj.validations.some(function(testFun) {
-      var res = testFun(inputs);
-      if (res) renderAlertMessage(obj.alertId, res);
-      return res;
-    });
-
-    if (error) return;
-    else return inputs;
-  }
-
-  var validate = {
-    passwordsMatch: function(inputs) {
-      if (inputs.password !== inputs.passwordConfirm) {
-        return "Passwords do not match.";
-      }
-    },
-    notEmpty: function(inputs) {
-      if (Object.values(inputs).some(function(inp) { return !inp; })) {
-        return "Please fill in all the fields.";
-      }
-    }
-  };
-
-  function registerUser(event) {
-    event.preventDefault();
-
-    var inputData = readForm({
-      inputs: {
-        email: "register-email",
-        firstName: "register-first-name",
-        lastName: "register-last-name",
-        organisation: "register-organisation",
-        password: "register-password",
-        passwordConfirm: "register-password-confirm"
-      },
-      alertId: "registerFormAlert",
-      validations: [
-        validate.passwordsMatch,
-        validate.notEmpty,
-      ]
-    });
-
-    if (inputData) {
-      postData("/user/register", inputData)
-        .then(function(registerRes) {
-          renderAlertMessage("registerFormAlert", "Account created successfully.");
-        })
-        .catch(function(errRes) {
-          if (errRes instanceof Error) {
-            console.error(errRes);
-          } else {
-            // Handle any error messages from backend.
-            errRes.json()
-              .then(function(res) {
-                renderAlertMessage("registerFormAlert", res.message);
-              });
-          }
-        });
-    }
-
-    return false;
-  }
-
-  function loginUser(event) {
-    event.preventDefault();
-
-    var inputData = readForm({
-      inputs: {
-        email: "signin-email",
-        password: "signin-password"
-      },
-      alertId: "signinFormAlert",
-      validations: [
-        validate.notEmpty,
-      ]
-    });
-
-    if (inputData) {
-      postData("/user/login", inputData)
-        .then(function(loginRes) {
-          openInitialPage();
-        });
-      // TODO handle invalid login (I don't think the backend currently gives
-      // us a legibile response when this happens, just 400 Bad Request)
-    }
-
-    return false;
-  }
 
   /*
    * Page: dashboard
@@ -354,73 +194,6 @@ export default (function() {
             renderRunningMine(mine);
           }
         });
-      });
-  }
-
-  /*
-   * Page: users/profile
-   */
-
-  function createUserProfileEntry(entry) {
-    var tr = document.createElement('tr');
-
-    var title = entry[0];
-    var value = entry[1];
-
-    tr.innerHTML =
-      '<td class="title">' + title + '</td>' +
-      '<td>' + value + '</td>' +
-      '<td class="edit">' +
-        '<svg class="icon icon-edit">' +
-          '<use xlink:href="#icon-edit"></use>' +
-        '</svg>' +
-      '</td>';
-
-    return tr;
-  }
-
-  function createUserProfilePassword() {
-    var tr = document.createElement('tr');
-
-    tr.innerHTML =
-      '<td class="title">Password:</td>' +
-      '<td class="topsecret">[Top secret] <a href="change-password.html">Change</a></td>' +
-      '<td class="edit">' +
-        '<svg class="icon icon-edit">' +
-          '<use xlink:href="#icon-edit"></use>' +
-        '</svg>' +
-      '</td>';
-
-    return tr;
-  }
-
-  function createUserProfilePairs(userData) {
-    return [
-      ["Email:", userData.email],
-      ["First Name(s):", userData.firstName],
-      ["Last Name(s):", userData.lastName],
-      ["Organisation:", userData.organisation]
-    ];
-  }
-
-  function renderUserProfile(targetId) {
-    fetchJson("/user/profile")
-      .then(function(user) {
-        var node = document.getElementById(targetId);
-        var container = document.createElement('tbody');
-
-        var profilePairs = createUserProfilePairs(user);
-
-        profilePairs.forEach(function(entry) {
-          var elem = createUserProfileEntry(entry);
-          container.appendChild(elem);
-        });
-
-        var passwordElem = createUserProfilePassword();
-        container.appendChild(passwordElem);
-
-        removeChildren(node);
-        node.appendChild(container);
       });
   }
 
@@ -578,7 +351,10 @@ export default (function() {
   function initMapColumns() {
     postData({
       path: "/configurator/file/properties/detect",
-      params: { mineId: readMineId() }
+      params: {
+        mineId: readMineId(),
+        userId: ''
+      }
     }, { fileId: "TODO" })
       .then(function(res) {
         return res.json();
@@ -877,8 +653,8 @@ export default (function() {
     openInitialPage: openInitialPage,
     registerUser: registerUser,
     loginUser: loginUser,
+    logoutUser: logoutUser,
     renderDashboardMines: renderDashboardMines,
-    renderUserProfile: renderUserProfile,
     uploadFile: uploadFile,
     initMapColumns: initMapColumns,
     saveMapColumns: saveMapColumns,
