@@ -1,4 +1,4 @@
-import {service, saveStorage, openPage} from '../comms.js'
+import {service, saveStorage, loadStorage, openPage} from '../comms.js'
 import {readMineId} from '../mineIDs.js'
 import {removeChildren} from '../ui.js'
 

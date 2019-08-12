@@ -7,7 +7,7 @@
     "build": "npx webpack --config webpack.config.js",
     "watchBuild": "npx webpack --watch --config webpack.config.js",
     "refreshServer": "npx nodemon ./bin/www",
-    "dev" : "concurrently \"npm run watchBuild\" \"npm run refreshServer\""
+    "dev": "concurrently \"npm run watchBuild\" \"npm run refreshServer\""
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
