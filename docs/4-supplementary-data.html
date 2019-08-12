@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+    <symbol id="icon-pencil" viewBox="0 0 32 32">
+    <title>pencil</title>
+    <path d="M27 0c2.761 0 5 2.239 5 5 0 1.126-0.372 2.164-1 3l-2 2-7-7 2-2c0.836-0.628 1.874-1 3-1zM2 23l-2 9 9-2 18.5-18.5-7-7-18.5 18.5zM22.362 11.362l-14 14-1.724-1.724 14-14 1.724 1.724z"></path>
+    </symbol>
+    <symbol id="icon-info" viewBox="0 0 32 32">
+<title>info</title>
+<path d="M14 9.5c0-0.825 0.675-1.5 1.5-1.5h1c0.825 0 1.5 0.675 1.5 1.5v1c0 0.825-0.675 1.5-1.5 1.5h-1c-0.825 0-1.5-0.675-1.5-1.5v-1z"></path>
+<path d="M20 24h-8v-2h2v-6h-2v-2h6v8h2z"></path>
+<path d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13z"></path>
+</symbol>
+    </defs>
+    </svg>
+
+</head>
+
+
+<body>
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <main>
+      <nav class="breadcrumbs">
+        Progress:
+        <ol>
+          <li class="complete">
+            <a href="2-file-chosen.html">Upload files</a>
+          </li>
+          <li class="complete">
+            <a href="3-upload-complete-fasta.html">Map columns</a>
+          </li>
+          <li class="active">
+            Supplementary data
+          </li>
+          <li>
+            Configure settings
+          </li>
+          <li>
+            Finalise &amp; save
+          </li>
+        </ol>
+      </nav>
+
+      <div class="wizardStep supplementary">
+          <h2 class="sectionHeader">Supplementary data sources </h2>
+          <div class="">
+              <p>
+                Based on your uploaded data, the following supplementary data sources might be useful:
+              </p>
+              <ul>
+                <li><label><input type="checkbox" checked="checked">Uniprot protein data</label></li>
+                <li><label><input type="checkbox" checked="checked">Pubmed publication data</label></li>
+                <li><label><input type="checkbox" checked="checked">GO annotations</label></li>
+                <li><label><input type="checkbox" checked="checked">NCBI - whole genome </label></li>
+                <li><label><input type="checkbox" checked="checked">Other ... </label></li>
+              </ul>
+          </div>
+      </div>
+      <div class="wizardStep toolPreview">
+          <h2 class="sectionHeader">Data tools </h2>
+          <div class="">
+              <p>
+                We've added the following tools to your InterMine automatically:
+              </p>
+              <ul>
+                <li>
+                  <h3 class="subHeader">Cytoscape</h3>
+                  <p>Gene &amp; protein network interaction visualiser</p>
+                  <label><input type="checkbox" checked="checked">Enabled</label>
+
+                  <div class="imagePreview"><img src="images/cytoscape.png" /></div>
+                </li>
+                <li>
+                  <h3 class="subHeader">ProtVista</h3>
+                  <p>Protein feature browser</p>
+                  <div class="imagePreview"><img src="images/protvista.png" /></div>
+                  <label><input type="checkbox" checked="checked">Enabled</label>
+                </li>
+                <li>
+                  <h3 class="subHeader">GXA Expression viewer</h3>
+                  <p>Visualise gene expression in a heatmap</p>
+                  <div class="imagePreview"><img src="images/gxa-expression-viewer.png" /></div>
+                  <label><input type="checkbox" checked="checked">Enabled</label>
+                </li>
+              </ul>
+          </div>
+      </div>
+        <div class="wizardStep nextActions">
+          <a href="3-upload-complete.html" class="back">&lt;&lt; Back</a>
+          <a href="5-mine-config.html">Save and Continue &gt;&gt;</a>
+        </div>
+    </main>
+</body>
+
+</html>
