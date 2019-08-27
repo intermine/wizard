@@ -81,18 +81,10 @@
 
 <%- include('partials/nextActions', currentPage); %>
 
-  <script>
-    window.onload = function() {
-      wizard.initMapColumns();
+  <script type="module">
+    import {initMapColumns} from "../js/wizard/mapColumns.js";
+    initMapColumns();
 
-      // Make the next page button fire the save function.
-      var nextPage = document.getElementById("nextPageLink");
-
-      nextPage.addEventListener("click", function(event) {
-        event.preventDefault();
-        wizard.saveMapColumns();
-      });
-    };
   </script>
 
 <%- include('../partials/foot'); %>

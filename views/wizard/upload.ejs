@@ -1,6 +1,6 @@
 <% var currentPage = {activeClass : "upload"} %>
 
-<%- include('../partials/head', {title : "Dashboard | InterMine"}); %>
+<%- include('../partials/head', {title : "Upload a file | InterMine"}); %>
 
 <%- include('partials/breadcrumbs', currentPage); %>
 
@@ -32,9 +32,10 @@
       <ul>
         <li>gff</li>
         <li>fasta</li>
-        <li>.tsv</li>
+        <!-- Not supported yet -->
+        <!--li>.tsv</li>
         <li>.csv</li>
-        <li>.etc</li>
+        <li>.etc</li-->
       </ul>
     </div>
   </div>
@@ -49,9 +50,9 @@
           <option value="">--Please select a filetype--</option>
           <option value="gff">GFF</option>
           <option value="fasta">FASTA</option>
-          <option value="tsv">TSV</option>
-          <option value="csv">CSV</option>
-          <option value="etc">ETC</option>
+          <!-- Not supported yet -->
+          <!--option value="tsv">TSV</option>
+          <option value="csv">CSV</option-->
         </select>
       </ul>
     </div>
@@ -80,29 +81,9 @@
 
 <%- include('partials/nextActions', currentPage); %>
 
-<script>
-  (function() {
-    //browse dialogues are unstyleable so we have to hide it and create our own.
-    var fakeFile = document.getElementById('fakeFileUpload');
-    var realFile = document.getElementById("fileUpload");
-
-    fakeFile.addEventListener("click", function() {
-      realFile.click();
-    });
-
-    realFile.addEventListener("change", function(file) {
-      var fileName = this.files[0].name;
-      document.getElementById("fileName").innerHTML = fileName;
-    });
-
-    // Make the next page button fire the upload function.
-    var nextPage = document.getElementById("nextPageLink");
-
-    nextPage.addEventListener("click", function(event) {
-      event.preventDefault();
-      wizard.uploadFile();
-    });
-  })();
+<script type="module">
+import {initFileDialogue} from '../js/wizard/upload.js';
+initFileDialogue();
 </script>
 
 <%- include('../partials/foot'); %>

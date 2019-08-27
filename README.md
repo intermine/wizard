@@ -31,6 +31,29 @@ If you're developing and would like the server to auto-restart after you've chan
 npx nodemon bin/www
 ```
 
+#### Building the wizard
+
+Webpack glues all of the disparate js files into a single built js in the dist folder.
+
+Build once:  
+
+```
+  npm run build
+```
+
+Build, and refresh when changes are made:
+
+```
+npm run devBuild
+
+```
+
+|task|command|
+|----|-------|
+|build js| `npm run build`|
+|dev: rebuild and refresh server when changes are made|`npm run dev`|
+|dev: refresh server which files are changed|`npm run refreshServer`|
+|dev: rebuild on js filechange|`npm run watchBuild`|
 ### Running on a different port
 
 Dev:
