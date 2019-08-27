@@ -67,3 +67,27 @@ Prod:
 ```bash
 PORT=SOMEPORT npm start
 ```
+
+## Docker
+
+### Build docker image
+
+```bash
+docker build -f Dockerfile -t intermine/wizard:latest .
+```
+
+### Run wizard in a docker container
+
+```bash
+docker run --rm -p 9992:8080 intermine/wizard:latest 
+```
+You can visit wizard at `localhost:9992`
+
+### Docker Compose
+
+Start wizard with all other InterMine Cloud components using docker compose.
+
+```bash
+docker-compose up --build --force-recreate
+```
+You can visit wizard at `localhost:9992`
