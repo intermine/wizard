@@ -67,3 +67,29 @@ Prod:
 ```bash
 PORT=SOMEPORT npm start
 ```
+
+## Docker
+
+### Build docker image
+
+```bash
+docker build -f Dockerfile -t intermine/wizard:latest .
+```
+
+### Run wizard in a docker container
+
+```bash
+docker run --rm -p 9992:8080 --env COMPOSE_PORT=9991 intermine/wizard:latest 
+```
+Replace the value of `COMPOSE_PORT` with the port on which `Intermine Compose` is running. You can visit wizard at `localhost:9992`
+
+> Note: Wizard expects other InterMine Cloud components. If Other InterMine Cloud components are not running, then Wizard will throw errors. If you do not have InterMine Cloud components already running locally, then use the `docker-compose.yml` file to start wizard with rest of the InterMine Cloud in docker containers. Instructions for this is in the next section.
+
+### Docker Compose
+
+Start wizard with all other InterMine Cloud components using docker compose.
+
+```bash
+docker-compose up --build --force-recreate
+```
+You can visit wizard at `localhost:9992`
