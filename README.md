@@ -83,6 +83,8 @@ docker run --rm -p 9992:8080 intermine/wizard:latest
 ```
 You can visit wizard at `localhost:9992`
 
+> Note: Wizard expects other InterMine Cloud components. If Other InterMine Cloud components are not running, then Wizard will throw errors. If you do not have InterMine Cloud components already running locally, then use the `docker-compose.yml` file to start wizard with rest of the InterMine Cloud in docker containers. Instructions for this is in the next section.
+
 ### Docker Compose
 
 Start wizard with all other InterMine Cloud components using docker compose.
