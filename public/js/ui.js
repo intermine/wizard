@@ -1,3 +1,4 @@
+var alertboxClasses = ["show", "error", "success", "info", "warning"];
 var handler = undefined;
 
 /*
@@ -12,7 +13,7 @@ function renderAlertMessage(msg, variant, time) {
 
   const element = document.getElementById("alertbox");
   
-  element.classList.add("show", variant);
+  element.classList.add(alertboxClasses[0], variant);
   handler = setTimeout(clearAlertMessage, time);
   
   element.innerHTML = `
@@ -30,7 +31,11 @@ function renderAlertMessage(msg, variant, time) {
 function clearAlertMessage(handler) {
   if(handler !== undefined) clearTimeout(handler);
   const element = document.getElementById("alertbox");
-  element.classList.remove("show", "error", "success", "info", "warning");
+
+  alertboxClasses.forEach(function(c){
+    element.classList.remove(c)
+  })
+  
   handler = undefined;
 }
 
