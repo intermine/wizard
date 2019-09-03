@@ -31,6 +31,7 @@ function clearAlertMessage(handler) {
   if(handler !== undefined) clearTimeout(handler);
   const element = document.getElementById("alertbox");
   element.classList.remove("show", "error", "success", "info", "warning");
+  handler = undefined;
 }
 
 function removeChildren(node) {
