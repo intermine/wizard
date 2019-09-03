@@ -1,4 +1,8 @@
 var handler = undefined;
+
+/*
+* Valid variants are: error, success, info, and warning
+*/
 function renderAlertMessage(msg, variant, time) {
 
   if(handler !== undefined) clearAlertMessage(handler);
