@@ -28,14 +28,18 @@ function renderAlertMessage(msg, variant, time) {
   
 }
 
-function clearAlertMessage(handler) {
-  if(handler !== undefined) clearTimeout(handler);
+function clearAlertMessage(h) {
+  if(h !== undefined) clearTimeout(h);
   const element = document.getElementById("alertbox");
 
   alertboxClasses.forEach(function(c){
     element.classList.remove(c)
   })
   
+  /*
+  * Resetting handler. After this handler is not pointing to any
+  * timer function. This means no alertbox is active.
+  */
   handler = undefined;
 }
 
