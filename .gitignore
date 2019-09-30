@@ -62,3 +62,7 @@ typings/
 
 # Ignoring docker files
 **/data/**
+
+# Ignoring some cypress files
+**/cypress/screenshots/**
+**/cypress/videos/**
