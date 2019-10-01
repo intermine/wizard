@@ -26,7 +26,7 @@ describe("Registration Test", function (){
         cy.feedRegistrationDetails(this.reg)
         cy.get("#registerForm > .back")
             .click();
-        cy.get("#registerFormAlert")
+        cy.get("#alertbox")
             .should("have.text", "Passwords do not match.")
     })
 
@@ -35,7 +35,7 @@ describe("Registration Test", function (){
         cy.feedRegistrationDetails(this.reg)
         cy.get("#registerForm > .back")
             .click();
-        cy.get("#registerFormAlert")
+        cy.get("#alertbox")
             .should("have.text", "EMAIL ALREADY EXIST")
     })
     
