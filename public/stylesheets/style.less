@@ -9,6 +9,15 @@
 @bodyBackground: #f6f6f6;
 @slightlyDarker: rgba(0,0,0,0.1);
 
+// For alert box
+@errorColor: #ef4b4b;
+@successColor: #4caf50;
+@warningColor: #f6d365;
+@infoColor: #007ac1;
+@alertBackground: #282828;
+@alertTextColor: #f7f7f7;
+@alertCrossHoverBackground: #171717;
+
 .border-radius {
   border-radius: 2px;
 }
@@ -25,6 +34,7 @@ body {
   box-sizing: border-box;
   padding: 0 1em 1em;
   background-color: @bodyBackground;
+  overflow-x: hidden;
 }
 
 header {
@@ -1057,4 +1067,91 @@ table {
 
 .topsecret {
   color: #666;
+}
+
+
+.alertbox{
+  position: absolute;
+  top: 60px;
+  width: 350px;
+  height: 60px;
+  display: flex;
+  right: 10px;
+  border-left-width: 5px;
+  border-left-style: solid;
+  background: @alertBackground;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+  align-items: center;
+  color: @alertTextColor;
+  font-size: 16px;
+  transition: 0.3s;
+  border-radius: 2px;
+  transform: translateX(400px);
+  opacity: 0;
+
+  &.show{
+    transform: translateX(0);
+    opacity: 1;
+  }
+  &.error{
+    border-left-color: @errorColor;
+  }
+  &.success{
+    border-left-color: @successColor;
+  }
+  &.info{
+    border-left-color: @infoColor;
+  }
+  &.warning{
+    border-left-color: @warningColor;
+  }
+  
+  .icon-lg{
+    height: 22px;
+    width: 22px;
+  }
+
+  .icon{
+    &.error{
+      color: @errorColor;
+    }
+    &.success{
+      color: @successColor;
+    }
+    &.info{
+      color: @infoColor;
+    }
+    &.warning{
+      color: @warningColor;
+    }
+  }
+
+  .alert-msg{
+    flex: 1;
+  }
+
+  .icon{
+    padding: 0 10px;
+    margin: 0;
+  }
+
+  .alert-close{
+    cursor: pointer;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    border-radius: 2px;
+    padding: 0 10px;
+  }
+
+  .alert-close:hover{
+    background: @alertCrossHoverBackground;
+  }
+
+  &:active{
+    width: 346px;
+    height: 58px;
+    top: 61px;
+    right: 12px;
+  }
 }
