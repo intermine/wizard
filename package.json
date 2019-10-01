@@ -8,6 +8,7 @@
     "watchBuild": "npx webpack --watch --config webpack.config.js",
     "refreshServer": "npx nodemon ./bin/www",
     "dev": "concurrently \"npm run watchBuild\" \"npm run refreshServer\"",
+    "generate-docs": "npx jsdoc -c jsdoc.json",
     "pretest": "npx eslint --fix --ignore-path .gitignore ."
   },
   "dependencies": {
@@ -16,6 +17,7 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "jsdoc": "^3.6.3",
     "less-middleware": "~2.2.1",
     "morgan": "~1.9.1"
   },

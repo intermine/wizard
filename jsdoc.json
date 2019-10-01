@@ -1,0 +1,18 @@
+{
+    "source": {
+        "exclude": ["node_modules", "public/dist", "webpack.config.js"],
+        "include": ["."]
+    },
+
+    "plugins": [
+        "plugins/markdown"
+    ],
+
+    "opts": {
+        "encoding": "utf8",
+        "readme": "./README.md",
+        "destination": "docs/",
+        "recurse": true,
+        "verbose": true
+    }
+}
