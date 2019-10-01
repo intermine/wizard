@@ -1,15 +1,56 @@
+const alertboxClasses = ["show", "error", "success", "info", "warning"];
 
+/* 
+* handler: It is used to point the timer function setTimeout
+* Use: It is used to clear any active previous timer function.
+* Importance: The alert boxes are cancellable and it is possible 
+* that it is cancelled before the time interval of the timer function.
+* So to clear the timer handler is passed to clearTimeout to clear 
+* timer. It helps to handle the unexpected behaviour which may arise 
+* when new alert box is rendering.
+*/
+let handler = undefined;
 
-function renderAlertMessage(elemId, text) {
-  var span = document.getElementById(elemId);
+/*
+* Valid variants are: error, success, info, and warning
+*/
+function renderAlertMessage(msg, variant, time) {
 
-  span.appendChild(document.createTextNode(text));
+  if(handler !== undefined) clearAlertMessage(handler);
+  if(msg === undefined) msg = "Something went wrong";
+  if(variant === undefined) variant = "error";
+  if(time === undefined) time = 4000;
+
+  const element = document.getElementById("alertbox");
+  
+  element.classList.add(alertboxClasses[0], variant);
+  handler = setTimeout(clearAlertMessage, time);
+  
+  element.innerHTML = `
+  <svg class="icon icon-lg ${variant}"><use xlink:href="#icon-${variant}"></use></svg>
+  <div class="alert-msg">
+  ${msg}
+  </div>
+  <div class="alert-close" onclick="wizard.clearAlertMessage(${handler})">
+  <svg class="icon"><use xlink:href="#icon-cross"></use></svg>
+  </div>
+  `
+  
 }
 
-function clearAlertMessage(elemId) {
-  var span = document.getElementById(elemId);
+function clearAlertMessage(h) {
+  if(h !== undefined) clearTimeout(h);
+  const element = document.getElementById("alertbox");
 
-  removeChildren(span);
+  alertboxClasses.forEach(function(c){
+    element.classList.remove(c)
+  })
+  
+  /*
+  * Resetting handler. After this handler is not pointing to any
+  * timer function. This means no alertbox is active.
+  */
+  handler = undefined;
 }
 
 function removeChildren(node) {

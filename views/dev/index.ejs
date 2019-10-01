@@ -16,6 +16,14 @@
         <li><a href="/wizard/finalise">Review and finalise</a></li>
       </ol>
     </li>
+    <li>Alertbox
+      <ol>
+        <li><span onclick="wizard.renderAlertMessage('This is test warning message', 'error', 4000)" style="cursor: pointer; color: blue">Error Alertbox, lasts for 4 seconds</span></li>
+        <li><span onclick="wizard.renderAlertMessage('This is test success message', 'success', 5000)" style="cursor: pointer; color: blue">Success Alertbox, lasts for 5 seconds</span></li>
+        <li><span onclick="wizard.renderAlertMessage('This is test warning message', 'warning', 3000)" style="cursor: pointer; color: blue">Warning Alertbox, lasts for 3 seconds</span></li>
+        <li><span onclick="wizard.renderAlertMessage('This is test info message', 'info')" style="cursor: pointer; color: blue">Info Alertbox</span></li>
+      </ol>
+    </li>
   </ul>
 </div>
 
