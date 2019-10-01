@@ -4,6 +4,18 @@ module.exports = {
   entry: './public/js/client.js',
   mode : 'development',
   devtool: 'inline-source-map',
+  module:{
+    rules:  [
+      {
+        test: /\.(js)$/,
+        exclude: /(node_modules|dist)/,
+        use: ['babel-loader'],
+      }
+    ]
+  },
+  resolve: {
+    extensions: ["js"]
+  },
   output: {
     library: 'wizard',
     libraryExport : 'default',

@@ -66,3 +66,6 @@ typings/
 # Ignoring some cypress files
 **/cypress/screenshots/**
 **/cypress/videos/**
+
+# igonring DS_Store (for macOS)
+**/.DS_Store
