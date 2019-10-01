@@ -10,7 +10,7 @@
     "dev": "concurrently \"npm run watchBuild\" \"npm run refreshServer\"",
     "cypress:open": "npx wait-on http://localhost:9992 && npx cypress open",
     "docker-compose": "docker-compose up --build --force-recreate",
-    "cypress:test": "npm run docker-compose & npm run cypress:open",
+    "cypress:test": "concurrently  --kill-others-on-fail 'npm run docker-compose' 'npm run cypress:open'",
     "pretest": "npx eslint --fix --ignore-path .gitignore ."
   },
   "dependencies": {
