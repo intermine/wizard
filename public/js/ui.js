@@ -1,5 +1,15 @@
-var alertboxClasses = ["show", "error", "success", "info", "warning"];
-var handler = undefined;
+const alertboxClasses = ["show", "error", "success", "info", "warning"];
+
+/* 
+* handler: It is used to point the timer function setTimeout
+* Use: It is used to clear any active previous timer function.
+* Importance: The alert boxes are cancellable and it is possible 
+* that it is cancelled before the time interval of the timer function.
+* So to clear the timer handler is passed to clearTimeout to clear 
+* timer. It helps to handle the unexpected behaviour which may arise 
+* when new alert box is rendering.
+*/
+let handler = undefined;
 
 /*
 * Valid variants are: error, success, info, and warning
