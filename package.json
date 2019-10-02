@@ -9,7 +9,8 @@
     "refreshServer": "npx nodemon ./bin/www",
     "dev": "concurrently \"npm run watchBuild\" \"npm run refreshServer\"",
     "generate-docs": "npx jsdoc -c jsdoc.json",
-    "pretest": "npx eslint --fix --ignore-path .gitignore ."
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix ."
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

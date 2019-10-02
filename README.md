@@ -69,6 +69,20 @@ Prod:
 PORT=SOMEPORT npm start
 ```
 
+### Linting
+
+Check the code using:
+
+```bash
+npm run lint
+```
+
+To automatically fix errors:
+
+```bash
+npm run lint-fix
+```
+
 ## Docker
 
 ### Build docker image

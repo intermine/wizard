@@ -3,7 +3,7 @@ var router = express.Router();
 var templatePath = "dev/"
 
 /* GET default page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.render(templatePath + 'index');
 });
 

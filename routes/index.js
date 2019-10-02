@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.render('home');
 });
 
-router.get('/register', function(req, res, next) {
+router.get('/register', function(req, res) {
   res.render('register');
 });
 
@@ -16,12 +16,12 @@ router.get('/register', function(req, res, next) {
 
 /* TODO ADD individual mine routing */
 
-router.get('/config', function(req, res, next) {
+router.get('/config', function(req, res) {
   res.render('mine-config');
 });
 
 /* GET mine builder dashboard. Currently same as default */
-router.get('/dashboard', function(req, res, next) {
+router.get('/dashboard', function(req, res) {
   res.render('dashboard');
 });
 

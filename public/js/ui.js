@@ -61,9 +61,9 @@ function removeChildren(node) {
 
 function replaceText(elemId, text) {
   var elem = document.getElementById(elemId);
-  var text = document.createTextNode(text);
+  var textNode = document.createTextNode(text);
   removeChildren(elem);
-  elem.appendChild(text);
+  elem.appendChild(textNode);
 }
 
 

@@ -1,7 +1,8 @@
-import {postData, fetchJson, service, openPage} from "./comms.js";
+import {postData, fetchJson, openPage} from "./comms.js";
 import {loginUser, logoutUser,registerUser } from "./user.js";
 import {openInitialPage} from "./home.js";
 import {renderAlertMessage, clearAlertMessage} from "./ui.js"
+import {readMineId} from '../mineIDs.js'
 
 /* Possible polyfills we'll want:
  * - Fetch
@@ -17,68 +18,11 @@ export default (function() {
     }
   }
 
-  function replaceText(elemId, text) {
-    var elem = document.getElementById(elemId);
-    var text = document.createTextNode(text);
-    removeChildren(elem);
-    elem.appendChild(text);
-  }
-
-  // Since our server (not the API) doesn't know whether the user is
-  // authenticated, checking for this and sending them to the `/register` page
-  // is a common pattern. We codify this here, so that we can use it in our
-  // generic request functions below.
-  function handleErrorResponse(res) {
-    if (res.status === 401) {
-      // The user isn't authorized, so make them sign in.
-      openPage("/register");
-      return new Error("You are not authorized.");
-    } else {
-      return res;
-    }
-  }
-
-  function fetchJson(path) {
-    return new Promise(function(resolve, reject) {
-      fetch(service(path), {
-        credentials: 'include'
-      })
-        .then(function(res) {
-          if (res.ok) {
-            return res.json();
-          } else {
-            reject(handleErrorResponse(res));
-          }
-        })
-        .then(function(data) {
-          resolve(data);
-        });
-    });
-  }
-
-  function postData(path, data) {
-    return new Promise(function(resolve, reject) {
-      fetch(service(path), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-        credentials: 'include'
-      }).then(function(res) {
-        if (res.ok) {
-          resolve(res);
-        } else {
-          reject(handleErrorResponse(res));
-        }
-      })
-    });
-  }
-
-
   /*
    * Page: dashboard
    */
 
-  function openInProgressMine(mine) {
+  function openInProgressMine(mine) { // eslint-disable-line no-unused-vars
     // TODO
   }
 
@@ -371,7 +315,7 @@ export default (function() {
       path: "/configurator/mine/descriptors",
       params: { mineId: readMineId() }
     }, { mineName: mineName, privacy: privacy })
-      .then(function(res) {
+      .then(function() {
         // TODO handle case where `mineName` is already taken
         openPage("/wizard/finalise");
       });

@@ -1,4 +1,4 @@
-import {service, saveStorage, loadStorage, openPage} from '../comms.js'
+import {postData, service, saveStorage, openPage} from '../comms.js'
 import {readMineId} from '../mineIDs.js'
 import {removeChildren} from '../ui.js'
 
@@ -40,7 +40,7 @@ function uploadFile() {
     // TODO test uploading of remote URLs
     // (I don't think this is handled by our backend yet.)
     postData("/data/file/upload/remote", { remoteUrl: remoteUrl })
-      .then(function(res) {
+      .then(function() {
         openPage("/wizard/mapColumns");
       });
   } else if (files.length) {
@@ -73,7 +73,7 @@ function uploadFile() {
       } catch(err) {
         renderUploadAlert(err.message);
       }
-    }).catch(function(err) {
+    }).catch(function() {
       renderUploadAlert("Failed to upload file.");
     });
   } else {
@@ -90,7 +90,7 @@ var initFileDialogue = function() {
     realFile.click();
   });
 
-  realFile.addEventListener("change", function(file) {
+  realFile.addEventListener("change", function() {
     var fileName = this.files[0].name;
     document.getElementById("fileName").innerHTML = fileName;
   });
