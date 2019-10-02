@@ -100,9 +100,14 @@ import {openInitialPage} from "./home.js";
       postData("/user/login", inputData)
         .then(function(loginRes) {
           openInitialPage();
+        })
+        .catch(function(err){
+          // Wrong credentials
+          if(err.status == 400){
+            renderAlertMessage("Wrong credentials", "error", 5000);
+          }
+          else renderAlertMessage(); // Render default alertbox
         });
-      // TODO handle invalid login (I don't think the backend currently gives
-      // us a legibile response when this happens, just 400 Bad Request)
     }
 
     return false;
