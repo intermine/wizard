@@ -1,4 +1,4 @@
-import {fetchJson,postData, openPage, service} from "./comms.js";
+import {fetchJson,postData, openPage} from "./comms.js";
 import {clearAlertMessage, renderAlertMessage} from "./ui.js";
 import {openInitialPage} from "./home.js";
 
@@ -63,7 +63,7 @@ import {openInitialPage} from "./home.js";
 
     if (inputData) {
       postData("/user/register", inputData)
-        .then(function(registerRes) {
+        .then(function() {
           renderAlertMessage("alertbox", "Account created successfully.");
         })
         .catch(function(errRes) {
@@ -98,7 +98,7 @@ import {openInitialPage} from "./home.js";
 
     if (inputData) {
       postData("/user/login", inputData)
-        .then(function(loginRes) {
+        .then(function() {
           openInitialPage();
         });
       // TODO handle invalid login (I don't think the backend currently gives

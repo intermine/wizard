@@ -1,7 +1,7 @@
 import { fetchJson, saveStorage, loadStorage} from "./comms.js";
 
   function createMineId() {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function(resolve) {
       fetchJson("/configurator/mine/user-config/new/")
         .then(function(mineId) {
           saveStorage("mineId", mineId);
