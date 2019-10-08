@@ -23,7 +23,7 @@ describe("Registration Test", function (){
 
     cy.get("#registerForm > .back")
       .click();
-    cy.get("#alertbox").should("contain", "Account created successfully.");
+    cy.get("#alertbox").should("contain", "Account created successfully");
       
   })
 
