@@ -2,7 +2,7 @@ import {postData, fetchJson, openPage} from "./comms.js";
 import {loginUser, logoutUser,registerUser } from "./user.js";
 import {openInitialPage} from "./home.js";
 import {renderAlertMessage, clearAlertMessage} from "./ui.js"
-import {readMineId} from '../mineIDs.js'
+import {readMineId} from './mineIDs.js'
 
 /* Possible polyfills we'll want:
  * - Fetch
