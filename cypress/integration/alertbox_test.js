@@ -1,16 +1,58 @@
 describe("Alertbox Test", function(){
     it("Success alertbox test", function(){
-        cy.viewport(1024, 768)
-        cy.visit("localhost:3000/dev")
+        cy.visit("localhost:9992/dev")
         cy.wait(1000)
-        cy.get("#warning_alertbox").click()
+
+        // Warning alertbox check
+        cy.get("[cy-id='warning']").click()
+        cy.wait(1000)
+        cy.get("#alertbox").should("have.class", "warning").then(($element) =>{
+            cy.checkInViewPort($element[0], true)
+        })
+        // close the alertbox
+        cy.get("#alertbox > .alert-close").click()
         cy.wait(1000)
         cy.get("#alertbox").then(($element) =>{
-            const width = Cypress.$(cy.state('window')).width()
-            const alertbox_dimension = $element[0].getBoundingClientRect()
+            cy.checkInViewPort($element[0], false)
+        })
+        
+        // Error alertbox check
+        cy.get("[cy-id='error']").click()
+        cy.wait(1000)
+        cy.get("#alertbox").should("have.class", "error").then(($element) =>{
+            cy.checkInViewPort($element[0], true)
+        })
+        // close the alertbox
+        cy.get("#alertbox > .alert-close").click()
+        cy.wait(1000)
+        cy.get("#alertbox").then(($element) =>{
+            cy.checkInViewPort($element[0], false)
+        })
 
-            cy.log(width, alertbox_dimension.width, alertbox_dimension.left)
-            expect(alertbox_dimension.left).not.to.be.greaterThan(width - alertbox_dimension.width)
+        // Success alertbox check
+        cy.get("[cy-id='success']").click()
+        cy.wait(1000)
+        cy.get("#alertbox").should("have.class", "success").then(($element) =>{
+            cy.checkInViewPort($element[0], true)
+        })
+        // close the alertbox
+        cy.get("#alertbox > .alert-close").click()
+        cy.wait(1000)
+        cy.get("#alertbox").then(($element) =>{
+            cy.checkInViewPort($element[0], false)
+        })
+
+        // Info alertbox check
+        cy.get("[cy-id='info']").click()
+        cy.wait(1000)
+        cy.get("#alertbox").should("have.class", "info").then(($element) =>{
+            cy.checkInViewPort($element[0], true)
+        })
+        // close the alertbox
+        cy.get("#alertbox > .alert-close").click()
+        cy.wait(1000)
+        cy.get("#alertbox").then(($element) =>{
+            cy.checkInViewPort($element[0], false)
         })
     })
 })
