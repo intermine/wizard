@@ -11,7 +11,10 @@
     "cypress:open": "npx wait-on http://localhost:9992 && npx cypress open",
     "docker-compose": "docker-compose up --build --force-recreate",
     "cypress:test": "concurrently  --kill-others-on-fail 'npm run docker-compose' 'npm run cypress:open'",
-    "pretest": "npx eslint --fix --ignore-path .gitignore ."
+    "pretest": "npx eslint --fix --ignore-path .gitignore .",
+    "generate-docs": "npx jsdoc -c jsdoc.json",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix ."
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -19,6 +22,7 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "jsdoc": "^3.6.3",
     "less-middleware": "~2.2.1",
     "morgan": "~1.9.1"
   },

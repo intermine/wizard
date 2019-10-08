@@ -1,5 +1,4 @@
 import {fetchJson} from './comms.js';
-import {logoutUser} from "./user.js";
 import {removeChildren} from './ui.js';
 
 /*

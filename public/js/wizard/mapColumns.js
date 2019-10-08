@@ -1,6 +1,6 @@
-import {service, saveStorage, loadStorage, openPage, postData} from '../comms.js';
+import {loadStorage, openPage, postData} from '../comms.js';
 import {readMineId} from '../mineIDs.js';
-import {removeChildren, replaceText} from '../ui.js';
+import {replaceText} from '../ui.js';
 
  /*
  * Page: wizard/mapColumns
@@ -109,7 +109,7 @@ function saveMapColumns() {
     path: "/configurator/file/properties/save",
     params: { mineId: readMineId() }
   }, { dataFile: uploadedFile , answers: answers })
-    .then(function(res) {
+    .then(function() {
       openPage("/wizard/supplementaryData");
     });
 }

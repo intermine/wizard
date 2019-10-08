@@ -51,6 +51,7 @@ npm run devBuild
 |task|command|
 |----|-------|
 |build js| `npm run build`|
+|generate docs| `npm run generate-docs`|
 |dev: rebuild and refresh server when changes are made|`npm run dev`|
 |dev: refresh server which files are changed|`npm run refreshServer`|
 |dev: rebuild on js filechange|`npm run watchBuild`|
@@ -66,6 +67,20 @@ Prod:
 
 ```bash
 PORT=SOMEPORT npm start
+```
+
+### Linting
+
+Check the code using:
+
+```bash
+npm run lint
+```
+
+To automatically fix errors:
+
+```bash
+npm run lint-fix
 ```
 
 ## Docker

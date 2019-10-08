@@ -1,16 +1,10 @@
-import {service, saveStorage, loadStorage, openPage} from '../comms.js'
+import {postData, service, saveStorage, openPage} from '../comms.js'
 import {readMineId} from '../mineIDs.js'
-import {removeChildren} from '../ui.js'
+import {removeChildren, renderAlertMessage} from '../ui.js'
 
 /*
  * Page: wizard/upload
  */
-
-function renderUploadAlert(text) {
-  var alert = document.getElementById("alert");
-  removeChildren(alert);
-  alert.appendChild(document.createTextNode(text));
-}
 
 function readUploadData() {
   var fileFormat = document.getElementById("filetype-select").value;
@@ -40,7 +34,7 @@ function uploadFile() {
     // TODO test uploading of remote URLs
     // (I don't think this is handled by our backend yet.)
     postData("/data/file/upload/remote", { remoteUrl: remoteUrl })
-      .then(function(res) {
+      .then(function() {
         openPage("/wizard/mapColumns");
       });
   } else if (files.length) {
@@ -71,13 +65,13 @@ function uploadFile() {
         saveStorage("currentFile", JSON.stringify(fileObj));
         openPage("/wizard/mapColumns");
       } catch(err) {
-        renderUploadAlert(err.message);
+        renderAlertMessage(err.message);
       }
-    }).catch(function(err) {
-      renderUploadAlert("Failed to upload file.");
+    }).catch(function() {
+      renderAlertMessage("Failed to upload file.");
     });
   } else {
-    renderUploadAlert("Please specify a file to upload.");
+    renderAlertMessage("Please specify a file to upload.", "warning");
   }
 }
 
@@ -90,7 +84,7 @@ var initFileDialogue = function() {
     realFile.click();
   });
 
-  realFile.addEventListener("change", function(file) {
+  realFile.addEventListener("change", function() {
     var fileName = this.files[0].name;
     document.getElementById("fileName").innerHTML = fileName;
   });
