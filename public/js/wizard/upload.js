@@ -1,16 +1,10 @@
 import {postData, service, saveStorage, openPage} from '../comms.js'
 import {readMineId} from '../mineIDs.js'
-import {removeChildren} from '../ui.js'
+import {removeChildren, renderAlertMessage} from '../ui.js'
 
 /*
  * Page: wizard/upload
  */
-
-function renderUploadAlert(text) {
-  var alert = document.getElementById("alert");
-  removeChildren(alert);
-  alert.appendChild(document.createTextNode(text));
-}
 
 function readUploadData() {
   var fileFormat = document.getElementById("filetype-select").value;
@@ -71,13 +65,13 @@ function uploadFile() {
         saveStorage("currentFile", JSON.stringify(fileObj));
         openPage("/wizard/mapColumns");
       } catch(err) {
-        renderUploadAlert(err.message);
+        renderAlertMessage(err.message);
       }
     }).catch(function() {
-      renderUploadAlert("Failed to upload file.");
+      renderAlertMessage("Failed to upload file.");
     });
   } else {
-    renderUploadAlert("Please specify a file to upload.");
+    renderAlertMessage("Please specify a file to upload.", "warning");
   }
 }
 

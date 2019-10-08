@@ -17,11 +17,11 @@ import {openInitialPage} from "./home.js";
       inputs[key] = document.getElementById(val).value;
     });
 
-    clearAlertMessage(obj.alertId);
+    clearAlertMessage();
 
     var error = obj.validations.some(function(testFun) {
       var res = testFun(inputs);
-      if (res) renderAlertMessage(obj.alertId, res);
+      if (res) renderAlertMessage(res, "warning", 5000);
       return res;
     });
 
@@ -54,7 +54,6 @@ import {openInitialPage} from "./home.js";
         password: "register-password",
         passwordConfirm: "register-password-confirm"
       },
-      alertId: "registerFormAlert",
       validations: [
         validate.passwordsMatch,
         validate.notEmpty,
@@ -63,8 +62,9 @@ import {openInitialPage} from "./home.js";
 
     if (inputData) {
       postData("/user/register", inputData)
-        .then(function() {
-          renderAlertMessage("alertbox", "Account created successfully.");
+        .then(function(registerRes) {
+          // Render alert message for 10seconds.
+          renderAlertMessage("Account created successfully", "success", 10000);
         })
         .catch(function(errRes) {
           if (errRes instanceof Error) {
@@ -73,7 +73,8 @@ import {openInitialPage} from "./home.js";
             // Handle any error messages from backend.
             errRes.json()
               .then(function(res) {
-                renderAlertMessage("registerFormAlert", res.message);
+                // Render alert message for 10seconds.
+                renderAlertMessage(res.message, "error", 10000);
               });
           }
         });
@@ -119,7 +120,8 @@ function logoutUser() {
       // logout. Add soemthing to the openpage method to print to the header
       // alertbox
     } else {
-      renderAlertMessage("alertbox", "Uhoh, problem logging out!");
+      // Rendering message for 5seconds.
+      renderAlertMessage("Uhoh, problem logging out!", "warning", 5000);
     }
   });
 }
