@@ -1,0 +1,8 @@
+{
+    "email": "xyz@xyz.com",
+    "first_name": "abc",
+    "last_name": "xyz",
+    "organisation": "Intermine",
+    "password": "test-password",
+    "confirm_password": "test-password"
+}
