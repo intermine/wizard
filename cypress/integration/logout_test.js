@@ -1,12 +1,25 @@
-describe("Logout Test", function(){
+const faker = require('faker/locale/en');
+
+// Runnig test 5 times
+for ( let i = 1; i <= 5; i++){
+/*
+* Random login and registration data
+* generated using faker
+*/
+const data = {
+email: faker.internet.email(),
+first_name: faker.name.firstName(),
+last_name: faker.name.lastName(),
+organisation: faker.company.companyName(),
+password: faker.internet.password()
+}    
+
+describe("Logout Test " + i, function(){
     before(function(){
         // First we have to seed the database with one user details
         // After the we are able to perform successful login.
         cy.visit("localhost:9992/register");
-        cy.fixture("logout/register_user.json").then(function(obj){
-            cy.feedRegistrationDetails(obj);
-        });
-
+        cy.feedRegistrationDetails(Object.assign({}, data, {confirm_password: data.password}));
         cy.get("#registerForm > .back")
             .click();
     })
@@ -21,9 +34,7 @@ describe("Logout Test", function(){
         * feedLoginDetails command defined in support/commands.js
         * This command will fill the details in the login form.
         */
-        cy.fixture("logout/login.json").then(function(obj){
-            cy.feedLoginDetails(obj)
-        });
+        cy.feedLoginDetails(data)
 
         cy.get("#signinForm > .back")
             .click();
@@ -35,3 +46,4 @@ describe("Logout Test", function(){
         cy.location('pathname').should('eq', '/register');
     })
 })
+}

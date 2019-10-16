@@ -1,10 +1,19 @@
-describe("Registration Test", function (){
-  
-  // before(function(){
-  //   cy.fixture("registration/successful.json").as("success");
-  //   cy.fixture("registration/wrong_password.json").as("wrong");
-  //   cy.fixture("registration/email_already_exist.json").as("exist");
-  // })
+const faker = require('faker/locale/en');
+
+// Runnig test 5 times
+for ( let i = 1; i <= 5; i++){
+/*
+* Random login and registration data
+* generated using faker
+*/
+const data = {
+email: faker.internet.email(),
+first_name: faker.name.firstName(),
+last_name: faker.name.lastName(),
+organisation: faker.company.companyName(),
+password: faker.internet.password()
+}  
+describe("Registration Test " + i, function (){
 
   beforeEach(function(){
     cy.visit("localhost:9992/register");
@@ -17,9 +26,7 @@ describe("Registration Test", function (){
     * feedRegistrationDetails command defined in support/commands.js
     * This command will fill the details in the registration form.
     */
-   cy.fixture("registration/successful.json").then(function(obj){
-     cy.feedRegistrationDetails(obj);
-   });
+    cy.feedRegistrationDetails(Object.assign({}, data, {confirm_password: data.password}));
 
     cy.get("#registerForm > .back")
       .click();
@@ -29,10 +36,9 @@ describe("Registration Test", function (){
 
   // Check if password not match
   it("Password not match", function(){
-    cy.fixture("registration/wrong_password.json").then(function(obj){
-      cy.feedRegistrationDetails(obj);
-    });
-
+    cy.feedRegistrationDetails(Object.assign({}, data, {
+      confirm_password: data.password + "wrong"   // Add wrong at the last of the original password. So that confirm password did not match with the original password
+    }));
     cy.get("#registerForm > .back")
       .click();
     cy.get("#alertbox").should("contain", "Passwords do not match.");
@@ -40,12 +46,10 @@ describe("Registration Test", function (){
 
   // Check if email already exists
   it("Email Already Exists", function(){
-    cy.fixture("registration/email_already_exist.json").then(function(obj){
-      cy.feedRegistrationDetails(obj);
-    });
+    cy.feedRegistrationDetails(Object.assign({}, data, {confirm_password: data.password}));
     cy.get("#registerForm > .back")
       .click();
     cy.get("#alertbox").should("contain", "EMAIL ALREADY EXIST");
   })  
 })
-
+}
