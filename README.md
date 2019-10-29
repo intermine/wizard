@@ -82,6 +82,11 @@ To automatically fix errors:
 ```bash
 npm run lint-fix
 ```
+### Running Test
+```bash
+npm run cypress:test
+```
+> Note: To run the test docker must be installed in your system and running before the test begins.
 
 ## Docker
 
