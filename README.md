@@ -44,7 +44,7 @@ Build once:
 Build, and refresh when changes are made:
 
 ```
-npm run devBuild
+npm run dev
 
 ```
 
