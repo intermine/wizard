@@ -100,6 +100,7 @@ import {openInitialPage} from "./home.js";
     if (inputData) {
       postData("/user/login", inputData)
         .then(function() {
+          setupLocalStroageAfterLogin()
           openInitialPage();
         })
         .catch(function(err){
@@ -120,6 +121,7 @@ function logoutUser() {
   fetchJson(path).then(function(response) {
     console.log(response);
     if(response.message) {
+      resetLocalStorageAfterLogout()
       openPage("/register");
       // todo - also post statuse message saying there has been a successful
       // logout. Add soemthing to the openpage method to print to the header
@@ -131,5 +133,23 @@ function logoutUser() {
   });
 }
 
+
+// Function to setup localStorage after login
+// This function will set auth and navbar_title
+function setupLocalStroageAfterLogin(){
+  fetchJson("/user/profile")
+    .then(function(user) {
+      
+      localStorage.setItem("auth", true)
+      localStorage.setItem("navbar_title", user.firstName)
+    });
+}
+
+// Function to reset the localStorage
+// This function will remove the auth and navbar_title value from localStorage
+function resetLocalStorageAfterLogout(){
+  localStorage.removeItem("auth")
+  localStorage.removeItem("navbar_title")
+}
 
 export {loginUser, logoutUser, registerUser}
