@@ -70,24 +70,28 @@ function renderUserProfile(targetId) {
 
 // This function will render name or login link in the header
 function renderHeaderLoginOrUserName(){
-  
+
   const auth = localStorage.auth || false
   const name = localStorage.navbar_title || ""
   const headerLoginDiv = document.getElementById("header-login")
 
   if( JSON.parse(auth) == true ){
     headerLoginDiv.innerHTML = `
-    <svg class="icon icon-user">
-        <use xlink:href="#icon-user"></use>
-    </svg>
-    <a href="/users/profile">${name}</a>
+    <a href="/users/profile">
+      <svg class="icon icon-user">
+          <use xlink:href="#icon-user"></use>
+      </svg>
+      ${name}
+    </a>
     `
   } else {
     headerLoginDiv.innerHTML = `
-    <svg class="icon icon-login">
-        <use xlink:href="#icon-login"></use>
-    </svg>
-    <a href="/register">Login</a>
+    <a href="/register">
+      <svg class="icon icon-login">
+          <use xlink:href="#icon-login"></use>
+      </svg>
+      Login
+    </a>
     `
   }
 }
