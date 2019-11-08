@@ -6,18 +6,25 @@ import {replaceText} from '../ui.js';
  * Page: wizard/mapColumns
  */
 
+ /**
+ * Upload:filename section
+ **/
+
 function renderDataPreview(dataFile, filePreview) {
+  console.log("filePreview",filePreview);
   replaceText("uploadTitle", "Upload: ".concat(dataFile.name));
 
-  replaceText("previewHeaderLabel", filePreview.headerLabel);
-  replaceText("previewHeaderRow", filePreview.headerRow[0].join(' | '));
-  replaceText("previewSnippetLabel", filePreview.snippetLabel);
-  replaceText("previewFileSnippet", filePreview.fileSnippet);
+  replaceText("previewHeaderLabel", filePreview.headerRowLabel);
+  replaceText("previewHeaderRow", filePreview.headerRow[0]);
+  replaceText("previewSnippetLabel", filePreview.fileRowLabel);
+  replaceText("previewFileSnippet", filePreview.fileRows[0]);
 }
 
+/**
+  Step 1
+**/
 function renderDataDescriptors(descriptors) {
   var node = document.getElementById("descriptors");
-
   descriptors.forEach(function(item) {
     var li = document.createElement("li");
     var span = document.createElement("span");
