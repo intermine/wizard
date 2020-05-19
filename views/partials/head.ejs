@@ -7,17 +7,7 @@
   <title> <%= title %> </title>
 </head>
 <body>
-  <header>
-  <a href="/" class="logo">
-    <img src="/images/interminelogo-text.svg" height="50" alt="InterMine Home">
-  </a>
-    <div class="login">
-      <svg class="icon icon-user">
-        <use xlink:href="#icon-user"></use>
-      </svg>
-      <a href="/users/profile">My Profile</a>
-    </div>
-  </header>
+  <%- include('../partials/header') %>
   <main>
     <div class="alertbox" id="alertbox">
     </div>
