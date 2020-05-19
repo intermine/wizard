@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# This script could be tidied up by handling container naming conflicts
-# for now it assumes there is a fresh environment with docker running
+# This script checks out the relevant repos to the directory _above_ wizard.
+# It then runs starup.sh. Once you've run this script you won't need to run it
+# again, just use startup.sh instead
 
 cd ..
 
