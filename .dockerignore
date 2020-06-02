@@ -1,0 +1,3 @@
+# Fixes permission error due to directory you don't have permission to access
+# being included in the build context when building wizard Dockerfile.
+data/
