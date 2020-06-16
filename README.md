@@ -90,7 +90,7 @@ npm run cypress:test
 
 ## Docker
 
-#### Use the script :)
+### Use the script :)
 If you do not have the wizard and configurator cloned in the same parent directory as the wizard, run:
 ```bash
   ./bin/init-dependencies.sh
